@@ -1,4 +1,4 @@
-# SkillSync-Frontend
+# RoomPicker
 ## Date: 10/11/2025
 ### By: Fatima Hussain and Jameela Mohammed
 #### [Fatima Hussain GitHub](https://github.com/Fatema-Abdulla)
