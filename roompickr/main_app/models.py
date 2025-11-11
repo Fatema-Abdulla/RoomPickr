@@ -18,13 +18,15 @@ GENDERS=(
 # Create your models here.
 
 class Profile(models.Model):
+    user= models.OneToOneField(User, on_delete=models.CASCADE)
+    
     name = models.CharField(max_length=100)
     email= models.EmailField(max_length=245)
-    user= models.OneToOneField(User, on_delete=models.CASCADE)
     gender= models.CharField(max_length=1, choices=GENDERS, default=GENDERS[0][0])
 
     def __str__(self):
         return self.name
+
 
 class Space(models.Model):
     name = models.CharField(max_length=100)

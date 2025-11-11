@@ -18,6 +18,7 @@
               <a href="{% url 'home'%}">&nbsp;&nbsp;roompickr</a>
             </li>
             <li><a href="{%url 'about'%}">About</a></li>
+            <li><a href="{%url 'profile'%}">Profile</a></li>
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
