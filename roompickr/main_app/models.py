@@ -25,7 +25,7 @@ class Space(models.Model):
     def __str__(self):
         return self.name
 
-class image(models.Model):
+class Image(models.Model):
     image= models.ImageField(upload_to='main_app/static/uploads/', default='')
     caption = models.TextField(max_length=150)
     space=models.ForeignKey(Space, on_delete=models.CASCADE)
@@ -34,7 +34,7 @@ class image(models.Model):
         return self.space.name
 
 
-class feedback(models.Model):
+class Feedback(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     comment= models.TextField(max_length=234)
@@ -44,7 +44,7 @@ class feedback(models.Model):
     def __str__(self):
         return f'{self.space.name}, {self.user.username}'
 
-class booking(models.Model):
+class Booking(models.Model):
     start=models.DateTimeField(null=True)
     end=models.DateTimeField(null=True)
     # status=models.CharField
@@ -55,10 +55,24 @@ class booking(models.Model):
     def __str__(self):
         return f'booking {self.space.name} for {self.user.username}'
 
-class question(models.Model):
+class Question(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     title=models.CharField(max_length=150)
-    content= models.TextField(max_length=300)
+    content= models.TextField(max_length=500)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.title} from {self.user.username}'
+
+class Answer(models.Model):
+    created_at=models.DateTimeField(auto_now_add=True)
+    answer= models.TextField(max_length=500)
+    question= models.ForeignKey(Question, on_delete=models.CASCADE)
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'answer of {self.question} from {self.user.username}'
+
+    
 
 
