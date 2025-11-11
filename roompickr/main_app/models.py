@@ -1,7 +1,19 @@
 from django.db import models
 from django.urls import reverse
-from datetime import date, time
 from django.contrib.auth.models import User
+
+
+TYPES=(
+    ('O', 'Office'),
+    ('H', 'Hall'),
+    ('M', 'Meeting Room'),
+)
+
+
+GENDERS=(
+    ('F', 'Female'),
+    ('M', 'Male')
+)
 
 # Create your models here.
 
@@ -9,7 +21,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=100)
     email= models.EmailField(max_length=245)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
-    #phone_number = models.
+    gender= models.CharField(max_length=1, choices=GENDERS, default=GENDERS[0][0])
 
     def __str__(self):
         return self.name
@@ -18,7 +30,7 @@ class Space(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     capacity= models.IntegerField()
-    type= models.CharField(max_length=1)
+    type= models.CharField(max_length=1, choices=TYPES, default=TYPES[0][0])
     price_per_hour= models.IntegerField()
     user= models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -47,7 +59,7 @@ class Feedback(models.Model):
 class Booking(models.Model):
     start=models.DateTimeField(null=True)
     end=models.DateTimeField(null=True)
-    # status=models.CharField
+    status=models.CharField(max_length=10, default='pending') #under test
     total_price=models.IntegerField()
     space=models.ForeignKey(Space, on_delete=models.CASCADE)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
@@ -73,6 +85,6 @@ class Answer(models.Model):
     def __str__(self):
         return f'answer of {self.question} from {self.user.username}'
 
-    
+
 
 
