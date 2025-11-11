@@ -20,7 +20,7 @@ GENDERS=(
 class Profile(models.Model):
     name = models.CharField(max_length=100)
     email= models.EmailField(max_length=245)
-    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    user= models.OneToOneField(User, on_delete=models.CASCADE)
     gender= models.CharField(max_length=1, choices=GENDERS, default=GENDERS[0][0])
 
     def __str__(self):
