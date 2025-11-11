@@ -12,13 +12,12 @@
       <nav>
         <div>
           <ul>
+
+           {% if user.is_authenticated %}
             <li>
               <a href="{% url 'home'%}">&nbsp;&nbsp;roompickr</a>
             </li>
-          </ul>
-          <ul>
             <li><a href="{%url 'about'%}">About</a></li>
-           {% if user.is_authenticated %}
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
