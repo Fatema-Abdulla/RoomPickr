@@ -3,6 +3,12 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .forms import ProfileForm, UserForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
+from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
 
 # Create your views here.
@@ -31,3 +37,26 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+@login_required
+def profile(request):
+    profiles = Profile.objects.filter(user=request.user)
+    return render(request, "users/profile.html", {"profiles": profiles})
+
+@login_required
+# reference: https://pythonguides.com/create-a-user-profile-using-django/
+def update_profile(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('/accounts/profile/')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=profile)
+
+    return render(request, 'users/update_profile.html', {'user_form': user_form, 'profile_form': profile_form})

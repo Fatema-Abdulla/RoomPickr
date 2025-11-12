@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <h2>Update Profile for {{user.username}}</h2>
+
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    <p>Full Name: {{profile_form.name}}</p>
+    <p>Email: {{profile_form.email}}</p>
+    <p>Gender: {{profile_form.gender}}</p>
+    <button type="submit" class="btn btn-success">Update</button>
+  </form>
+</div>
+{% endblock %}
