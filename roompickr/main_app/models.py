@@ -84,7 +84,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return f'answer of {self.question} from {self.user.username}'
-
-
-
-
