@@ -60,3 +60,21 @@ def update_profile(request, profile_id):
         profile_form = ProfileForm(instance=profile)
 
     return render(request, 'users/update_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+class SpaceList(LoginRequiredMixin, ListView):
+    model = Space
+
+class SpaceDetail(LoginRequiredMixin, DetailView):
+    model = Space
+
+class SpaceCreate(LoginRequiredMixin, CreateView):
+    model = Space
+    fields = "__all__"
+
+class SpaceUpdate(LoginRequiredMixin, UpdateView):
+    model = Space
+    fields = "__all__"
+
+class SpaceDelete(LoginRequiredMixin, DeleteView):
+    model = Space
+    success_url = "/stores/"
