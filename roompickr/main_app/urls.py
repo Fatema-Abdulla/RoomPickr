@@ -13,7 +13,8 @@ urlpatterns = [
     path("spaces/<int:pk>/", views.SpaceDetail.as_view(), name="spaces_detail"),
     path("spaces/create/", views.SpaceCreate.as_view(), name="spaces_create"),
     path("spaces/<int:pk>/update/", views.SpaceUpdate.as_view(), name="spaces_update"),
-    path("spaces/<int:pk>/delete/", views.SpaceDelete.as_view(), name="spaces_delete"),    
+    path("spaces/<int:pk>/delete/", views.SpaceDelete.as_view(), name="spaces_delete"),
+    
     path('spaces/<int:pk>/add_feedback', views.add_feedback, name='add_feedback'),
 
 ]

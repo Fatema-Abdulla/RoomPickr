@@ -86,21 +86,14 @@ class SpaceDelete(LoginRequiredMixin, DeleteView):
     success_url = "/stores/"
 
 
-def add_feedback(request):
+def add_feedback(request, space_id):
     if request.method == 'POST':
         form = Feedback(request.POST)
         if form.is_valid():
             new_feedBack = form.save(commit=False)
-            new_feedBack#.space_id = space_id
+            new_feedBack.space_id = space_id
             new_feedBack.save()
-            return redirect()
+            return redirect('spaces_detail', space_id)
 
-##########################################
-# def add_feedback(request):
-#     form = Feedback(request.POST)
-#     if form.is_valid():
-#         new_feedBack = form.save(commit=False)
-#         new_feedBack.#space_id = space_id
-    #     new_feedBack.save()
-    # return redirect()
+
 
