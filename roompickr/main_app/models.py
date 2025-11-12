@@ -40,7 +40,7 @@ class Space(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("spaces_detail", kwargs={"pk" : self.id})
+        return reverse("detail", kwargs={"space_id" : self.id})
 
 class Image(models.Model):
     image= models.ImageField(upload_to='main_app/static/uploads/', default='')

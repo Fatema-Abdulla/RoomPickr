@@ -20,9 +20,9 @@ def home(request):
 def about(request):
     return render (request, 'about.html')
 
-@login_required
-def rooms_index(request):
-    return render (request, 'rooms/index.html')
+# @login_required
+# def rooms_index(request):
+#     return render (request, 'rooms/index.html')
 
 def signup(request):
     error_message = ""
@@ -63,13 +63,15 @@ def update_profile(request, profile_id):
 
 
 
-class SpaceList(LoginRequiredMixin, ListView):
-    model = Space
+def space_index(request):
+    spaces = Space.objects.filter(user=request.user)
+    return render(request,'spaces/index.html', {'spaces':spaces})
+
 
 def space_detail(request, space_id):
     space = Space.objects.get(id=space_id)
     feedback_form = FeedbackForm()
-    return render(request, 'spaces/detail', {"space": space , 'feedback_form' : feedback_form})
+    return render(request, 'spaces/detail.html', {"space": space , 'feedback_form' : feedback_form})
 
 
 class SpaceCreate(LoginRequiredMixin, CreateView):
@@ -89,13 +91,15 @@ class SpaceDelete(LoginRequiredMixin, DeleteView):
     success_url = "/stores/"
 
 
-def add_feedback(request, space_id):
+def add_feedback(request, space_id, user_id):
     form = FeedbackForm(request.POST)
     if form.is_valid():
         new_feedback = form.save(commit=False)
         new_feedback.space_id = space_id
+        new_feedback.user_id = user_id
         new_feedback.save()
-    return redirect('spaces_detail', space_id)
+
+    return redirect('detail', {"space_id" : space_id, "user_id" :  user_id})
 
 
 
