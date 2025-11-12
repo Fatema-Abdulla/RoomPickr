@@ -5,13 +5,13 @@
 
   {% for profile in profiles %}
     {% if profile.name and profile.email %}
-      <p>Name: {{profile.name}}</p>
+      <p>Full Name: {{profile.name}}</p>
       <p>Email: {{profile.email}}</p>
     {% else %}
-      <p>Name: Empty </p>
+      <p>Full Name: Empty </p>
       <p>Email: Empty</p>
     {% endif %}
-    <p>Gender: {{profile.gender}}</p>
+    <p>Gender: {{profile.get_gender_display}}</p>
 
     <a href="{% url 'update_profile' profile.id %}">Update Your Profile</a>
   {% endfor %}
