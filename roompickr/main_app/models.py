@@ -19,7 +19,7 @@ GENDERS=(
 
 class Profile(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE)
-    
+
     name = models.CharField(max_length=100)
     email= models.EmailField(max_length=245)
     gender= models.CharField(max_length=1, choices=GENDERS, default=GENDERS[0][0])
@@ -38,6 +38,9 @@ class Space(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("spaces_detail", kwargs={"pk" : self.id})
 
 class Image(models.Model):
     image= models.ImageField(upload_to='main_app/static/uploads/', default='')
