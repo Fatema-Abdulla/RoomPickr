@@ -17,6 +17,13 @@
   </div>
 </div>
 <div>
-  <form action="{% url ''%}"></form>
+  <form action="{% url 'add_feedback'%}" method="post">
+    <h1>Feedback</h1>
+    {% csrf_token %}
+    <div>
+      {{form.as_p}}
+    </div>
+    <input type="submit" name="add_feedback" value="Add Feedback">
+  </form>
 </div>
 {% endblock %}
