@@ -16,4 +16,20 @@
     </div>
   </div>
 </div>
+<div>
+ <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
+    {% csrf_token %}
+    {{ feedback_form.as_p }}
+    <input type="submit" value="Add Feedback" class="btn" />
+  </form>
+</div>
+<div>
+  {% if space.feedback_set.count  %}
+  {% for feedback in space.feedback_set.all %}
+  <span>{{feedback.created_at}}</span>
+  <h4>{{feedback.comment}}</h4>
+  {% endfor %}
+  {% endif %}
+</div>
+
 {% endblock %}

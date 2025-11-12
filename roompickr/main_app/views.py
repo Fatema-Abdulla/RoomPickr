@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, FeedbackForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -20,9 +20,9 @@ def home(request):
 def about(request):
     return render (request, 'about.html')
 
-@login_required
-def rooms_index(request):
-    return render (request, 'rooms/index.html')
+# @login_required
+# def rooms_index(request):
+#     return render (request, 'rooms/index.html')
 
 def signup(request):
     error_message = ""
@@ -61,11 +61,18 @@ def update_profile(request, profile_id):
 
     return render(request, 'users/update_profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
-class SpaceList(LoginRequiredMixin, ListView):
-    model = Space
 
-class SpaceDetail(LoginRequiredMixin, DetailView):
-    model = Space
+
+def space_index(request):
+    spaces = Space.objects.filter(user=request.user)
+    return render(request,'spaces/index.html', {'spaces':spaces})
+
+
+def space_detail(request, space_id):
+    space = Space.objects.get(id=space_id)
+    feedback_form = FeedbackForm()
+    return render(request, 'spaces/detail.html', {"space": space , 'feedback_form' : feedback_form})
+
 
 class SpaceCreate(LoginRequiredMixin, CreateView):
     model = Space
@@ -82,3 +89,17 @@ class SpaceUpdate(LoginRequiredMixin, UpdateView):
 class SpaceDelete(LoginRequiredMixin, DeleteView):
     model = Space
     success_url = "/stores/"
+
+
+def add_feedback(request, space_id, user_id):
+    form = FeedbackForm(request.POST)
+    if form.is_valid():
+        new_feedback = form.save(commit=False)
+        new_feedback.space_id = space_id
+        new_feedback.user_id = user_id
+        new_feedback.save()
+
+    return redirect('detail', {"space_id" : space_id, "user_id" :  user_id})
+
+
+
