@@ -8,5 +8,7 @@ urlpatterns = [
     path("rooms/", views.rooms_index, name="index"),
     path('accounts/profile/', views.profile, name='profile'),
     path('accounts/profile/<int:profile_id>/update/', views.update_profile, name='update_profile'),
+
+    path('spaces/<int:pk>/add_feedback', views.add_feedback, name='add_feedback'),
 ]
 

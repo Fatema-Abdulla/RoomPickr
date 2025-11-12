@@ -60,3 +60,26 @@ def update_profile(request, profile_id):
         profile_form = ProfileForm(instance=profile)
 
     return render(request, 'users/update_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
+def add_feedback(request):
+    if request.method == 'POST':
+        form = Feedback(request.POST)
+        if form.is_valid():
+            new_feedBack = form.save(commit=False)
+            new_feedBack#.space_id = space_id
+            new_feedBack.save()
+            return redirect()
+
+##########################################
+# def add_feedback(request):
+#     form = Feedback(request.POST)
+#     if form.is_valid():
+#         new_feedBack = form.save(commit=False)
+#         new_feedBack.#space_id = space_id
+    #     new_feedBack.save()
+    # return redirect()
+
+
+
+
