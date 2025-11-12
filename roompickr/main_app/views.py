@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, FeedbackForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -66,8 +66,11 @@ def update_profile(request, profile_id):
 class SpaceList(LoginRequiredMixin, ListView):
     model = Space
 
-class SpaceDetail(LoginRequiredMixin, DetailView):
-    model = Space
+def space_detail(request, space_id):
+    space = Space.objects.get(id=space_id)
+    feedback_form = FeedbackForm()
+    return render(request, 'spaces/detail', {"space": space , 'feedback_form' : feedback_form})
+
 
 class SpaceCreate(LoginRequiredMixin, CreateView):
     model = Space
@@ -87,13 +90,12 @@ class SpaceDelete(LoginRequiredMixin, DeleteView):
 
 
 def add_feedback(request, space_id):
-    if request.method == 'POST':
-        form = Feedback(request.POST)
-        if form.is_valid():
-            new_feedBack = form.save(commit=False)
-            new_feedBack.space_id = space_id
-            new_feedBack.save()
-            return redirect('spaces_detail', space_id)
+    form = FeedbackForm(request.POST)
+    if form.is_valid():
+        new_feedback = form.save(commit=False)
+        new_feedback.space_id = space_id
+        new_feedback.save()
+    return redirect('spaces_detail', space_id)
 
 
 
