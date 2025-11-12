@@ -62,6 +62,30 @@ def update_profile(request, profile_id):
     return render(request, 'users/update_profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
+
+class SpaceList(LoginRequiredMixin, ListView):
+    model = Space
+
+class SpaceDetail(LoginRequiredMixin, DetailView):
+    model = Space
+
+class SpaceCreate(LoginRequiredMixin, CreateView):
+    model = Space
+    fields = ['name', 'address', 'capacity', 'type', 'price_per_hour']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class SpaceUpdate(LoginRequiredMixin, UpdateView):
+    model = Space
+    fields = "__all__"
+
+class SpaceDelete(LoginRequiredMixin, DeleteView):
+    model = Space
+    success_url = "/stores/"
+
+
 def add_feedback(request):
     if request.method == 'POST':
         form = Feedback(request.POST)
@@ -79,7 +103,4 @@ def add_feedback(request):
 #         new_feedBack.#space_id = space_id
     #     new_feedBack.save()
     # return redirect()
-
-
-
 

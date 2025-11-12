@@ -19,6 +19,8 @@
             </li>
             <li><a href="{%url 'about'%}">About</a></li>
             <li><a href="{%url 'profile'%}">Profile</a></li>
+            <li><a href="{% url 'spaces_index' %}">View All Spaces</a></li>
+            <li><a href="{% url 'spaces_create' %}">Add a Space</a></li>
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
