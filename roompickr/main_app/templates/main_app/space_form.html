@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+  {% if space %}
+    <h1>Edit <span>{{space.name}}</span></h1>
+  {% else %}
+    <h1>Add Space</h1>
+  {% endif %}
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit!">
+  </form>
+</div>
+
+{% endblock %}

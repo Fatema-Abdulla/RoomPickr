@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Space List</h1>
+{% for space in space_list %}
+  <a href="{% url 'spaces_detail' space.id %}">
+    <div>
+      <div>
+        <div>
+            <h1>{{ space.name }}</h1>
+            <h4>{{ space.capacity }}</h4>
+        </div>
+      </div>
+
+    </div>
+  </a>
+{% endfor %}
+{% endblock %}

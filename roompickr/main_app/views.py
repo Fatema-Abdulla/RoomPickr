@@ -69,7 +69,11 @@ class SpaceDetail(LoginRequiredMixin, DetailView):
 
 class SpaceCreate(LoginRequiredMixin, CreateView):
     model = Space
-    fields = "__all__"
+    fields = ['name', 'address', 'capacity', 'type', 'price_per_hour']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class SpaceUpdate(LoginRequiredMixin, UpdateView):
     model = Space
