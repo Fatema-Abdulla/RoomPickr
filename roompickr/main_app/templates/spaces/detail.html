@@ -33,18 +33,23 @@
 </div>
 <hr>
 <div>
-<form action="{% url 'add_image' space.id %}" method="post">
+<form action="{% url 'add_image' space.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ image_form.as_p }}
-    <input type="submit" value="Add image" class="btn" />
+    <input type="submit" value="Add a new image" class="btn" />
   </form>
 </div>
 <div><br>
   {% if space.image_set.count  %}
   {% for image in space.image_set.all %}
-  {% load static %} <img src={% static image.image|cut:'main_app/static/' %}
-    alt="this for" width="150"/>
+  {% load static %}
+  <img src={% static image.image_space|cut:'main_app/static/' %}
+    alt="this for {{space.name}}" width="150"/>
   <h4>{{image.caption}}</h4>
+  <div>
+    <a href="{% url 'update_image' space.id %}">Edit</a>
+    <a href="{% url 'spaces_delete' space.id %}">Delete</a>
+  </div>
   {% endfor %}
   {% endif %}
 </div>
