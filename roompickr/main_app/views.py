@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import ProfileForm, UserForm, FeedbackForm
+from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -99,7 +99,13 @@ def add_feedback(request, space_id, user_id):
         new_feedback.user_id = user_id
         new_feedback.save()
     return redirect('detail', space_id)
-   
 
+def add_image(request, space_id):
+    form = ImageForm(request.POST)
+    if form.is_valid():
+        new_image = form.save(commit=False)
+        new_image.space_id = space_id
+        new_image.save()
+    return redirect('detail', space_id)
 
 
