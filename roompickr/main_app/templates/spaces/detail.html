@@ -1,14 +1,13 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h1>Space Details</h1>
 <div>
   <div>
     <div>
-        <h4><span style="font-size: 28px;">{{ space.name }}</span></h4>
-        <h4><strong>Address:</strong> {{ space.address }}</h4>
-        <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
-        <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
-        <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}}</h4>
+      <h4><span style="font-size: 28px">{{ space.name }}</span></h4>
+      <h4><strong>Address:</strong> {{ space.address }}</h4>
+      <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
+      <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
+      <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}}</h4>
       <div>
         <a href="{% url 'spaces_update' space.id %}">Edit</a>
         <a href="{% url 'spaces_delete' space.id %}">Delete</a>
@@ -17,19 +16,54 @@
   </div>
 </div>
 <div>
- <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
-    {% csrf_token %}
-    {{ feedback_form.as_p }}
+  <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
+    {% csrf_token %} {{ feedback_form.as_p }}
     <input type="submit" value="Add Feedback" class="btn" />
   </form>
 </div>
 <div>
-  {% if space.feedback_set.count  %}
-  {% for feedback in space.feedback_set.all %}
+  {% if space.feedback_set.count %} {% for feedback in space.feedback_set.all %}
   <span>{{feedback.created_at}}</span>
   <h4>{{feedback.comment}}</h4>
-  {% endfor %}
-  {% endif %}
+  {% endfor %} {% endif %}
+</div>
+<hr />
+<div>
+  <form
+    action="{% url 'add_image' space.id %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %} {{ image_form.as_p }}
+    <input type="submit" value="Add a new image" class="btn" />
+  </form>
+</div>
+<div>
+  <br />
+  {% if space.image_set.count %} {% for image in space.image_set.all %}
+  {% load static %}
+  <img src={% static image.image_space|cut:'main_app/static/' %}
+  alt="this for {{space.name}}" width="150"/>
+  <h4>{{image.caption}}</h4>
+
+  <div>
+    <form
+      action="{% url 'update_image' space.id image.id %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %} {{ image_form.as_p }}
+      <input type="submit" value="Update" />
+    </form>
+  </div>
+  <form
+    action="{% url 'delete_image' space.id image.id %}"
+    method="post"
+  >
+    {% csrf_token %}
+    <input type="submit" value="Delete" />
+  </form>
+  {% endfor %} {% endif %}
 </div>
 
 {% endblock %}

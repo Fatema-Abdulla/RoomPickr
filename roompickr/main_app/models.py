@@ -43,7 +43,7 @@ class Space(models.Model):
         return reverse("detail", kwargs={"space_id" : self.id})
 
 class Image(models.Model):
-    image= models.ImageField(upload_to='main_app/static/uploads/', default='')
+    image_space = models.ImageField(upload_to='main_app/static/uploads/', default='')
     caption = models.TextField(max_length=150)
     space=models.ForeignKey(Space, on_delete=models.CASCADE)
 
