@@ -17,7 +17,7 @@ urlpatterns = [
 
     path('spaces/<int:space_id>/add_feedback/<int:user_id>/', views.add_feedback, name='add_feedback'),
 
-    path('spaces/<int:space_id>/booking/<int:user_id>/', views.star_booking.as_view(), name='star_booking' )
+    path('spaces/<int:space_id>/booking/<int:user_id>/', views.start_booking.as_view(), name='start_booking' )
 
 ]
 

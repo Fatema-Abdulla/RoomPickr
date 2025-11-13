@@ -139,21 +139,11 @@ def delete_review(request, game_id, review_id):
 
 
 
-class star_booking(LoginRequiredMixin, CreateView):
+class start_booking(LoginRequiredMixin, CreateView):
     model = Booking
     fields = ['start', 'end', 'status', 'total_price']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
-# @login_required
-# def star_booking(request, space_id, user_id):
-#     form = BookingForm(request.POST)
-#     if form.is_valid():
-#         new_booking = form.save(commit=False)
-#         new_booking.space_id = space_id
-#         new_booking.user_id = user_id
-#         new_booking.save()
-#     return render('booking/', space_id)
 
