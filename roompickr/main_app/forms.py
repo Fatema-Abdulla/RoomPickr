@@ -1,6 +1,8 @@
 from django.forms import ModelForm
 from .models import Profile, Feedback, Image
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
 
 
 class UserForm(ModelForm):
@@ -13,6 +15,13 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ["name", "email", "gender"]
+
+    # https://django-oscar.readthedocs.io/en/3.1/_modules/oscar/apps/customer/forms.html
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Profile.objects.filter(email = email).exclude(id=self.instance.id).exists():
+            raise ValidationError("This email already exists.")
+        return email
 
 
 class FeedbackForm(ModelForm):
