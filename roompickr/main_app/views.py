@@ -98,8 +98,8 @@ def add_feedback(request, space_id, user_id):
         new_feedback.space_id = space_id
         new_feedback.user_id = user_id
         new_feedback.save()
-
-    return redirect('detail', {"space_id" : space_id, "user_id" :  user_id})
+    return redirect('detail', space_id)
+   
 
 
 
