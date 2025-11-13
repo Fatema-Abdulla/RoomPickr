@@ -114,6 +114,14 @@ def edit_feedback(request, space_id, feedback_id):
     return redirect('detail', space_id)
 
 #delete feedback
+
+def delete_feedback(request, space_id, feedback_id):
+    feedback = Feedback.objects.get(id=feedback_id)
+    if feedback:
+        feedback.delete()
+    return redirect("detail", space_id)
+
+
 '''
 @login_required
 def add_review(request, game_id):
@@ -159,9 +167,15 @@ def delete_review(request, game_id, review_id):
     if review:
         review.delete()
     return redirect("detail", game_id)
-<form action="{% url 'delete_review' game.id review.id %}" method="post" class="gc-delete-review-form">
+
+def delete_feedback(request, space_id, feedback_id):
+    feedback = Feedback.objects.get(id=feedback_id)
+    if feedback:
+        feedback.delete()
+    return redirect("detail", space_id)
+<form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Delete" class="btn btn-red" />
+            <input type="submit" value="Delete"/>
           </form>
 '''
 

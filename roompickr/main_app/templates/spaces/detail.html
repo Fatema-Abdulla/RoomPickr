@@ -32,6 +32,10 @@
       <textarea name="comment">{{feedback.comment}}</textarea>
        <input type="submit" value="Edit" class="btn" />
     </form>
+    <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete"/>
+          </form>
 
   </div>
   {% endfor %} {% endif %}
