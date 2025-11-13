@@ -144,3 +144,10 @@ def update_image(request, space_id, image_id):
         form = ImageForm(instance=image)
 
     return render(request, 'spaces/detail.html', {'image_form': image_form, 'space_id': space_id})
+
+@login_required
+def delete_image(request, space_id, image_id):
+    image = Image.objects.get(id=image_id)
+    if image:
+        image.delete()
+    return redirect("detail", space_id)
