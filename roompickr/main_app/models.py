@@ -60,6 +60,7 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f'{self.space.name}, {self.user.username}'
+    
 
 class Booking(models.Model):
     start=models.DateTimeField(null=True)

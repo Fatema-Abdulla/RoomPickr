@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import ProfileForm, UserForm, FeedbackForm
+from .forms import ProfileForm, UserForm, FeedbackForm, BookingForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -62,12 +62,12 @@ def update_profile(request, profile_id):
     return render(request, 'users/update_profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
-
+@login_required
 def space_index(request):
     spaces = Space.objects.filter(user=request.user)
     return render(request,'spaces/index.html', {'spaces':spaces})
 
-
+@login_required
 def space_detail(request, space_id):
     space = Space.objects.get(id=space_id)
     feedback_form = FeedbackForm()
@@ -90,7 +90,7 @@ class SpaceDelete(LoginRequiredMixin, DeleteView):
     model = Space
     success_url = "/stores/"
 
-
+@login_required
 def add_feedback(request, space_id, user_id):
     form = FeedbackForm(request.POST)
     if form.is_valid():
@@ -99,7 +99,61 @@ def add_feedback(request, space_id, user_id):
         new_feedback.user_id = user_id
         new_feedback.save()
     return redirect('detail', space_id)
-   
+
+#edit/update #delete feedback
+'''
+@login_required
+def add_review(request, game_id):
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+        new_feeding = form.save(commit=False)
+        new_feeding.game_id = game_id
+        new_feeding.save()
+    return redirect("detail", game_id)
+# reference: https://openclassrooms.com/en/courses/6967196-create-a-web-application-with-django/7349667-update-a-model-object-with-a-modelform
+@login_required
+def update_review(request, game_id, review_id):
+    review = Review.objects.get(id=review_id)
+    review_form = ReviewForm()
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            new_feeding = form.save(commit=False)
+            new_feeding.game_id = game_id
+            new_feeding.save()
+        return redirect("detail", game_id)
+    else:
+        form = ReviewForm(instance=review)
+    return render(request, 'games/detail.html', {'review_form': review_form, 'game_id': game_id})
+@login_required
+def delete_review(request, game_id, review_id):
+    review = Review.objects.get(id=review_id)
+    if review:
+        review.delete()
+    return redirect("detail", game_id)
+<form action="{% url 'delete_review' game.id review.id %}" method="post" class="gc-delete-review-form">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn btn-red" />
+          </form>
+'''
 
 
+
+class star_booking(LoginRequiredMixin, CreateView):
+    model = Booking
+    fields = ['start', 'end', 'status', 'total_price']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+# @login_required
+# def star_booking(request, space_id, user_id):
+#     form = BookingForm(request.POST)
+#     if form.is_valid():
+#         new_booking = form.save(commit=False)
+#         new_booking.space_id = space_id
+#         new_booking.user_id = user_id
+#         new_booking.save()
+#     return render('booking/', space_id)
 

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1>hello</h1>
+<div>
+  <form action=""></form>
+</div>
+
+<script>
+  let dateEl = document.getElementById("id_date")
+  M.Datepicker.init(dateEl, {
+    format: "yyyy-mm-dd",
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true,
+  })
+  let selectE1 = document.getElementById("id_meal")
+  M.FormSelect.init(selectE1)
+</script>
+{%endblock%}

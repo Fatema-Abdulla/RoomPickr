@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile, Feedback
+from .models import Profile, Feedback, Booking
 from django.contrib.auth.models import User
 
 class UserForm(ModelForm):
@@ -16,4 +16,11 @@ class FeedbackForm(ModelForm):
     class Meta:
         model = Feedback
         fields = ['comment']
+
+
+class BookingForm(ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['start', 'end', 'status', 'total_price']
+
 
