@@ -128,6 +128,19 @@ def add_image(request, space_id):
         new_image.save()
     return redirect("detail", space_id)
 
-class ImageUpdate(LoginRequiredMixin, UpdateView):
-    model = Image
-    fields = ['image', 'caption']
+
+@login_required
+def update_image(request, space_id, image_id):
+    image = Image.objects.get(id=image_id)
+    image_form = ImageForm()
+    if request.method == "POST":
+        form = ImageForm(request.POST, request.FILES, instance=image)
+        if form.is_valid():
+            new_image = form.save(commit=False)
+            new_image.space_id = space_id
+            new_image.save()
+        return redirect("detail", space_id)
+    else:
+        form = ImageForm(instance=image)
+
+    return render(request, 'spaces/detail.html', {'image_form': image_form, 'space_id': space_id})
