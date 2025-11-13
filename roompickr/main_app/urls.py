@@ -16,6 +16,7 @@ urlpatterns = [
     path("spaces/<int:pk>/delete/", views.SpaceDelete.as_view(), name="spaces_delete"),
 
     path('spaces/<int:space_id>/add_feedback/<int:user_id>/', views.add_feedback, name='add_feedback'),
+    path('spaces/<int:space_id>/add_image/', views.add_image, name='add_image'),
 
 ]
 

@@ -17,7 +17,7 @@
   </div>
 </div>
 <div>
- <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
+<form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
     {% csrf_token %}
     {{ feedback_form.as_p }}
     <input type="submit" value="Add Feedback" class="btn" />
@@ -28,6 +28,21 @@
   {% for feedback in space.feedback_set.all %}
   <span>{{feedback.created_at}}</span>
   <h4>{{feedback.comment}}</h4>
+  {% endfor %}
+  {% endif %}
+</div>
+<hr>
+<div>
+<form action="{% url 'add_image' space.id %}" method="post">
+    {% csrf_token %}
+    {{ image_form.as_p }}
+    <input type="submit" value="Add image" class="btn" />
+  </form>
+</div>
+<div>
+  {% if space.image_set.count  %}
+  {% for image in space.image_set.all %}
+  <h4>{{image.caption}}</h4>
   {% endfor %}
   {% endif %}
 </div>

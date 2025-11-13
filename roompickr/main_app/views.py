@@ -71,7 +71,8 @@ def space_index(request):
 def space_detail(request, space_id):
     space = Space.objects.get(id=space_id)
     feedback_form = FeedbackForm()
-    return render(request, 'spaces/detail.html', {"space": space , 'feedback_form' : feedback_form})
+    image_form = ImageForm()
+    return render(request, 'spaces/detail.html', {"space": space , 'feedback_form' : feedback_form , 'image_form' : image_form})
 
 
 class SpaceCreate(LoginRequiredMixin, CreateView):
