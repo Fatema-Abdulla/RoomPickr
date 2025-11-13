@@ -52,7 +52,9 @@
       method="post"
       enctype="multipart/form-data"
     >
-      {% csrf_token %} {{ image_form.as_p }}
+      {% csrf_token %}
+      <input type="file" name="image_space" accept="image/*"/><br /><br/>
+      <textarea name="caption">{{ image.caption}}</textarea>
       <input type="submit" value="Update" />
     </form>
   </div>
