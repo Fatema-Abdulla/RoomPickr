@@ -122,65 +122,6 @@ def delete_feedback(request, space_id, feedback_id):
     return redirect("detail", space_id)
 
 
-'''
-@login_required
-def add_review(request, game_id):
-    form = ReviewForm(request.POST)
-    if form.is_valid():
-        new_feeding = form.save(commit=False)
-        new_feeding.game_id = game_id
-        new_feeding.save()
-    return redirect("detail", game_id)
-# reference: https://openclassrooms.com/en/courses/6967196-create-a-web-application-with-django/7349667-update-a-model-object-with-a-modelform
-@login_required
-
-
-def edit_feedback(request, space_id, user_id):
-    review = Feedback.objects.get(id=space_id)
-    review_form = FeedbackForm()
-    if request.method == "POST":
-    form= FeedbackForm(request.POST, instance=review)
-    if form.is_valid():
-        new_feedback = form.save(commit=False)
-        new_feedback.space_id = space_id
-        new_feedback.user_id = user_id
-        new_feedback.save()
-    return redirect('detail', space_id)
-
-
-def update_review(request, game_id, review_id):
-    review = Review.objects.get(id=review_id)
-    review_form = ReviewForm()
-    if request.method == "POST":
-        form = ReviewForm(request.POST, instance=review)
-        if form.is_valid():
-            new_feeding = form.save(commit=False)
-            new_feeding.game_id = game_id
-            new_feeding.save()
-        return redirect("detail", game_id)
-    else:
-        form = ReviewForm(instance=review)
-    return render(request, 'games/detail.html', {'review_form': review_form, 'game_id': game_id})
-@login_required
-def delete_review(request, game_id, review_id):
-    review = Review.objects.get(id=review_id)
-    if review:
-        review.delete()
-    return redirect("detail", game_id)
-
-def delete_feedback(request, space_id, feedback_id):
-    feedback = Feedback.objects.get(id=feedback_id)
-    if feedback:
-        feedback.delete()
-    return redirect("detail", space_id)
-<form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
-            {% csrf_token %}
-            <input type="submit" value="Delete"/>
-          </form>
-'''
-
-
-
 class start_booking(LoginRequiredMixin, CreateView):
     model = Booking
     fields = ['start', 'end', 'status', 'total_price']
