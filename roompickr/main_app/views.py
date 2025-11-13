@@ -72,7 +72,7 @@ def space_detail(request, space_id):
     space = Space.objects.get(id=space_id)
     feedback_form = FeedbackForm()
     image_form = ImageForm()
-    return render(request, 'spaces/detail.html', {"space": space , 'feedback_form' : feedback_form , 'image_form' : image_form})
+    return render(request, 'spaces/detail.html', {"space": space , 'feedback_form': feedback_form , 'image_form': image_form})
 
 
 class SpaceCreate(LoginRequiredMixin, CreateView):
@@ -102,9 +102,9 @@ def add_feedback(request, space_id, user_id):
     return redirect('detail', space_id)
 
 def add_image(request, space_id):
-    form = ImageForm(request.POST)
-    if form.is_valid():
-        new_image = form.save(commit=False)
+    form_image = ImageForm(request.POST)
+    if form_image.is_valid():
+        new_image = form_image.save(commit=False)
         new_image.space_id = space_id
         new_image.save()
     return redirect('detail', space_id)

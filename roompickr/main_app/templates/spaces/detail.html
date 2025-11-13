@@ -39,9 +39,11 @@
     <input type="submit" value="Add image" class="btn" />
   </form>
 </div>
-<div>
+<div><br>
   {% if space.image_set.count  %}
   {% for image in space.image_set.all %}
+  {% load static %} <img src={% static image.image|cut:'main_app/static/' %}
+    alt="this for" width="150"/>
   <h4>{{image.caption}}</h4>
   {% endfor %}
   {% endif %}
