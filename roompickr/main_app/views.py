@@ -100,7 +100,20 @@ def add_feedback(request, space_id, user_id):
         new_feedback.save()
     return redirect('detail', space_id)
 
-#edit/update #delete feedback
+#edit/update
+@login_required
+def edit_feedback(request, space_id, feedback_id):
+    review = Feedback.objects.get(id=feedback_id)
+    form = FeedbackForm()
+    if request.method == "POST":
+        form= FeedbackForm(request.POST, instance=review)
+    if form.is_valid():
+        new_feedback = form.save(commit=False)
+        new_feedback.space_id = space_id
+        new_feedback.save()
+    return redirect('detail', space_id)
+
+#delete feedback
 '''
 @login_required
 def add_review(request, game_id):
@@ -112,6 +125,21 @@ def add_review(request, game_id):
     return redirect("detail", game_id)
 # reference: https://openclassrooms.com/en/courses/6967196-create-a-web-application-with-django/7349667-update-a-model-object-with-a-modelform
 @login_required
+
+
+def edit_feedback(request, space_id, user_id):
+    review = Feedback.objects.get(id=space_id)
+    review_form = FeedbackForm()
+    if request.method == "POST":
+    form= FeedbackForm(request.POST, instance=review)
+    if form.is_valid():
+        new_feedback = form.save(commit=False)
+        new_feedback.space_id = space_id
+        new_feedback.user_id = user_id
+        new_feedback.save()
+    return redirect('detail', space_id)
+
+
 def update_review(request, game_id, review_id):
     review = Review.objects.get(id=review_id)
     review_form = ReviewForm()

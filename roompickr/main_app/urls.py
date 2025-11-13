@@ -16,6 +16,8 @@ urlpatterns = [
     path("spaces/<int:pk>/delete/", views.SpaceDelete.as_view(), name="spaces_delete"),
 
     path('spaces/<int:space_id>/add_feedback/<int:user_id>/', views.add_feedback, name='add_feedback'),
+    #edit
+    path('spaces/<int:space_id>/edit_feedback/<int:feedback_id>/', views.edit_feedback, name='edit_feedback'),
 
     path('spaces/<int:space_id>/booking/<int:user_id>/', views.start_booking.as_view(), name='start_booking' )
 

@@ -1,14 +1,13 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h1>Space Details</h1>
 <div>
   <div>
     <div>
-        <h4><span style="font-size: 28px;">{{ space.name }}</span></h4>
-        <h4><strong>Address:</strong> {{ space.address }}</h4>
-        <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
-        <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
-        <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}}</h4>
+      <h4><span style="font-size: 28px">{{ space.name }}</span></h4>
+      <h4><strong>Address:</strong> {{ space.address }}</h4>
+      <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
+      <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
+      <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}}</h4>
       <div>
         <a href="{% url 'spaces_update' space.id %}">Edit</a>
         <a href="{% url 'spaces_delete' space.id %}">Delete</a>
@@ -17,19 +16,27 @@
   </div>
 </div>
 <div>
- <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
-    {% csrf_token %}
-    {{ feedback_form.as_p }}
+  <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
+    {% csrf_token %} {{ feedback_form.as_p }}
     <input type="submit" value="Add Feedback" class="btn" />
   </form>
 </div>
+
 <div>
-  {% if space.feedback_set.count  %}
-  {% for feedback in space.feedback_set.all %}
+  {% if space.feedback_set.count %} {% for feedback in space.feedback_set.all %}
   <span>{{feedback.created_at}}</span>
   <h4>{{feedback.comment}}</h4>
-  {% endfor %}
-  {% endif %}
+  <div>
+    <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post">
+      {% csrf_token %}
+      <textarea name="comment">{{feedback.comment}}</textarea>
+       <input type="submit" value="Edit" class="btn" />
+    </form>
+
+  </div>
+  {% endfor %} {% endif %}
 </div>
-<button><a href="{% url 'start_booking' space.id space.user_id %}">start booking</a></button>
+<button>
+  <a href="{% url 'start_booking' space.id space.user_id %}">start booking</a>
+</button>
 {% endblock %}
