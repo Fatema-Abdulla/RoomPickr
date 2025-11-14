@@ -151,3 +151,7 @@ def delete_image(request, space_id, image_id):
     if image:
         image.delete()
     return redirect("detail", space_id)
+
+@login_required
+def community(request):
+    return render(request, "community/index.html")
