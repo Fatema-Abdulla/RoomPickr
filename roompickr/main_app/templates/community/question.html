@@ -1,24 +1,21 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h1>Question List</h1>
-  <div>
-    <form action="{% url 'add_question' user.id %}" method="post">
-      <h3>Add a new Question</h3>
-      {% csrf_token %}
-      {{ question_form.as_p }}
-      <button type="submit">Add a Question</button>
-    </form>
-
-  </div>
+<div>
+  <form action="{% url 'add_question' user.id %}" method="post">
+    <h3>Add a new Question</h3>
+    {% csrf_token %} {{ question_form.as_p }}
+    <button type="submit">Add a Question</button>
+  </form>
+</div>
 {% for question in questions %}
+<div>
+  <a href="{% url 'question_detail' question.id %}">
     <div>
       <div>
-        <div>
-            <h1>{{ question.title }}</h1>
-            <h4>{{ question.content }}</h4>
-        </div>
+        <h1>{{ question.title }}</h1>
+        <h4>{{ question.created_at }}</h4>
       </div>
-
     </div>
-{% endfor %}
-{% endblock %}
+  </a>
+</div>
+{% endfor %} {% endblock %}

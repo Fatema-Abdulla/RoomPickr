@@ -21,7 +21,8 @@ urlpatterns = [
     path('spaces/<int:space_id>/update_image/<int:image_id>', views.update_image, name='update_image'),
     path('spaces/<int:space_id>/delete_image/<int:image_id>', views.delete_image, name='delete_image'),
 
-    path('community/questions/', views.questions, name='questions'),
+    path('community/', views.questions, name='questions'),
     path('community/questions/<int:user_id>', views.add_question, name='add_question'),
+    path('community/question_detail/<int:question_id>', views.question_detail, name='question_detail'),
 ]
 

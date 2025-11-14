@@ -166,3 +166,8 @@ def add_question(request, user_id):
         new_question.user_id = user_id
         new_question.save()
     return redirect("questions")
+
+@login_required
+def question_detail(request, question_id):
+    question = Question.objects.get(id=question_id)
+    return render(request, "community/detail_question.html", {"question": question, "question_id": question_id})

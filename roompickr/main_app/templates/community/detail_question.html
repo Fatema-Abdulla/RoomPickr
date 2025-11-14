@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Question Detail</h1>
+    <div>
+      <div>
+        <div>
+            <h1>{{ question.title }}</h1>
+            <h4>{{ question.created_at }}</h4>
+            <p>{{ question.content }}</p>
+        </div>
+      </div>
+
+    </div>
+{% endblock %}
