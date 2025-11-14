@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm
+from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm, QuestionForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -153,5 +153,16 @@ def delete_image(request, space_id, image_id):
     return redirect("detail", space_id)
 
 @login_required
-def community(request):
-    return render(request, "community/index.html")
+def questions(request):
+    questions = Question.objects.filter(user=request.user)
+    question_form = QuestionForm()
+    return render(request, "community/question.html", {"questions": questions, "question_form": question_form})
+
+@login_required
+def add_question(request, user_id):
+    form = QuestionForm(request.POST)
+    if form.is_valid():
+        new_question = form.save(commit=False)
+        new_question.user_id = user_id
+        new_question.save()
+    return redirect("questions")
