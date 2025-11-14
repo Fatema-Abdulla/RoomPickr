@@ -18,11 +18,13 @@ urlpatterns = [
     path('spaces/<int:space_id>/add_feedback/<int:user_id>/', views.add_feedback, name='add_feedback'),
 
     path('spaces/<int:space_id>/add_image/', views.add_image, name='add_image'),
-    path('spaces/<int:space_id>/update_image/<int:image_id>', views.update_image, name='update_image'),
-    path('spaces/<int:space_id>/delete_image/<int:image_id>', views.delete_image, name='delete_image'),
+    path('spaces/<int:space_id>/update_image/<int:image_id>/', views.update_image, name='update_image'),
+    path('spaces/<int:space_id>/delete_image/<int:image_id>/', views.delete_image, name='delete_image'),
 
     path('community/', views.questions, name='questions'),
-    path('community/questions/<int:user_id>', views.add_question, name='add_question'),
-    path('community/question_detail/<int:question_id>', views.question_detail, name='question_detail'),
+    path('community/questions/<int:user_id>/', views.add_question, name='add_question'),
+    path('community/question_detail/<int:question_id>/', views.question_detail, name='question_detail'),
+    path('community/question_detail/<int:question_id>/update_question/', views.update_question_page, name='update_question_page'),
+    path('community/question_detail/<int:question_id>/update_question/', views.update_question, name='update_question'),
 ]
 

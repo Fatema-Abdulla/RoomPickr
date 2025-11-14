@@ -171,3 +171,21 @@ def add_question(request, user_id):
 def question_detail(request, question_id):
     question = Question.objects.get(id=question_id)
     return render(request, "community/detail_question.html", {"question": question, "question_id": question_id})
+
+@login_required
+def update_question_page(request, question_id):
+    return render(request, 'community/detail_question.html', question_id)
+
+@login_required
+def update_question(request, question_id):
+    question = Question.objects.get(id=question_id)
+    question_form = QuestionForm()
+    if request.method == "POST":
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            form.save()
+        return redirect("detail_question", question_id)
+    else:
+        form = QuestionForm(instance=question)
+
+    return render(request, 'community/detail_question.html', {'question_form': question_form, 'question_id': question_id})

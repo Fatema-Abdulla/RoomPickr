@@ -1,14 +1,13 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h1>Question Detail</h1>
+<div>
+  <div>
     <div>
-      <div>
-        <div>
-            <h1>{{ question.title }}</h1>
-            <h4>{{ question.created_at }}</h4>
-            <p>{{ question.content }}</p>
-        </div>
-      </div>
-
+      <h1>{{ question.title }}</h1>
+      <h4>{{ question.created_at }}</h4>
+      <p>{{ question.content }}</p>
+      <a href="{% url 'update_question_page' question.id %}">Update</a>
     </div>
+  </div>
+</div>
 {% endblock %}
