@@ -6,7 +6,7 @@
       <h1>{{ question.title }}</h1>
       <h4>{{ question.created_at }}</h4>
       <p>{{ question.content }}</p>
-      <a href="{% url 'update_question_page' question.id %}">Update</a>
+      <a href="{% url 'update_question' question.id %}">Update</a>
     </div>
   </div>
 </div>

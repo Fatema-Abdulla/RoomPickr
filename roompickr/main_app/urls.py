@@ -24,7 +24,6 @@ urlpatterns = [
     path('community/', views.questions, name='questions'),
     path('community/questions/<int:user_id>/', views.add_question, name='add_question'),
     path('community/question_detail/<int:question_id>/', views.question_detail, name='question_detail'),
-    path('community/question_detail/<int:question_id>/update_question/', views.update_question_page, name='update_question_page'),
     path('community/question_detail/<int:question_id>/update_question/', views.update_question, name='update_question'),
 ]
 
