@@ -184,3 +184,10 @@ def update_question(request, question_id):
         question_form = QuestionForm(instance=question)
 
     return render(request, 'community/update_question.html', {'question_form': question_form, 'question_id': question_id})
+
+@login_required
+def delete_question(request, question_id):
+    question = Question.objects.get(id=question_id)
+    if question:
+        question.delete()
+    return redirect("questions")
