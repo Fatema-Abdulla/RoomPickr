@@ -18,6 +18,7 @@
     <div>
   {% if question.answer_set.count %} {% for question_answer in question.answer_set.all %}
   <span>{{question_answer.created_at}}</span>
+  <h2>{{user.username}}</h2>
   <h4>{{question_answer.answer}}</h4>
   {% endfor %} {% endif %}
 </div>
