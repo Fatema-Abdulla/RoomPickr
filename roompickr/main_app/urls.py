@@ -20,7 +20,8 @@ urlpatterns = [
     path('spaces/<int:space_id>/edit_feedback/<int:feedback_id>/', views.edit_feedback, name='edit_feedback'),
     path('spaces/<int:space_id>/delete_feedback/<int:feedback_id>/', views.delete_feedback, name='delete_feedback'),
 
-    path('spaces/<int:space_id>/booking/<int:user_id>/', views.start_booking.as_view(), name='start_booking' )
+    path('spaces/<int:pk>/booking/', views.start_booking.as_view(), name='start_booking' ),
+    path('space/<int:pk>/booking_detail/', views.BookingDetail.as_view(), name='booking_detail'),
 
 ]
 

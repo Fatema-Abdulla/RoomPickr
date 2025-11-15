@@ -124,9 +124,13 @@ def delete_feedback(request, space_id, feedback_id):
 
 class start_booking(LoginRequiredMixin, CreateView):
     model = Booking
-    fields = ['start', 'end', 'status', 'total_price']
+    fields = ['start', 'end', 'total_price']
 
     def form_valid(self, form):
+        form.instance.space_id = self.kwargs["pk"]
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
+class BookingDetail(LoginRequiredMixin, DetailView):
+    model = Booking

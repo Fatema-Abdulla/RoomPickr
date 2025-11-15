@@ -73,6 +73,12 @@ class Booking(models.Model):
     def __str__(self):
         return f'booking {self.space.name} for {self.user.username}'
 
+    def get_absolute_url(self):
+        return reverse("booking_detail", kwargs={"pk": self.id})
+
+
+
+
 class Question(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     title=models.CharField(max_length=150)
