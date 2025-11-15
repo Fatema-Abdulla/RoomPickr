@@ -8,10 +8,12 @@
       <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
       <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
       <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}}</h4>
+      {% if space.user == request.user %}
       <div>
         <a href="{% url 'spaces_update' space.id %}">Edit</a>
         <a href="{% url 'spaces_delete' space.id %}">Delete</a>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -28,6 +30,7 @@
   {% endfor %} {% endif %}
 </div>
 <hr />
+{% if space.user == request.user %}
 <div>
   <form
     action="{% url 'add_image' space.id %}"
@@ -38,6 +41,7 @@
     <input type="submit" value="Add a new image" class="btn" />
   </form>
 </div>
+{% endif %}
 <div>
   <br />
   {% if space.image_set.count %} {% for image in space.image_set.all %}
@@ -45,8 +49,7 @@
   <img src={% static image.image_space|cut:'main_app/static/' %}
   alt="this for {{space.name}}" width="150"/>
   <h4>{{image.caption}}</h4>
-
-  <div>
+  {% if space.user == request.user %}
     <form
       action="{% url 'update_image' space.id image.id %}"
       method="post"
@@ -57,7 +60,6 @@
       <textarea name="caption">{{ image.caption}}</textarea>
       <input type="submit" value="Update" />
     </form>
-  </div>
   <form
     action="{% url 'delete_image' space.id image.id %}"
     method="post"
@@ -65,6 +67,7 @@
     {% csrf_token %}
     <input type="submit" value="Delete" />
   </form>
+  {% endif %}
   {% endfor %} {% endif %}
 </div>
 
