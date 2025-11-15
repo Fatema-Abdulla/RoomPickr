@@ -6,8 +6,10 @@
       <h1>{{ question.title }}</h1>
       <h4>{{ question.created_at }}</h4>
       <p>{{ question.content }}</p>
+      {% if question.user == request.user %}
       <a href="{% url 'update_question' question.id %}">Update</a>
       <a href="{% url 'delete_question' question.id %}">Delete</a>
+      {% endif %}
     </div>
     <div>
       <form action="{% url 'add_answer' user.id question.id %}" method="post">
@@ -18,9 +20,9 @@
     <div>
       {% if question.answer_set.count %} {% for question_answer in question.answer_set.all %}
       <span>{{question_answer.created_at}}</span>
-      <h2>{{user.username}}</h2>
+      <h2>{{question_answer.user.username}}</h2>
       <h4>{{question_answer.answer}}</h4>
-
+      {% if question_answer.user == request.user %}
       <div>
         <form
           action="{% url 'update_answer' question_answer.id question.id %}"
@@ -38,6 +40,7 @@
         {% csrf_token %}
         <input type="submit" value="Delete" />
       </form>
+      {% endif %}
       {% endfor %} {% endif %}
     </div>
   </div>
