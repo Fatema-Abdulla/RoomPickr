@@ -1,20 +1,21 @@
-{% extends 'base.html' %}
-{% block content %}
-
+{% extends 'base.html' %} {% block content %}
 
 <h1>book your space</h1>
 
 <div>
-   <form action="" method="post">
+  <form action="" method="post">
     {% csrf_token %}
     <input id="id_start" name="start" type="datetime-local" />
     <input id="id_end" name="end" type="datetime-local" />
-    <input type="number" name="total_price">
+    <input id="price" type="number" name="total_price" />
     <input type="submit" value="Book Your Space" class="btn" />
   </form>
 </div>
 
 <script>
+  // document.querySelector("#price").disabled = true
+  document.querySelector("#price").readOnly = true
+
   let today = new Date().toISOString().slice(0, 16)
   document.querySelector("#id_start").min = today
   document.querySelector("#id_end").min = today
