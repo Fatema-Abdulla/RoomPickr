@@ -7,12 +7,21 @@
 <div>
    <form action="" method="post">
     {% csrf_token %}
-    <input name="start" type="datetime-local" />
-    <input name="end" type="datetime-local" />
+    <input id="id_start" name="start" type="datetime-local" />
+    <input id="id_end" name="end" type="datetime-local" />
     <input type="number" name="total_price">
     <input type="submit" value="Book Your Space" class="btn" />
   </form>
 </div>
-<!-- ... -->
+
+<script>
+  let today = new Date().toISOString().slice(0, 16)
+  document.querySelector("#id_start").min = today
+  document.querySelector("#id_end").max = today
+  // document.querySelector("#id_end").min = today
+
+  //https://stackoverflow.com/questions/54732299/disable-previous-todays-previous-time-in-html-input-datetime-local-picker
+  //https://stackoverflow.com/questions/69969151/how-to-disable-previous-date-using-html5-datetime-local-input
+</script>
 
 {%endblock%}
