@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile, Feedback, Image
+from .models import Profile, Feedback, Image, Question, Answer
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -34,3 +34,13 @@ class ImageForm(ModelForm):
     class Meta:
         model = Image
         fields = ["image_space", "caption"]
+
+class QuestionForm(ModelForm):
+    class Meta:
+        model = Question
+        fields = ["title", "content"]
+
+class AnswerForm(ModelForm):
+    class Meta:
+        model = Answer
+        fields = ["answer"]

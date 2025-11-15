@@ -111,7 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# https://stackoverflow.com/questions/61147405/how-do-i-setup-my-own-time-zone-in-django
+TIME_ZONE = 'Asia/Bahrain'
 
 USE_I18N = True
 

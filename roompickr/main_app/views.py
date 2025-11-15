@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm
+from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm, QuestionForm, AnswerForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -76,6 +76,11 @@ def space_index(request):
     spaces = Space.objects.filter(user=request.user)
     return render(request, "spaces/index.html", {"spaces": spaces})
 
+@login_required
+def space_all(request):
+    spaces = Space.objects.all()
+    return render(request, "spaces/index.html", {"spaces": spaces})
+
 
 @login_required
 def space_detail(request, space_id):
@@ -136,9 +141,9 @@ def update_image(request, space_id, image_id):
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
-            new_image = form.save(commit=False)
-            new_image.space_id = space_id
-            new_image.save()
+            image_update = form.save(commit=False)
+            image_update.space_id = space_id
+            image_update.save()
         return redirect("detail", space_id)
     else:
         form = ImageForm(instance=image)
@@ -151,3 +156,65 @@ def delete_image(request, space_id, image_id):
     if image:
         image.delete()
     return redirect("detail", space_id)
+
+@login_required
+def questions(request):
+    questions = Question.objects.filter(user=request.user)
+    question_form = QuestionForm()
+    return render(request, "community/question.html", {"questions": questions, "question_form": question_form})
+
+@login_required
+def add_question(request, user_id):
+    form = QuestionForm(request.POST)
+    if form.is_valid():
+        new_question = form.save(commit=False)
+        new_question.user_id = user_id
+        new_question.save()
+    return redirect("questions")
+
+@login_required
+def question_detail(request, question_id):
+    question = Question.objects.get(id=question_id)
+    answer_form = AnswerForm()
+    return render(request, "community/detail_question.html", {"question": question, "question_id": question_id, "answer_form": answer_form})
+
+class QuestionUpdate(LoginRequiredMixin, UpdateView):
+    model = Question
+    fields = ['title', 'content']
+
+class QuestionDelete(LoginRequiredMixin, DeleteView):
+    model = Question
+    success_url = "/community/"
+
+@login_required
+def add_answer(request, user_id, question_id):
+    form = AnswerForm(request.POST)
+    if form.is_valid():
+        new_answer = form.save(commit=False)
+        new_answer.question_id = question_id
+        new_answer.user_id = user_id
+        new_answer.save()
+    return redirect("question_detail", question_id)
+
+@login_required
+def update_answer(request, answer_id, question_id):
+    answer = Answer.objects.get(id=answer_id)
+    answer_form = AnswerForm()
+    if request.method == "POST":
+        form = AnswerForm(request.POST, instance=answer)
+        if form.is_valid():
+            answer_update = form.save(commit=False)
+            answer_update.question_id = question_id
+            answer_update.save()
+        return redirect("question_detail", question_id)
+    else:
+        form = AnswerForm(instance=answer)
+
+    return render(request, 'community/detail_question.html', {'answer_form': answer_form, 'question_id': question_id})
+
+@login_required
+def delete_answer(request, answer_id, question_id):
+    answer = Answer.objects.get(id=answer_id)
+    if answer:
+        answer.delete()
+    return redirect("question_detail", question_id)
