@@ -81,6 +81,9 @@ class Question(models.Model):
     def __str__(self):
         return f'{self.title} from {self.user.username}'
 
+    def get_absolute_url(self):
+        return reverse("question_detail", kwargs={"question_id" : self.id})
+
 class Answer(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     answer= models.TextField(max_length=500)

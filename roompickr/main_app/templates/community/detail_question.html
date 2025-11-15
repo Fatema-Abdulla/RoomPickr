@@ -7,9 +7,12 @@
       <h4>{{ question.created_at }}</h4>
       <p>{{ question.content }}</p>
       <a href="{% url 'update_question' question.id %}">Update</a>
-      <form action="{% url 'delete_question' question.id %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Delete" />
+      <a href="{% url 'delete_question' question.id %}">Delete</a>
+    </div>
+    <div>
+      <form action="#" method="post">
+        {% csrf_token %} {{answer_form.as_p}}
+        <input type="submit" value="Add a Answer" class="btn" />
       </form>
     </div>
   </div>

@@ -39,3 +39,8 @@ class QuestionForm(ModelForm):
     class Meta:
         model = Question
         fields = ["title", "content"]
+
+class AnswerForm(ModelForm):
+    class Meta:
+        model = Answer
+        fields = ["answer"]
