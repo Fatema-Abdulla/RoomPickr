@@ -10,11 +10,17 @@
       <a href="{% url 'delete_question' question.id %}">Delete</a>
     </div>
     <div>
-      <form action="#" method="post">
+      <form action="{% url 'add_answer' user.id question.id %}" method="post">
         {% csrf_token %} {{answer_form.as_p}}
         <input type="submit" value="Add a Answer" class="btn" />
       </form>
     </div>
+    <div>
+  {% if question.answer_set.count %} {% for question_answer in question.answer_set.all %}
+  <span>{{question_answer.created_at}}</span>
+  <h4>{{question_answer.answer}}</h4>
+  {% endfor %} {% endif %}
+</div>
   </div>
 </div>
 {% endblock %}
