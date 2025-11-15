@@ -76,6 +76,11 @@ def space_index(request):
     spaces = Space.objects.filter(user=request.user)
     return render(request, "spaces/index.html", {"spaces": spaces})
 
+@login_required
+def space_all(request):
+    spaces = Space.objects.all()
+    return render(request, "spaces/index.html", {"spaces": spaces})
+
 
 @login_required
 def space_detail(request, space_id):
@@ -136,9 +141,9 @@ def update_image(request, space_id, image_id):
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
-            new_image = form.save(commit=False)
-            new_image.space_id = space_id
-            new_image.save()
+            image_update = form.save(commit=False)
+            image_update.space_id = space_id
+            image_update.save()
         return redirect("detail", space_id)
     else:
         form = ImageForm(instance=image)
@@ -191,3 +196,25 @@ def add_answer(request, user_id, question_id):
         new_answer.save()
     return redirect("question_detail", question_id)
 
+@login_required
+def update_answer(request, answer_id, question_id):
+    answer = Answer.objects.get(id=answer_id)
+    answer_form = AnswerForm()
+    if request.method == "POST":
+        form = AnswerForm(request.POST, instance=answer)
+        if form.is_valid():
+            answer_update = form.save(commit=False)
+            answer_update.question_id = question_id
+            answer_update.save()
+        return redirect("question_detail", question_id)
+    else:
+        form = AnswerForm(instance=answer)
+
+    return render(request, 'community/detail_question.html', {'answer_form': answer_form, 'question_id': question_id})
+
+@login_required
+def delete_answer(request, answer_id, question_id):
+    answer = Answer.objects.get(id=answer_id)
+    if answer:
+        answer.delete()
+    return redirect("question_detail", question_id)
