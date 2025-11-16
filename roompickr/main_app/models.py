@@ -85,8 +85,6 @@ class Booking(models.Model):
         return self.total_price
 
 
-
-
 class Question(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     title=models.CharField(max_length=150)
