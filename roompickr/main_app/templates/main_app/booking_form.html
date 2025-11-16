@@ -14,28 +14,23 @@
 </div>
 
 <script>
-  // document.querySelector("#price").disabled = true
-  // document.querySelector("#price").readOnly = true
+  const pricePerHour = document.querySelector("#price")
+  let totalPrice = document.querySelector("#total_price")
 
   let today = new Date().toISOString().slice(0, 16)
   document.querySelector("#id_start").min = today
   document.querySelector("#id_end").min = today
 
-  // const pricePerHour = 20
+  const pricingCalculation = () => {
+   let startTime = document.querySelector("#id_start").value
+   let endTime = document.querySelector("#id_end").value
 
-  // const pricePerHour = null
-  // let finalResult = null
+  let result = (new Date(endTime) - new Date(startTime)) / (1000 * 3600)
 
-  // const pricingCalculation = () => {
-  //  let startTime = document.querySelector("#id_start").value
-  //  let endTime = document.querySelector("#id_end").value
+  totalPrice = result * pricePerHour
 
-  // let result = (new Date(endTime) - new Date(startTime)) / (1000 * 3600)
-
-  // finalResult = result * pricePerHour
-
-  // document.querySelector("#price").value = finalResult
-  // }
+  document.querySelector("#price").value = totalPrice
+  }
 
 </script>
 
