@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# https://stackoverflow.com/questions/61147405/how-do-i-setup-my-own-time-zone-in-django
+# reference: https://stackoverflow.com/questions/61147405/how-do-i-setup-my-own-time-zone-in-django
 TIME_ZONE = 'Asia/Bahrain'
 
 USE_I18N = True
@@ -125,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# https://stackoverflow.com/questions/1518286/django-use-reverse-url-mapping-in-settings
+# reference: https://stackoverflow.com/questions/1518286/django-use-reverse-url-mapping-in-settings
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/'
 
