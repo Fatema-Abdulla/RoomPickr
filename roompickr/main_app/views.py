@@ -4,8 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm, QuestionForm, AnswerForm
+from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm, QuestionForm, AnswerForm, BookingForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -121,8 +120,28 @@ def add_feedback(request, space_id, user_id):
         new_feedback.space_id = space_id
         new_feedback.user_id = user_id
         new_feedback.save()
-    return redirect("detail", space_id)
+    return redirect('detail', space_id)
 
+#edit/update
+@login_required
+def edit_feedback(request, space_id, feedback_id):
+    review = Feedback.objects.get(id=feedback_id)
+    form = FeedbackForm()
+    if request.method == "POST":
+        form= FeedbackForm(request.POST, instance=review)
+    if form.is_valid():
+        new_feedback = form.save(commit=False)
+        new_feedback.space_id = space_id
+        new_feedback.save()
+    return redirect('detail', space_id)
+
+#delete feedback
+
+def delete_feedback(request, space_id, feedback_id):
+    feedback = Feedback.objects.get(id=feedback_id)
+    if feedback:
+        feedback.delete()
+    return redirect("detail", space_id)
 
 @login_required
 def add_image(request, space_id):
@@ -224,3 +243,16 @@ def delete_answer(request, answer_id, question_id):
     if answer:
         answer.delete()
     return redirect("question_detail", question_id)
+
+class start_booking(LoginRequiredMixin, CreateView):
+    model = Booking
+    fields = ['start', 'end', 'total_price']
+
+    def form_valid(self, form):
+        form.instance.space_id = self.kwargs["pk"]
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class BookingDetail(LoginRequiredMixin, DetailView):
+    model = Booking

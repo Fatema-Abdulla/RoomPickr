@@ -63,6 +63,7 @@ class Feedback(models.Model):
     def __str__(self):
         return f'{self.space.name}, {self.user.username}'
 
+
 class Booking(models.Model):
     start=models.DateTimeField(null=True)
     end=models.DateTimeField(null=True)
@@ -73,6 +74,12 @@ class Booking(models.Model):
 
     def __str__(self):
         return f'booking {self.space.name} for {self.user.username}'
+
+    def get_absolute_url(self):
+        return reverse("booking_detail", kwargs={"pk": self.id})
+
+
+
 
 class Question(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)

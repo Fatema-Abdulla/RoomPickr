@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>book your space</h1>
+
+<div>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input id="id_start" name="start" type="datetime-local" />
+    <input id="id_end" name="end" type="datetime-local" />
+    <input id="price" type="number" name="total_price" />
+    <input type="submit" value="Book Your Space" class="btn" />
+  </form>
+</div>
+
+<script>
+  // document.querySelector("#price").disabled = true
+  document.querySelector("#price").readOnly = true
+
+  let today = new Date().toISOString().slice(0, 16)
+  document.querySelector("#id_start").min = today
+  document.querySelector("#id_end").min = today
+
+  const pricePerHour = 20
+  let finalResult = null
+
+  const pricingCalculation = () => {
+   let startTime = document.querySelector("#id_start").value
+   let endTime = document.querySelector("#id_end").value
+
+  let result = (new Date(endTime) - new Date(startTime)) / (1000 * 3600)
+
+   finalResult = result * pricePerHour
+
+  document.querySelector("#price").value =finalResult
+  }
+
+
+
+  //https://bobbyhadz.com/blog/javascript-get-number-of-months-between-two-dates
+  //https://orangeable.com/javascript/date-calc
+  //https://labex.io/tutorials/date-difference-in-hours-28236
+  //https://stackoverflow.com/questions/54732299/disable-previous-todays-previous-time-in-html-input-datetime-local-picker
+  //https://stackoverflow.com/questions/69969151/how-to-disable-previous-date-using-html5-datetime-local-input
+</script>
+
+{%endblock%}
