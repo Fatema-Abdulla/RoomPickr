@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm, QuestionForm, AnswerForm, BookingForm
+from .forms import ProfileForm, UserForm, FeedbackForm, ImageForm, QuestionForm, AnswerForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
@@ -246,11 +246,16 @@ def delete_answer(request, answer_id, question_id):
 
 class start_booking(LoginRequiredMixin, CreateView):
     model = Booking
-    fields = ['start', 'end', 'total_price']
+    fields = ['start', 'end']
 
     def form_valid(self, form):
         form.instance.space_id = self.kwargs["pk"]
         form.instance.user = self.request.user
+
+        booking = form.save(commit=False)
+        booking.total_price_calculate()
+        booking.save()
+
         return super().form_valid(form)
 
 
