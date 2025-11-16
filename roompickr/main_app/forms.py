@@ -14,7 +14,7 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["name", "email", "gender"]
+        fields = ["full_name", "email", "avatar", "gender"]
 
     # reference: https://django-oscar.readthedocs.io/en/3.1/_modules/oscar/apps/customer/forms.html
     def clean_email(self):

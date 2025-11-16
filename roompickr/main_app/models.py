@@ -22,8 +22,9 @@ GENDERS=(
 class Profile(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100)
     email= models.EmailField(max_length=245)
+    avatar = models.ImageField(upload_to='main_app/static/profile/', default='')
     gender= models.CharField(max_length=1, choices=GENDERS, default=GENDERS[0][0])
 
     def __str__(self):

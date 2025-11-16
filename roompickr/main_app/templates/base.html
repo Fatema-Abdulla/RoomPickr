@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>Room Pickr</title>
 
   </head>
@@ -26,6 +26,7 @@
             <li><a href="{% url 'spaces_create' %}">Add a Space</a></li>
             {% endif %}
             <li><a href="{% url 'questions' %}">Community</a></li>
+            <li><a href="{% url 'change_password' %}">Change Password</a></li>
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
@@ -33,6 +34,9 @@
               </form>
             </li>
           {% else %}
+            <li>
+              <p>&nbsp;&nbsp;roompickr</p>
+            </li>
             <li><a href="{% url 'login' %}">Login</a></li>
             <li><a href="{% url 'signup' %}">Signup</a></li>
           {% endif %}

@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Space List</h1>
+<form action="{% url 'search_results' %}" method="get">
+  {% csrf_token %}
+  <input name="q" type="text" placeholder="Search...">
+</form>
 {% for space in spaces %}
   <a href="{% url 'detail' space.id %}">
     <div>

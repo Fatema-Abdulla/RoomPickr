@@ -10,6 +10,7 @@ from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
 
+
 # Create your views here.
 @login_required
 def home(request):
@@ -40,7 +41,6 @@ def signup(request):
     context = {"form": form, "error_message": error_message}
     return render(request, "registration/signup.html", context)
 
-
 @login_required
 def profile(request):
     profiles = Profile.objects.filter(user=request.user)
@@ -53,7 +53,7 @@ def update_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     if request.method == "POST":
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             profile_form.save()
@@ -271,3 +271,14 @@ class start_booking(LoginRequiredMixin, CreateView):
 
 class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
+
+class SearchResultsView(ListView):
+    model = Space
+    template_name = "search_results.html"
+
+    def get_queryset(self):  
+        query = self.request.GET.get("q")
+        object_list = Space.objects.filter(
+            type__icontains=query
+        )
+        return object_list
