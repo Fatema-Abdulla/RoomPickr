@@ -1,0 +1,9 @@
+<h1>Search Results</h1>
+
+<ul>
+  {% for space in object_list %}
+    <li>
+      {{ space.name }}, {{ space.get_type_display }}
+    </li>
+  {% endfor %}
+</ul>

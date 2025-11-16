@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
+from django.db.models import Q
 
 
 # Create your views here.
@@ -272,13 +273,20 @@ class start_booking(LoginRequiredMixin, CreateView):
 class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
 
+# reference: https://stackoverflow.com/questions/33726759/dropdown-select-option-to-filter-a-django-list
 class SearchResultsView(ListView):
     model = Space
-    template_name = "search_results.html"
 
-    def get_queryset(self):  
-        query = self.request.GET.get("q")
-        object_list = Space.objects.filter(
-            type__icontains=query
-        )
+    def get_queryset(self):
+        if self.request.GET.get('type'):
+            selected_type = self.request.GET.get('type')
+            object_list = Space.objects.filter(type=selected_type)
+        else:
+            object_list = Space.objects.all()
+
         return object_list
+
+
+
+
+
