@@ -34,7 +34,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("index")
+            return redirect("profile")
         else:
             error_message = "Invalid Sign Up, Try again later..."
     form = UserCreationForm()
@@ -72,14 +72,14 @@ def update_profile(request, profile_id):
 
 
 @login_required
-def space_index(request):
+def your_spaces(request):
     spaces = Space.objects.filter(user=request.user)
-    return render(request, "spaces/index.html", {"spaces": spaces})
+    return render(request, "spaces/your_space.html", {"spaces": spaces})
 
 @login_required
 def space_all(request):
     spaces = Space.objects.all()
-    return render(request, "spaces/index.html", {"spaces": spaces})
+    return render(request, "spaces/all_space.html", {"spaces": spaces})
 
 
 @login_required
@@ -158,8 +158,14 @@ def delete_image(request, space_id, image_id):
     return redirect("detail", space_id)
 
 @login_required
-def questions(request):
+def your_questions(request):
     questions = Question.objects.filter(user=request.user)
+    question_form = QuestionForm()
+    return render(request, "community/your_question.html", {"questions": questions, "question_form": question_form})
+
+@login_required
+def questions(request):
+    questions = Question.objects.all()
     question_form = QuestionForm()
     return render(request, "community/question.html", {"questions": questions, "question_form": question_form})
 

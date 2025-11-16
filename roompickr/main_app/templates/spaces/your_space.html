@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Space List</h1>
+<h1>Your Space List</h1>
 {% for space in spaces %}
   <a href="{% url 'detail' space.id %}">
     <div>

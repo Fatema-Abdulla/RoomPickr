@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/profile/', views.profile, name='profile'),
     path('accounts/profile/<int:profile_id>/update/', views.update_profile, name='update_profile'),
 
-    path("spaces/your_space", views.space_index, name="spaces_index"),
+    path("spaces/your_spaces", views.your_spaces, name="your_spaces"),
     path("spaces/", views.space_all, name="space_all"),
     path("spaces/<int:space_id>/detail/", views.space_detail, name="detail"),
     path("spaces/create/", views.SpaceCreate.as_view(), name="spaces_create"),
@@ -23,6 +23,7 @@ urlpatterns = [
     path('spaces/<int:space_id>/delete_image/<int:image_id>/', views.delete_image, name='delete_image'),
 
     path('community/', views.questions, name='questions'),
+    path('community/your_questions', views.your_questions, name='your_questions'),
     path('community/questions/<int:user_id>/', views.add_question, name='add_question'),
     path('community/question_detail/<int:question_id>/', views.question_detail, name='question_detail'),
     path('community/question_detail/<int:pk>/update_question/', views.QuestionUpdate.as_view(), name='update_question'),
