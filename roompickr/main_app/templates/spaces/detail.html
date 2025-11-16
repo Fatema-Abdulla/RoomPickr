@@ -23,10 +23,21 @@
     <input type="submit" value="Add Feedback" class="btn" />
   </form>
 </div>
+
 <div>
   {% if space.feedback_set.count %} {% for feedback in space.feedback_set.all %}
   <span>{{feedback.created_at}}</span>
   <h4>{{feedback.comment}}</h4>
+  <div>
+    <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post">
+      {% csrf_token %}
+      <textarea name="comment">{{feedback.comment}}</textarea>
+       <input type="submit" value="Edit" class="btn" />
+    </form>
+    <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete"/>
+          </form>
   {% endfor %} {% endif %}
 </div>
 <hr />
@@ -71,4 +82,9 @@
   {% endfor %} {% endif %}
 </div>
 
+  </div>
+</div>
+<button>
+  <a href="{% url 'start_booking' space.id  %}">start booking</a>
+</button>
 {% endblock %}

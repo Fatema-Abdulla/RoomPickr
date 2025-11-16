@@ -17,6 +17,12 @@ urlpatterns = [
     path("spaces/<int:pk>/delete/", views.SpaceDelete.as_view(), name="spaces_delete"),
 
     path('spaces/<int:space_id>/add_feedback/<int:user_id>/', views.add_feedback, name='add_feedback'),
+    #edit
+    path('spaces/<int:space_id>/edit_feedback/<int:feedback_id>/', views.edit_feedback, name='edit_feedback'),
+    path('spaces/<int:space_id>/delete_feedback/<int:feedback_id>/', views.delete_feedback, name='delete_feedback'),
+
+    path('spaces/<int:pk>/booking/', views.start_booking.as_view(), name='start_booking' ),
+    path('space/<int:pk>/booking_detail/', views.BookingDetail.as_view(), name='booking_detail'),
 
     path('spaces/<int:space_id>/add_image/', views.add_image, name='add_image'),
     path('spaces/<int:space_id>/update_image/<int:image_id>/', views.update_image, name='update_image'),
