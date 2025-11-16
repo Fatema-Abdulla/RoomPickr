@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+# https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
+from django.core.validators import MinValueValidator
 
 
 TYPES=(
@@ -31,9 +33,9 @@ class Profile(models.Model):
 class Space(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    capacity= models.IntegerField()
+    capacity= models.IntegerField(default=1, validators=[MinValueValidator(1)])
     type= models.CharField(max_length=1, choices=TYPES, default=TYPES[0][0])
-    price_per_hour= models.IntegerField()
+    price_per_hour= models.IntegerField(default=1, validators=[MinValueValidator(1)])
     user= models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -43,7 +45,7 @@ class Space(models.Model):
         return reverse("detail", kwargs={"space_id" : self.id})
 
 class Image(models.Model):
-    image= models.ImageField(upload_to='main_app/static/uploads/', default='')
+    image_space = models.ImageField(upload_to='main_app/static/uploads/', default='')
     caption = models.TextField(max_length=150)
     space=models.ForeignKey(Space, on_delete=models.CASCADE)
 
@@ -87,6 +89,9 @@ class Question(models.Model):
 
     def __str__(self):
         return f'{self.title} from {self.user.username}'
+
+    def get_absolute_url(self):
+        return reverse("question_detail", kwargs={"question_id" : self.id})
 
 class Answer(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)

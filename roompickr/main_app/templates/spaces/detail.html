@@ -8,10 +8,12 @@
       <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
       <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
       <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}}</h4>
+      {% if user.is_superuser %}
       <div>
         <a href="{% url 'spaces_update' space.id %}">Edit</a>
         <a href="{% url 'spaces_delete' space.id %}">Delete</a>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -36,6 +38,49 @@
             {% csrf_token %}
             <input type="submit" value="Delete"/>
           </form>
+  {% endfor %} {% endif %}
+</div>
+<hr />
+{% if user.is_superuser %}
+<div>
+  <form
+    action="{% url 'add_image' space.id %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %} {{ image_form.as_p }}
+    <input type="submit" value="Add a new image" class="btn" />
+  </form>
+</div>
+{% endif %}
+<div>
+  <br />
+  {% if space.image_set.count %} {% for image in space.image_set.all %}
+  {% load static %}
+  <img src={% static image.image_space|cut:'main_app/static/' %}
+  alt="this for {{space.name}}" width="150"/>
+  <h4>{{image.caption}}</h4>
+  {% if user.is_superuser %}
+    <form
+      action="{% url 'update_image' space.id image.id %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <input type="file" name="image_space" accept="image/*"/><br /><br/>
+      <textarea name="caption">{{ image.caption}}</textarea>
+      <input type="submit" value="Update" />
+    </form>
+  <form
+    action="{% url 'delete_image' space.id image.id %}"
+    method="post"
+  >
+    {% csrf_token %}
+    <input type="submit" value="Delete" />
+  </form>
+  {% endif %}
+  {% endfor %} {% endif %}
+</div>
 
   </div>
   {% endfor %} {% endif %}
