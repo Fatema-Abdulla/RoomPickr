@@ -78,6 +78,12 @@ class Booking(models.Model):
     def get_absolute_url(self):
         return reverse("booking_detail", kwargs={"pk": self.id})
 
+    def total_price_calculate(self):
+        total = self.end - self.start
+        hours = total.total_seconds() / 3600
+        self.total_price = int(hours * self.space.price_per_hour)
+        return self.total_price
+
 
 
 

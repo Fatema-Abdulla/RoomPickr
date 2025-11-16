@@ -5,23 +5,21 @@
 <div>
   <form action="" method="post">
     {% csrf_token %}
-    <input id="id_start" name="start" type="datetime-local" />
-    <input id="id_end" name="end" type="datetime-local" />
-    <input id="price" type="number" name="total_price" />
+    <input id="id_start" name="start" type="datetime-local"/> <br />
+    <input id="id_end" name="end" type="datetime-local" /> <br/>
+    <p>Price per hour: <span id="price">{{price_per_hour}}</span> BHD</p>
+    <p>Total Price: <span id="total_price">0</span> BHD</p> <br />
     <input type="submit" value="Book Your Space" class="btn" />
   </form>
 </div>
 
 <script>
-  // document.querySelector("#price").disabled = true
-  document.querySelector("#price").readOnly = true
+  const pricePerHour = document.querySelector("#price")
+  let totalPrice = document.querySelector("#total_price")
 
   let today = new Date().toISOString().slice(0, 16)
   document.querySelector("#id_start").min = today
   document.querySelector("#id_end").min = today
-
-  const pricePerHour = 20
-  let finalResult = null
 
   const pricingCalculation = () => {
    let startTime = document.querySelector("#id_start").value
@@ -29,18 +27,11 @@
 
   let result = (new Date(endTime) - new Date(startTime)) / (1000 * 3600)
 
-   finalResult = result * pricePerHour
+  totalPrice = result * pricePerHour
 
-  document.querySelector("#price").value =finalResult
+  document.querySelector("#price").value = totalPrice
   }
 
-
-
-  //https://bobbyhadz.com/blog/javascript-get-number-of-months-between-two-dates
-  //https://orangeable.com/javascript/date-calc
-  //https://labex.io/tutorials/date-difference-in-hours-28236
-  //https://stackoverflow.com/questions/54732299/disable-previous-todays-previous-time-in-html-input-datetime-local-picker
-  //https://stackoverflow.com/questions/69969151/how-to-disable-previous-date-using-html5-datetime-local-input
 </script>
 
 {%endblock%}
