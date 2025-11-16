@@ -248,16 +248,26 @@ class start_booking(LoginRequiredMixin, CreateView):
     model = Booking
     fields = ['start', 'end']
 
+    # reference: https://docs.djangoproject.com/en/5.2/topics/class-based-views/generic-display/
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        space = Space.objects.get(id=self.kwargs["pk"])
+        context["price_per_hour"] = space.price_per_hour
+        return context
+
     def form_valid(self, form):
         form.instance.space_id = self.kwargs["pk"]
         form.instance.user = self.request.user
-
         booking = form.save(commit=False)
         booking.total_price_calculate()
         booking.save()
 
         return super().form_valid(form)
 
+
+
+
+# how get data from database ....
 
 class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
