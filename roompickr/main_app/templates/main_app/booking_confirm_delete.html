@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Delete your booking </h1>
+
+<h4>are you sure you want to delete your {{booking.space.name}} Booking </h4>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes - Delete!"/>
+    <a href="{% url 'booking_detail' booking.id %}">Cancel</a>
+  </form>
+</div>
+
+{% endblock %}
