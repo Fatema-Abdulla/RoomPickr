@@ -91,7 +91,7 @@ class Booking(models.Model):
             raise ValidationError("End date must be after Start Date!")
 
         if self.start and self.end:
-            booking_validation_stop_overlapping =Booking.objects.filter(start__lte=self.end, end__gte=self.start, space=self.space).exclude(id=self.id)
+            booking_validation_stop_overlapping =Booking.objects.filter(start__lte=self.end, end__gte=self.start, space=self.space_id).exclude(id=self.id)
             if booking_validation_stop_overlapping:
                 raise ValidationError('times overlap with existing record!')
 
