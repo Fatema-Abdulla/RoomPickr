@@ -17,5 +17,6 @@ urlpatterns = [
 
     path('spaces/<int:space_id>/add_feedback/<int:user_id>/', views.add_feedback, name='add_feedback'),
 
+
 ]
 
