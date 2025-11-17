@@ -37,5 +37,6 @@ urlpatterns = [
     path('community/answers/<int:user_id>/<int:question_id>/', views.add_answer, name='add_answer'),
     path('community/update_answers/<int:answer_id>/<int:question_id>/', views.update_answer, name='update_answer'),
     path('community/delete_answers/<int:answer_id>/<int:question_id>/', views.delete_answer, name='delete_answer'),
+    path("spaces/booking_history", views.booking_history, name="booking_history"),
 ]
 

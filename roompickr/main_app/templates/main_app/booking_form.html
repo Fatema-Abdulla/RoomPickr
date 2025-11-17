@@ -4,11 +4,11 @@
 
 <div>
   <form action="" method="post">
-    {% csrf_token %}
+    {{ form.non_field_errors }} {% csrf_token %}
     <input id="id_start" name="start" type="datetime-local" /> <br />
     <input id="id_end" name="end" type="datetime-local" /> <br />
     <p>Price per hour: <span id="price">{{price_per_hour}}</span> BHD</p>
-    <button class="time" type="button">Submit time</button>
+    <button class="time" type="button">Check Total price</button>
     <p>Total Price: <span id="total_price">0</span> BHD</p>
     <br />
     <input type="submit" value="Book Your Space" class="btn" />
@@ -28,7 +28,7 @@
     let endTime = document.querySelector("#id_end").value
     if (!startTime || !endTime) return
     let result = (new Date(endTime) - new Date(startTime)) / (1000 * 3600)
-    console.log("result", result)
+
     // convert price per hour to number
     let price = Number(pricePerHour.innerText)
 
