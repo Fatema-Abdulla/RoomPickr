@@ -7,4 +7,6 @@
 <p>Start At : {{booking.start}}</p>
 <p>Ends At : {{booking.end}}</p>
 <p>Total Price {{booking.total_price}} BHD</p>
+
+<a href="{% url 'delete_booking' booking.id %}">delete booking</a>
 {%endblock%}

@@ -140,7 +140,7 @@ def edit_feedback(request, space_id, feedback_id):
         new_feedback.save()
     return redirect('detail', space_id)
 
-#delete feedback
+
 
 def delete_feedback(request, space_id, feedback_id):
     feedback = Feedback.objects.get(id=feedback_id)
@@ -271,7 +271,7 @@ class start_booking(LoginRequiredMixin, CreateView):
             form.add_error(None, validation_msg)
             return self.form_invalid(form)
 
-        #saad's way end date - start date if else
+
         booking.total_price_calculate()
         booking.save()
 
@@ -296,3 +296,7 @@ class SearchResultsView(ListView):
 def booking_history(request):
     booking = Booking.objects.filter(user=request.user)
     return render(request, "spaces/your_booking.html", {"booking": booking})
+
+class DeleteBooking(LoginRequiredMixin, DeleteView):
+    model = Booking
+    success_url = "/spaces/"
