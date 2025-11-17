@@ -28,7 +28,6 @@
   {% if space.feedback_set.count %} {% for feedback in space.feedback_set.all %}
   <span>{{feedback.created_at}}</span>
   <h4>{{feedback.comment}}</h4>
-  {% if feedback.user == request.user %}
   <div>
     <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post">
       {% csrf_token %}
@@ -41,7 +40,6 @@
           </form>
   {% endfor %} {% endif %}
 </div>
-{% endif %}
 <hr />
 {% if user.is_superuser %}
 <div>

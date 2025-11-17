@@ -260,8 +260,7 @@ class start_booking(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         booking = form.save(commit=False)
         booking.clean()
-        #saad's way end date - start date if else 
-        booking.total_price_calculate()
+git         booking.total_price_calculate()
         booking.save()
 
         return super().form_valid(form)
