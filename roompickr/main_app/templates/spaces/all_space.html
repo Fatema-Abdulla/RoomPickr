@@ -7,8 +7,12 @@
     <option value="H">Hall</option>
     <option value="M">Meeting Room</option>
   </select>
-  <button type="submit">Search</button>
+  <button type="submit">Filter</button>
 </form>
+{% if user.is_superuser %}
+<a href="{% url 'your_spaces' %}">Control Spaces</a><br/>
+<a href="{% url 'spaces_create' %}">Add a Space</a><br/><br/>
+{% endif %}
 {% for space in spaces %}
   <a href="{% url 'detail' space.id %}">
     <div>
