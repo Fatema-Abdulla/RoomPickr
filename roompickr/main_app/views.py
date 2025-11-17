@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
-from django.db.models import Q
+from django_xhtml2pdf.utils import generate_pdf
 
 
 # Create your views here.
@@ -281,7 +281,7 @@ class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
 
 # reference: https://stackoverflow.com/questions/33726759/dropdown-select-option-to-filter-a-django-list
-class SearchResultsView(ListView):
+class SearchResultsView(LoginRequiredMixin, ListView):
     model = Space
 
     def get_queryset(self):
@@ -293,6 +293,7 @@ class SearchResultsView(ListView):
 
         return object_list
 
+@login_required
 def booking_history(request):
     booking = Booking.objects.filter(user=request.user)
     return render(request, "spaces/your_booking.html", {"booking": booking})
@@ -300,3 +301,14 @@ def booking_history(request):
 class DeleteBooking(LoginRequiredMixin, DeleteView):
     model = Booking
     success_url = "/spaces/"
+
+# reference: https://spapas.github.io/2015/11/27/pdf-in-django/
+@login_required
+def invoice_booking(request, book_id):
+    booking = Booking.objects.filter(id=book_id)
+
+    resp = HttpResponse(content_type='application/pdf')
+    resp['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+    result = generate_pdf('main_app/invoice.html', file_object=resp, context={'booking': booking})
+    return result
+

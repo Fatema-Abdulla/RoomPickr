@@ -5,7 +5,7 @@
 #### [Jameela Mohammed GitHub](https://github.com/jamsaeed)
 ***
 ### Description
-An innovative platform for booking spaces, designed to provide a safe, flexible, and inclusive environment for everyone. Users can easily explore and reserve meeting rooms, workspaces, study halls, or event venues with confidence and convenience. The platform empowers individuals to access comfortable spaces tailored to their needs—whether for work, study, or social gatherings—through a seamless and reliable booking experience.
+An innovative platform for booking spaces, designed to provide a safe, flexible, and inclusive environment for everyone. Users can easily explore and reserve meeting rooms, workspaces, or study halls with confidence and convenience. The platform empowers individuals to access comfortable spaces tailored to their needs—whether for work, study, or social gatherings—through a seamless and reliable booking experience.
 ### ***Technologies***
 * Frontend
   * HTML
@@ -28,7 +28,7 @@ An innovative platform for booking spaces, designed to provide a safe, flexible,
 ### ***Futures***
 * Users can select their role during registration
 * Hosts can upload video previews for their spaces.
-* Spaces can be filtered by type (e.g., meeting, study, office).
+* "Spaces can be filtered by various criteria, such as type (e.g., meeting, hall, office), capacity, address."
 * Users can mark spaces as favorites for quick access.
 * Promo codes can be applied during the booking process.
 ***
