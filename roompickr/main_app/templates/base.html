@@ -27,6 +27,7 @@
             {% endif %}
             <li><a href="{% url 'questions' %}">Community</a></li>
             <li><a href="{% url 'change_password' %}">Change Password</a></li>
+            <li><a href="{% url 'contact_us' %}">Contact us</a></li>
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}

@@ -23,6 +23,10 @@ def about(request):
     return render(request, "about.html")
 
 
+@login_required
+def contact_us(request):
+    return render(request, "contact.html")
+
 # @login_required
 # def rooms_index(request):
 #     return render (request, 'rooms/index.html')

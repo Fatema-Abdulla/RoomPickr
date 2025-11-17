@@ -6,6 +6,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
+    path('contact-us/', views.contact_us, name='contact_us'),
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/profile/', views.profile, name='profile'),
     path('accounts/profile/<int:profile_id>/update/', views.update_profile, name='update_profile'),
