@@ -109,7 +109,7 @@ class SpaceCreate(LoginRequiredMixin, CreateView):
 
 class SpaceUpdate(LoginRequiredMixin, UpdateView):
     model = Space
-    fields = "__all__"
+    fields = ["name", "address", "capacity", "type", "price_per_hour"]
 
 
 class SpaceDelete(LoginRequiredMixin, DeleteView):
