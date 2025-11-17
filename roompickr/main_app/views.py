@@ -265,8 +265,8 @@ class start_booking(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         booking = form.save(commit=False)
 
+        # This part form ai
         validation_msg = booking.clean()
-
         if validation_msg:
             form.add_error(None, validation_msg)
             return self.form_invalid(form)
