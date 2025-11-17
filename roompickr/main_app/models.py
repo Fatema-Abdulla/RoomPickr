@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 # reference: https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
 from django.core.validators import MinValueValidator
-from django.core.exceptions import ValidationError
 
 
 
@@ -70,7 +69,6 @@ class Feedback(models.Model):
 class Booking(models.Model):
     start=models.DateTimeField(null=True)
     end=models.DateTimeField(null=True)
-    status=models.CharField(max_length=10, default='pending') #under test
     total_price=models.IntegerField()
     space=models.ForeignKey(Space, on_delete=models.CASCADE)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
@@ -88,13 +86,13 @@ class Booking(models.Model):
         return self.total_price
 
     def clean(self):
-        if self.end < self.start:
-            raise ValidationError("End date must be after Start Date!")
+        if self.end <= self.start:
+            return "End date must be after Start Date!"
 
         if self.start and self.end:
             booking_validation_stop_overlapping =Booking.objects.filter(start__lte=self.end, end__gte=self.start, space=self.space_id).exclude(id=self.id)
             if booking_validation_stop_overlapping:
-                raise ValidationError('times overlap with existing record!')
+                return "Times overlap with existing record!"
 
 
 
