@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-# https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
+# reference: https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 
@@ -24,8 +24,9 @@ GENDERS=(
 class Profile(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100)
     email= models.EmailField(max_length=245)
+    avatar = models.ImageField(upload_to='main_app/static/profile/', default='')
     gender= models.CharField(max_length=1, choices=GENDERS, default=GENDERS[0][0])
 
     def __str__(self):

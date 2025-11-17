@@ -4,8 +4,15 @@
   <h2>Profile for {{user.username}}</h2>
 
   {% for profile in profiles %}
-    {% if profile.name and profile.email %}
-      <p>Full Name: {{profile.name}}</p>
+    {% if profile.avatar %}
+    {% load static %}
+      <img src={% static profile.avatar|cut:'main_app/static/' %}
+  alt="this for {{profile.full_name}}" width="150"/>
+  {% else %}
+  <p>Don't have avatar</p>
+  {% endif %}
+    {% if profile.full_name and profile.email %}
+      <p>Full Name: {{profile.full_name}}</p>
       <p>Email: {{profile.email}}</p>
     {% else %}
       <p>Full Name: Empty </p>

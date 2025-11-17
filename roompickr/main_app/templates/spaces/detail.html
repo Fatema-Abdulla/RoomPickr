@@ -7,7 +7,7 @@
       <h4><strong>Address:</strong> {{ space.address }}</h4>
       <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
       <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
-      <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}}</h4>
+      <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}} BHD</h4>
       {% if user.is_superuser %}
       <div>
         <a href="{% url 'spaces_update' space.id %}">Edit</a>
@@ -29,19 +29,20 @@
   <span>{{feedback.created_at}}</span>
   <h4>{{feedback.comment}}</h4>
   {% if feedback.user == request.user %}
-  <div>
     <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post">
       {% csrf_token %}
       <textarea name="comment">{{feedback.comment}}</textarea>
-       <input type="submit" value="Edit" class="btn" />
+      <input type="submit" value="Edit" class="btn" />
     </form>
     <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
             {% csrf_token %}
             <input type="submit" value="Delete"/>
           </form>
-  {% endfor %} {% endif %}
+          {% endif %}
+
+
+          {% endfor %} {% endif %}
 </div>
-{% endif %}
 <hr />
 {% if user.is_superuser %}
 <div>
@@ -84,7 +85,6 @@
   {% endfor %} {% endif %}
 </div>
 
-  </div>
 </div>
 <button>
   <a href="{% url 'start_booking' space.id  %}">start booking</a>
