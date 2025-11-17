@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Space List</h1>
+<form action="{% url 'search_results' %}" method="get">
+  <select name="type">
+    <option value="O">Office</option>
+    <option value="H">Hall</option>
+    <option value="M">Meeting Room</option>
+  </select>
+  <button type="submit">Search</button>
+</form>
 {% for space in spaces %}
   <a href="{% url 'detail' space.id %}">
     <div>

@@ -9,6 +9,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
+from django.db.models import Q
+
 
 # Create your views here.
 @login_required
@@ -20,6 +22,10 @@ def home(request):
 def about(request):
     return render(request, "about.html")
 
+
+@login_required
+def contact_us(request):
+    return render(request, "contact.html")
 
 # @login_required
 # def rooms_index(request):
@@ -40,7 +46,6 @@ def signup(request):
     context = {"form": form, "error_message": error_message}
     return render(request, "registration/signup.html", context)
 
-
 @login_required
 def profile(request):
     profiles = Profile.objects.filter(user=request.user)
@@ -53,7 +58,7 @@ def update_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     if request.method == "POST":
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             profile_form.save()
@@ -104,7 +109,7 @@ class SpaceCreate(LoginRequiredMixin, CreateView):
 
 class SpaceUpdate(LoginRequiredMixin, UpdateView):
     model = Space
-    fields = "__all__"
+    fields = ["name", "address", "capacity", "type", "price_per_hour"]
 
 
 class SpaceDelete(LoginRequiredMixin, DeleteView):
@@ -259,8 +264,15 @@ class start_booking(LoginRequiredMixin, CreateView):
         form.instance.space_id = self.kwargs["pk"]
         form.instance.user = self.request.user
         booking = form.save(commit=False)
-        booking.clean()
-git         booking.total_price_calculate()
+
+        validation_msg = booking.clean()
+
+        if validation_msg:
+            form.add_error(None, validation_msg)
+            return self.form_invalid(form)
+
+        #saad's way end date - start date if else
+        booking.total_price_calculate()
         booking.save()
 
         return super().form_valid(form)
@@ -268,6 +280,18 @@ git         booking.total_price_calculate()
 class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
 
+# reference: https://stackoverflow.com/questions/33726759/dropdown-select-option-to-filter-a-django-list
+class SearchResultsView(ListView):
+    model = Space
+
+    def get_queryset(self):
+        if self.request.GET.get('type'):
+            selected_type = self.request.GET.get('type')
+            object_list = Space.objects.filter(type=selected_type)
+        else:
+            object_list = Space.objects.all()
+
+        return object_list
 
 def booking_history(request):
     booking = Booking.objects.filter(user=request.user)

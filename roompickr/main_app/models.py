@@ -1,9 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-# https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
+# reference: https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
 from django.core.validators import MinValueValidator
-from django.core.exceptions import ValidationError
 
 
 
@@ -24,8 +23,9 @@ GENDERS=(
 class Profile(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100)
     email= models.EmailField(max_length=245)
+    avatar = models.ImageField(upload_to='main_app/static/profile/', default='')
     gender= models.CharField(max_length=1, choices=GENDERS, default=GENDERS[0][0])
 
     def __str__(self):
@@ -69,7 +69,6 @@ class Feedback(models.Model):
 class Booking(models.Model):
     start=models.DateTimeField(null=True)
     end=models.DateTimeField(null=True)
-    status=models.CharField(max_length=10, default='pending') #under test
     total_price=models.IntegerField()
     space=models.ForeignKey(Space, on_delete=models.CASCADE)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
@@ -87,13 +86,13 @@ class Booking(models.Model):
         return self.total_price
 
     def clean(self):
-        if self.end < self.start:
-            raise ValidationError("End date must be after Start Date!")
+        if self.end <= self.start:
+            return "End date must be after Start Date!"
 
         if self.start and self.end:
             booking_validation_stop_overlapping =Booking.objects.filter(start__lte=self.end, end__gte=self.start, space=self.space_id).exclude(id=self.id)
             if booking_validation_stop_overlapping:
-                raise ValidationError('times overlap with existing record!')
+                return "Times overlap with existing record!"
 
 
 
