@@ -9,8 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
-from django.db.models import Q
-
+from xhtml2pdf import pisa
 
 # Create your views here.
 @login_required
