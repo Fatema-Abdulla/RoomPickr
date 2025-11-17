@@ -264,15 +264,12 @@ class start_booking(LoginRequiredMixin, CreateView):
         form.instance.space_id = self.kwargs["pk"]
         form.instance.user = self.request.user
         booking = form.save(commit=False)
+        booking.clean()
+        #saad's way end date - start date if else
         booking.total_price_calculate()
         booking.save()
 
         return super().form_valid(form)
-
-
-
-
-# how get data from database ....
 
 class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
@@ -290,7 +287,6 @@ class SearchResultsView(ListView):
 
         return object_list
 
-
-
-
-
+def booking_history(request):
+    booking = Booking.objects.filter(user=request.user)
+    return render(request, "spaces/your_booking.html", {"booking": booking})

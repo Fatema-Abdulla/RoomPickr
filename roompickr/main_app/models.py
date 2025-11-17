@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 # reference: https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
+
 
 
 TYPES=(
@@ -85,6 +87,14 @@ class Booking(models.Model):
         self.total_price = int(hours * self.space.price_per_hour)
         return self.total_price
 
+    def clean(self):
+        if self.end < self.start:
+            raise ValidationError("End date must be after Start Date!")
+
+        if self.start and self.end:
+            booking_validation_stop_overlapping =Booking.objects.filter(start__lte=self.end, end__gte=self.start, space=self.space_id).exclude(id=self.id)
+            if booking_validation_stop_overlapping:
+                raise ValidationError('times overlap with existing record!')
 
 
 
