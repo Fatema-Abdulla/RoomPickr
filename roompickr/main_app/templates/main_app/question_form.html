@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-  {% if space %}
-    <h1>Edit <span>{{space.name}}</span></h1>
-  {% else %}
-    <h1>Add Space</h1>
-  {% endif %}
+    <h1>Edit <span>{{question.title}}</span></h1>
   <form action="" method="post">
     {% csrf_token %}
-      {{ form.as_p }}
+    <table>
+      {{ form.as_table }}
+    </table>
     <input type="submit" value="Submit!">
   </form>
 </div>

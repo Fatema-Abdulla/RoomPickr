@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Room Pickr</title>
 
   </head>
@@ -19,8 +20,14 @@
             </li>
             <li><a href="{%url 'about'%}">About</a></li>
             <li><a href="{%url 'profile'%}">Profile</a></li>
-            <li><a href="{% url 'spaces_index' %}">View All Spaces</a></li>
+            <li><a href="{% url 'space_all' %}">View All Spaces</a></li>
+            {% if user.is_superuser %}
+            <li><a href="{% url 'your_spaces' %}">View Your Spaces</a></li>
             <li><a href="{% url 'spaces_create' %}">Add a Space</a></li>
+            <li><a href="{% url 'booking_history' %}">Booking History</a></li>
+
+            {% endif %}
+            <li><a href="{% url 'questions' %}">Community</a></li>
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}

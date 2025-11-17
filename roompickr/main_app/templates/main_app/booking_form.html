@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>book your space</h1>
+
+<div>
+  <form action="" method="post">
+    {{ form.non_field_errors }} {% csrf_token %}
+    <input id="id_start" name="start" type="datetime-local" /> <br />
+    <input id="id_end" name="end" type="datetime-local" /> <br />
+    <p>Price per hour: <span id="price">{{price_per_hour}}</span> BHD</p>
+    <button class="time" type="button">Check Total price</button>
+    <p>Total Price: <span id="total_price">0</span> BHD</p>
+    <br />
+    <input type="submit" value="Book Your Space" class="btn" />
+  </form>
+</div>
+
+<script>
+  const pricePerHour = document.querySelector("#price")
+  const totalPrice = document.querySelector("#total_price")
+  const timeBtn = document.querySelector(".time")
+  let today = new Date().toISOString().slice(0, 16)
+  document.querySelector("#id_start").min = today
+  document.querySelector("#id_end").min = today
+
+  const pricingCalculation = () => {
+    let startTime = document.querySelector("#id_start").value
+    let endTime = document.querySelector("#id_end").value
+    if (!startTime || !endTime) return
+    let result = (new Date(endTime) - new Date(startTime)) / (1000 * 3600)
+
+    // convert price per hour to number
+    let price = Number(pricePerHour.innerText)
+
+    // calculate total
+    let total = result * price
+
+    // update total price field
+    totalPrice.innerText = total.toFixed(2)
+  }
+
+  timeBtn.addEventListener("click", pricingCalculation)
+</script>
+
+{%endblock%}

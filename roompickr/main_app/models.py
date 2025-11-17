@@ -1,6 +1,10 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+# https://stackoverflow.com/questions/42425933/how-do-i-set-a-default-max-and-min-value-for-an-integerfield-django
+from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
+
 
 
 TYPES=(
@@ -31,9 +35,9 @@ class Profile(models.Model):
 class Space(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    capacity= models.IntegerField()
+    capacity= models.IntegerField(default=1, validators=[MinValueValidator(1)])
     type= models.CharField(max_length=1, choices=TYPES, default=TYPES[0][0])
-    price_per_hour= models.IntegerField()
+    price_per_hour= models.IntegerField(default=1, validators=[MinValueValidator(1)])
     user= models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -43,7 +47,7 @@ class Space(models.Model):
         return reverse("detail", kwargs={"space_id" : self.id})
 
 class Image(models.Model):
-    image= models.ImageField(upload_to='main_app/static/uploads/', default='')
+    image_space = models.ImageField(upload_to='main_app/static/uploads/', default='')
     caption = models.TextField(max_length=150)
     space=models.ForeignKey(Space, on_delete=models.CASCADE)
 
@@ -61,6 +65,7 @@ class Feedback(models.Model):
     def __str__(self):
         return f'{self.space.name}, {self.user.username}'
 
+
 class Booking(models.Model):
     start=models.DateTimeField(null=True)
     end=models.DateTimeField(null=True)
@@ -72,6 +77,26 @@ class Booking(models.Model):
     def __str__(self):
         return f'booking {self.space.name} for {self.user.username}'
 
+    def get_absolute_url(self):
+        return reverse("booking_detail", kwargs={"pk": self.id})
+
+    def total_price_calculate(self):
+        total = self.end - self.start
+        hours = total.total_seconds() / 3600
+        self.total_price = int(hours * self.space.price_per_hour)
+        return self.total_price
+
+    def clean(self):
+        if self.end < self.start:
+            raise ValidationError("End date must be after Start Date!")
+
+        if self.start and self.end:
+            booking_validation_stop_overlapping =Booking.objects.filter(start__lte=self.end, end__gte=self.start, space=self.space_id).exclude(id=self.id)
+            if booking_validation_stop_overlapping:
+                raise ValidationError('times overlap with existing record!')
+
+
+
 class Question(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     title=models.CharField(max_length=150)
@@ -80,6 +105,9 @@ class Question(models.Model):
 
     def __str__(self):
         return f'{self.title} from {self.user.username}'
+
+    def get_absolute_url(self):
+        return reverse("question_detail", kwargs={"question_id" : self.id})
 
 class Answer(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)

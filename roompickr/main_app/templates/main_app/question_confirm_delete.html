@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+  <h1>Delete Space</h1>
+  <h4>
+    Are you sure you want to delete
+    <span>{{ question.title }}</span>?
+  </h4>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes - Delete!"/>
+    <a href="{% url 'question_detail' question.id %}">Cancel</a>
+  </form>
+</div>
+
+
+{% endblock %}
