@@ -264,7 +264,13 @@ class start_booking(LoginRequiredMixin, CreateView):
         form.instance.space_id = self.kwargs["pk"]
         form.instance.user = self.request.user
         booking = form.save(commit=False)
-        booking.clean()
+
+        validation_msg = booking.clean()
+
+        if validation_msg:
+            form.add_error(None, validation_msg)
+            return self.form_invalid(form)
+
         #saad's way end date - start date if else
         booking.total_price_calculate()
         booking.save()
