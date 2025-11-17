@@ -2,8 +2,10 @@
 
 <ul>
   {% for space in object_list %}
+  <a href="{% url 'detail' space.id %}">
     <li>
       {{ space.name }}, {{ space.get_type_display }}
     </li>
+  </a>
   {% endfor %}
 </ul>
