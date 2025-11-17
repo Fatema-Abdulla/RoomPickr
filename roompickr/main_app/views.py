@@ -11,6 +11,12 @@ from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
 from django_xhtml2pdf.utils import generate_pdf
 
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Create your views here.
 @login_required
@@ -271,10 +277,24 @@ class start_booking(LoginRequiredMixin, CreateView):
             form.add_error(None, validation_msg)
             return self.form_invalid(form)
 
-
         booking.total_price_calculate()
         booking.save()
 
+        # reference: https://sendlayer.com/blog/how-to-send-email-with-django/
+        def send_welcome_email():
+            subject = 'Thank You for Your Booking'
+            html_message = render_to_string('emails/booking_email.html')
+
+            email = EmailMessage(
+                subject=subject,
+                body=html_message,
+                to=[self.request.user.profile.email],
+            )
+
+            email.content_subtype = 'html'
+            email.send()
+
+        send_welcome_email()
         return super().form_valid(form)
 
 class BookingDetail(LoginRequiredMixin, DetailView):
@@ -302,6 +322,7 @@ class DeleteBooking(LoginRequiredMixin, DeleteView):
     model = Booking
     success_url = "/spaces/"
 
+# reference: library: https://pypi.org/project/django-xhtml2pdf/
 # reference: https://spapas.github.io/2015/11/27/pdf-in-django/
 @login_required
 def invoice_booking(request, book_id):
@@ -311,4 +332,3 @@ def invoice_booking(request, book_id):
     resp['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
     result = generate_pdf('main_app/invoice.html', file_object=resp, context={'booking': booking})
     return result
-
