@@ -1,21 +1,20 @@
 .nav-bar {
-  margin: 27px auto 0;
+  margin: 0 auto;
   position: relative;
   width: 100%;
   max-width: 1200px;
   height: 50px;
   background-color: #34495e;
-  border-radius: 8px;
   font-size: 0;
 }
-
 .nav-div {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
   position: relative;
+  padding: 0 20px;
 }
-
 .nav-div a,
 .nav-div .btn-logout {
   line-height: 50px;
@@ -32,98 +31,72 @@
   border: none;
   background: none;
   font-family: inherit;
+  transition: all .5s ease 0s;
+  padding: 0 15px;
 }
-
 .logo {
-  width: 150px;
   font-weight: bold;
+  margin-right: auto;
 }
-
-.about-pg {
-  width: 100px;
-}
-
-.profile-pg {
-  width: 110px;
-}
-
-.space-pg {
-  width: 130px;
-}
-
-.community-pg {
-  width: 140px;
-}
-
-.contact-pg {
-  width: 130px;
-}
-
-.login-pg {
-  width: 100px;
-}
-
+.about-pg,
+.profile-pg,
+.space-pg,
+.community-pg,
+.contact-pg,
+.login-pg,
 .signup-pg {
-  width: 110px;
+  margin: 0 20px;
 }
-
 .btn-logout {
-  width: 120px;
-  padding: 0;
+  margin-left: auto;
+  padding: 0 20px;
 }
-
 .nav-div form {
   display: inline-block;
   margin: 0;
+  margin-left: auto;
 }
-
 .logo:hover {
   background-color: #1abc9c;
 }
-
 .about-pg:hover {
   background-color: #e74c3c;
 }
-
 .profile-pg:hover {
   background-color: #3498db;
 }
-
 .space-pg:hover {
   background-color: #9b59b6;
 }
-
 .community-pg:hover {
   background-color: #e67e22;
 }
-
 .contact-pg:hover {
   background-color: #1abc9c;
 }
-
 .login-pg:hover {
   background-color: #e74c3c;
 }
-
 .signup-pg:hover {
   background-color: #3498db;
 }
-
 .btn-logout:hover {
   background-color: #e67e22;
 }
-
 body {
   font-size: 12px;
   font-family: sans-serif;
-  background:  #E3E9EE;
+  background: #E3E9EE;
   margin: 0;
   padding: 0;
+}
+header {
+  background: #34495e;
+  padding: 27px 0;
 }
 main {
   min-height: calc(100vh - 150px);
 }
-
 footer {
   position: relative;
   bottom: 0;
@@ -133,15 +106,13 @@ footer {
   font-family: 'Cherry Swash', cursive;
   font-size: 16px;
   padding: 20px 0;
+  background: #2c3e50;
 }
-
 footer div {
   color: #2BD6B4;
 }
-
-
 table {
-  width : 100%;
+  width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
@@ -150,11 +121,9 @@ th, td {
   border: 1px solid #836363;
   text-align: left;
 }
-
 thead {
   background-color: #836363;
 }
-
 section {
   padding: 2rem;
   background-color: #b97272;
