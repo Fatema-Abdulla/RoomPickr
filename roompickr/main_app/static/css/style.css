@@ -4,7 +4,7 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #fffaf4;
+  background: #FFFAF4;
 }
 
 body {
@@ -42,12 +42,7 @@ main {
 
 /* LOGO */
 .nav-logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: #fde19f;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-decoration: none;
+  width: 75px;
 }
 
 /* CENTER LINKS */

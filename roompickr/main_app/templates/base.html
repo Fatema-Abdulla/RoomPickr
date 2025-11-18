@@ -16,10 +16,8 @@
 
       {% if user.is_authenticated %}
 
-      <!-- Logo -->
-      <a href="{% url 'home'%}" class="nav-logo">roompickr</a>
+      <a href="{% url 'home'%}"><img src="/static/images/logo.png" alt="website-logo" class="nav-logo"/></a>
 
-      <!-- Center menu -->
       <div class="nav-links">
         <a href="{% url 'home' %}" class="nav-item">Home</a>
         <a href="{% url 'about' %}" class="nav-item">About</a>
@@ -29,7 +27,6 @@
         <a href="{% url 'contact_us' %}" class="nav-item">Contact</a>
       </div>
 
-      <!-- Logout button -->
       <form action="{% url 'logout' %}" method="post" class="logout-form">
         {% csrf_token %}
         <button type="submit" class="btn-logout">Logout</button>
@@ -37,7 +34,7 @@
 
       {% else %}
 
-      <a href="{% url 'home'%}" class="nav-logo">roompickr</a>
+      <a href="{% url 'home'%}"><img src="/static/images/logo.png" alt="website-logo" class="nav-logo"/></a>
 
       <div class="nav-links">
         <a href="{% url 'login' %}" class="nav-item">Login</a>
