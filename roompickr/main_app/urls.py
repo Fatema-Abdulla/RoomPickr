@@ -45,6 +45,7 @@ urlpatterns = [
     path('space/<int:pk>/booking_detail/', views.BookingDetail.as_view(), name='booking_detail'),
     path("spaces/booking_history", views.booking_history, name="booking_history"),
     path('spaces/delete_booking/<int:pk>/', views.DeleteBooking.as_view(), name='delete_booking'),
+    path('spaces/invoice_booking/<int:book_id>/', views.invoice_booking, name='invoice_booking'),
 
 ]
 

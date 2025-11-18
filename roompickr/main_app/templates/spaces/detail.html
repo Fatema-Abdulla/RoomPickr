@@ -1,5 +1,46 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Space Details</h1>
+{% if user.is_superuser %}
+<div>
+  <form
+    action="{% url 'add_image' space.id %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %} {{ image_form.as_p }}
+    <input type="submit" value="Add a new image" class="btn" />
+  </form>
+</div>
+{% endif %}
+<div>
+  <br />
+  {% if space.image_set.count %} {% for image in space.image_set.all %}
+  {% load static %}
+  <img src={% static image.image_space|cut:'main_app/static/' %}
+  alt="this for {{space.name}}" width="150"/>
+  <h4>{{image.caption}}</h4>
+  {% if user.is_superuser %}
+    <form
+      action="{% url 'update_image' space.id image.id %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <input type="file" name="image_space" accept="image/*"/><br /><br/>
+      <textarea name="caption">{{ image.caption}}</textarea>
+      <input type="submit" value="Update" />
+    </form>
+  <form
+    action="{% url 'delete_image' space.id image.id %}"
+    method="post"
+  >
+    {% csrf_token %}
+    <input type="submit" value="Delete" />
+  </form>
+  {% endif %}
+  {% endfor %} {% endif %}
+</div>
+
 <div>
   <div>
     <div>
@@ -44,47 +85,6 @@
           {% endfor %} {% endif %}
 </div>
 <hr />
-{% if user.is_superuser %}
-<div>
-  <form
-    action="{% url 'add_image' space.id %}"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %} {{ image_form.as_p }}
-    <input type="submit" value="Add a new image" class="btn" />
-  </form>
-</div>
-{% endif %}
-<div>
-  <br />
-  {% if space.image_set.count %} {% for image in space.image_set.all %}
-  {% load static %}
-  <img src={% static image.image_space|cut:'main_app/static/' %}
-  alt="this for {{space.name}}" width="150"/>
-  <h4>{{image.caption}}</h4>
-  {% if user.is_superuser %}
-    <form
-      action="{% url 'update_image' space.id image.id %}"
-      method="post"
-      enctype="multipart/form-data"
-    >
-      {% csrf_token %}
-      <input type="file" name="image_space" accept="image/*"/><br /><br/>
-      <textarea name="caption">{{ image.caption}}</textarea>
-      <input type="submit" value="Update" />
-    </form>
-  <form
-    action="{% url 'delete_image' space.id image.id %}"
-    method="post"
-  >
-    {% csrf_token %}
-    <input type="submit" value="Delete" />
-  </form>
-  {% endif %}
-  {% endfor %} {% endif %}
-</div>
-
 </div>
 <button>
   <a href="{% url 'start_booking' space.id  %}">start booking</a>

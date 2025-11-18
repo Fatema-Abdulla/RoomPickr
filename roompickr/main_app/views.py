@@ -9,7 +9,14 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
-from django.db.models import Q
+from django_xhtml2pdf.utils import generate_pdf
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
+import qrcode
+from io import BytesIO
+import base64
 
 
 # Create your views here.
@@ -265,23 +272,65 @@ class start_booking(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         booking = form.save(commit=False)
 
+        # This part form ai
         validation_msg = booking.clean()
-
         if validation_msg:
             form.add_error(None, validation_msg)
             return self.form_invalid(form)
 
-
         booking.total_price_calculate()
         booking.save()
 
+        # reference: https://sendlayer.com/blog/how-to-send-email-with-django/
+        def send_welcome_email():
+            # reference: https://pypi.org/project/qrcode/
+            # reference: https://mahmudtopu3.medium.com/send-qr-code-in-email-django-6b1aa0fee351
+            qr_data = (
+                f"Booking ID: {booking.id}\n"
+                f"User Name: {self.request.user.profile.full_name}\n"
+                f"Email: {self.request.user.profile.email}\n"
+                f"Start: {booking.start}\n"
+                f"End: {booking.end}\n"
+                f"Total Price: {booking.total_price}"
+            )
+
+            qr = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=10,
+                border=4,
+            )
+            qr.add_data(qr_data)
+            qr.make(fit=True)
+            img = qr.make_image(fill_color="black", back_color="white")
+            buffered = BytesIO()
+            img.save(buffered, format="PNG")
+            qr_image_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+            subject = 'Thank You for Your Booking'
+            html_message = render_to_string('emails/booking_email.html', {
+                'booking': booking,
+                'user': self.request.user,
+                'qr_code_image': qr_image_base64,
+            })
+
+            email = EmailMessage(
+                subject=subject,
+                body=html_message,
+                to=[self.request.user.profile.email],
+            )
+
+            email.content_subtype = 'html'
+            email.send()
+
+        send_welcome_email()
         return super().form_valid(form)
 
 class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
 
 # reference: https://stackoverflow.com/questions/33726759/dropdown-select-option-to-filter-a-django-list
-class SearchResultsView(ListView):
+class SearchResultsView(LoginRequiredMixin, ListView):
     model = Space
 
     def get_queryset(self):
@@ -293,6 +342,7 @@ class SearchResultsView(ListView):
 
         return object_list
 
+@login_required
 def booking_history(request):
     booking = Booking.objects.filter(user=request.user)
     return render(request, "spaces/your_booking.html", {"booking": booking})
@@ -300,3 +350,14 @@ def booking_history(request):
 class DeleteBooking(LoginRequiredMixin, DeleteView):
     model = Booking
     success_url = "/spaces/"
+
+# reference: library: https://pypi.org/project/django-xhtml2pdf/
+# reference: https://spapas.github.io/2015/11/27/pdf-in-django/
+@login_required
+def invoice_booking(request, book_id):
+    booking = Booking.objects.filter(id=book_id)
+
+    resp = HttpResponse(content_type='application/pdf')
+    resp['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+    result = generate_pdf('main_app/invoice.html', file_object=resp, context={'booking': booking})
+    return result

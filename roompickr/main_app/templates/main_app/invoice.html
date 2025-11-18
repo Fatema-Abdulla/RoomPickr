@@ -1,0 +1,16 @@
+
+<h1>Invoice</h1>
+<h3>Date: {% now "d-M-Y" %}</h3>
+<h3>Time: {% now "h:i:s" %}</h3>
+<hr />
+{% for book in booking %}
+<h1>Book NO: {{book.id}}</h1>
+<h2>booking details for {{book.space.name}}</h2>
+<p>Start At : {{book.start}}</p>
+<p>Ends At : {{book.end}}</p>
+<p>Total Price {{book.total_price}} BHD</p>
+{% endfor %}
+<h4>From:</h4>
+<p>roompickr@gmail.com</p>
+<p>+973-32653198</p>
+
