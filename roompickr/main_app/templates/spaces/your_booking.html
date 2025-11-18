@@ -4,13 +4,7 @@
 {% for book in booking %}
   <a href="{% url 'booking_detail' book.id %}">
     <div>
-      <div>
-        <div>
-            <h1>{{ book }}</h1>
-
-        </div>
-      </div>
-
+      <h3>{{ book }}</h3>
     </div>
   </a>
 {% endfor %}
