@@ -1,11 +1,33 @@
-<h1>Search Results</h1>
-
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="spaces-page-title">Search Result</h1>
 <ul>
   {% for space in object_list %}
-  <a href="{% url 'detail' space.id %}">
-    <li>
-      {{ space.name }}, {{ space.get_type_display }}
-    </li>
-  </a>
+  <div class="sapce-card">
+    <div class="sapce-card__image">
+    {% load static %}
+    <img src={% static space.thumbnail|cut:'main_app/static/' %}
+  alt="this for {{space.name}}"/>
+  </div>
+
+  <div class="sapce-card__content">
+  <div class="sapce-title-row">
+    <h1 class="sapce-title">{{ space.name }}</h1>
+    <span class="sapce-tag">{{ space.get_type_display }}</span>
+  </div>
+
+  <ul class="sapce-info">
+    <li><i class="fi fi-ss-person-simple space-icon"></i>{{ space.capacity }}</li>
+    <li><i class="fi fi-ss-marker space-icon"></i> {{ space.address }}</li>
+    <li><i class="fi fi-ss-usd-circle space-icon"></i> {{ space.price_per_hour }} BHD</li>
+  </ul>
+
+  <div class="sapce-actions">
+    <a class="sapce-btn" href="{% url 'detail' space.id %}">More Details</a>
+  </div>
+</div>
+
+</div>
   {% endfor %}
 </ul>
+{% endblock %}

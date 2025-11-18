@@ -36,6 +36,8 @@ class Space(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     capacity= models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    description = models.TextField()
+    thumbnail = models.ImageField(upload_to='main_app/static/thumbnails/', default='')
     type= models.CharField(max_length=1, choices=TYPES, default=TYPES[0][0])
     price_per_hour= models.IntegerField(default=1, validators=[MinValueValidator(1)])
     user= models.ForeignKey(User, on_delete=models.CASCADE)

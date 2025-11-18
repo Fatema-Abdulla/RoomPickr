@@ -1,92 +1,121 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Space Details</h1>
-{% if user.is_superuser %}
-<div>
-  <form
-    action="{% url 'add_image' space.id %}"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %} {{ image_form.as_p }}
-    <input type="submit" value="Add a new image" class="btn" />
-  </form>
-</div>
-{% endif %}
-<div>
-  <br />
-  {% if space.image_set.count %} {% for image in space.image_set.all %}
-  {% load static %}
-  <img src={% static image.image_space|cut:'main_app/static/' %}
-  alt="this for {{space.name}}" width="150"/>
-  <h4>{{image.caption}}</h4>
-  {% if user.is_superuser %}
-    <form
-      action="{% url 'update_image' space.id image.id %}"
-      method="post"
-      enctype="multipart/form-data"
-    >
-      {% csrf_token %}
-      <input type="file" name="image_space" accept="image/*"/><br /><br/>
-      <textarea name="caption">{{ image.caption}}</textarea>
-      <input type="submit" value="Update" />
-    </form>
-  <form
-    action="{% url 'delete_image' space.id image.id %}"
-    method="post"
-  >
-    {% csrf_token %}
-    <input type="submit" value="Delete" />
-  </form>
-  {% endif %}
-  {% endfor %} {% endif %}
-</div>
+{% extends 'base.html' %}
+{% block content %}
 
-<div>
-  <div>
-    <div>
-      <h4><span style="font-size: 28px">{{ space.name }}</span></h4>
-      <h4><strong>Address:</strong> {{ space.address }}</h4>
-      <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
-      <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
-      <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}} BHD</h4>
-      {% if user.is_superuser %}
-      <div>
-        <a href="{% url 'spaces_update' space.id %}">Edit</a>
-        <a href="{% url 'spaces_delete' space.id %}">Delete</a>
-      </div>
-      {% endif %}
-    </div>
+<h1 class="uniq-space-title">Space Details</h1>
+
+<button id="openImagePopup" class="popup-btn uniq-add-image-btn">Add Image</button>
+
+<!-- Image Popup -->
+<div id="imagePopup" class="custom-popup">
+  <div class="popup-content">
+    <span class="close-btn" id="closeImagePopup">&times;</span>
+    {% if user.is_superuser %}
+    <form action="{% url 'add_image' space.id %}" method="post" enctype="multipart/form-data" class="custom-image-form uniq-image-form">
+      {% csrf_token %}
+      {{ image_form.as_p }}
+      <input type="submit" value="Add a new image" />
+    </form>
+    {% endif %}
   </div>
 </div>
-<div>
+
+<!-- Image Gallery -->
+<div class="uniq-image-gallery">
+  {% if space.image_set.count %}
+    {% for image in space.image_set.all %}
+      {% load static %}
+      <div class=".uniq-image-gallery-wrapper">
+        <div class="uniq-image-card">
+          <img src="{% static image.image_space|cut:'main_app/static/' %}" alt="this for {{space.name}}" />
+          <div class="uniq-caption-overlay">
+            {{ image.caption }}
+          </div>
+        </div>
+        {% if user.is_superuser %}
+          <form action="{% url 'update_image' space.id image.id %}" method="post" enctype="multipart/form-data" class="uniq-image-form">
+            {% csrf_token %}
+            <input type="file" name="image_space" accept="image/*" /><br /><br/>
+            <textarea name="caption">{{ image.caption }}</textarea>
+            <input type="submit" value="Update" />
+          </form>
+          <form action="{% url 'delete_image' space.id image.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" />
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<!-- Space Details -->
+<div class="uniq-space-details">
+  <h4><span style="font-size: 28px">{{ space.name }}</span></h4>
+  <h4><strong>Address:</strong> {{ space.address }}</h4>
+  <h4><strong>Capacity:</strong> {{ space.capacity }}</h4>
+  <h4><strong>Type:</strong> {{ space.get_type_display }}</h4>
+  <h4><strong>Price Per Hour:</strong> {{ space.price_per_hour }} BHD</h4>
+
+  {% if user.is_superuser %}
+    <div class="uniq-space-actions">
+      <a href="{% url 'spaces_update' space.id %}">Edit</a>
+      <a href="{% url 'spaces_delete' space.id %}">Delete</a>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Feedback Form -->
+<div class="uniq-feedback-form">
   <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
-    {% csrf_token %} {{ feedback_form.as_p }}
+    {% csrf_token %}
+    {{ feedback_form.as_p }}
     <input type="submit" value="Add Feedback" class="btn" />
   </form>
 </div>
 
-<div>
-  {% if space.feedback_set.count %} {% for feedback in space.feedback_set.all %}
-  <span>{{feedback.created_at}}</span>
-  <h4>{{feedback.comment}}</h4>
-  {% if feedback.user == request.user %}
-    <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post">
-      {% csrf_token %}
-      <textarea name="comment">{{feedback.comment}}</textarea>
-      <input type="submit" value="Edit" class="btn" />
-    </form>
-    <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
+<!-- Feedback List -->
+<div class="uniq-feedback-list">
+  {% if space.feedback_set.count %}
+    {% for feedback in space.feedback_set.all %}
+      <div class="uniq-feedback-item">
+        <span>{{ feedback.created_at }}</span>
+        <h4>{{ feedback.comment }}</h4>
+
+        {% if feedback.user == request.user %}
+          <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Delete"/>
+            <textarea name="comment">{{ feedback.comment }}</textarea>
+            <input type="submit" value="Edit" class="btn" />
           </form>
-          {% endif %}
 
-
-          {% endfor %} {% endif %}
+          <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" />
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
 </div>
+
 <hr />
-</div>
-<button>
-  <a href="{% url 'start_booking' space.id  %}">start booking</a>
-</button>
+
+<!-- Start Booking Button -->
+<a href="{% url 'start_booking' space.id %}" class="uniq-start-booking-btn">Start Booking</a>
+
+<!-- Popup Script -->
+<script>
+  document.querySelector("#openImagePopup").onclick = function () {
+    document.querySelector("#imagePopup").style.display = "block";
+  };
+  document.querySelector("#closeImagePopup").onclick = function () {
+    document.querySelector("#imagePopup").style.display = "none";
+  };
+  window.onclick = function (event) {
+    if (event.target == document.querySelector("#imagePopup")) {
+      document.querySelector("#imagePopup").style.display = "none";
+    }
+  };
+</script>
+
 {% endblock %}

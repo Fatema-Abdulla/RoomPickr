@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
+<div class="space-add-container">
   {% if space %}
-    <h1>Edit <span>{{space.name}}</span></h1>
+    <h1 class="space-add-title">Edit <span>{{space.name}}</span></h1>
   {% else %}
-    <h1>Add Space</h1>
+    <h1 class="space-add-title">Add Space</h1>
   {% endif %}
-  <form action="" method="post">
+  <form class="space-add-form" action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
       {{ form.as_p }}
-    <input type="submit" value="Submit!">
+    <input class="space-add-submit" type="submit" value="Submit!">
   </form>
 </div>
-
 {% endblock %}
