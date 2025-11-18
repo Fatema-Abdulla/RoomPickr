@@ -479,3 +479,222 @@ section {
     font-size: 14px;
   }
 }
+
+/* ============================================================
+   COMMUNITY PAGE (Questions, Detail, User Questions)
+   Professional Clean UI
+   Matches your RoomPickr brand
+   ============================================================ */
+
+/* ------ Page Container ------ */
+.community-page {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #FFFAF4;
+  padding: 10px 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ------ Page Titles ------ */
+.community-page h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #2F7693;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* ============================================================
+   QUESTION LIST CARDS
+   ============================================================ */
+
+.question-card {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border-left: 5px solid #2F7693;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.question-card h1 {
+  font-size: 22px;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.question-card h4 {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Make the whole card clickable */
+.question-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================================
+   FORMS (Add Question, Add Answer)
+   ============================================================ */
+
+.community-form {
+  background: #ffffff;
+  padding: 25px;
+  margin-bottom: 35px;
+  border-radius: 10px;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.community-form h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2F7693;
+  margin-bottom: 15px;
+}
+
+/* Django form fields */
+.community-form input,
+.community-form textarea,
+.community-form select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #C7CED7;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+/* Submit buttons */
+.community-form button,
+.community-form input[type="submit"] {
+  background: #2F7693;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.community-form button:hover,
+.community-form input[type="submit"]:hover {
+  background: #245a74;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   QUESTION DETAIL PAGE
+   ============================================================ */
+
+.question-detail-box {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  border-left: 5px solid #2F7693;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.question-detail-box h1 {
+  font-size: 28px;
+  color: #111827;
+}
+
+.question-detail-box h4 {
+  color: #6b7280;
+  margin-bottom: 15px;
+}
+
+.question-detail-box p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+/* Update + Delete Buttons */
+.edit-links a {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2F7693;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.edit-links a:hover {
+  border-bottom: 1px solid #2F7693;
+}
+
+/* ============================================================
+   ANSWERS SECTION
+   ============================================================ */
+
+.answer-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #C4D7E0;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.answer-box h2 {
+  font-size: 18px;
+  margin: 4px 0;
+  color: #2F7693;
+}
+
+.answer-box h4 {
+  color: #444;
+  font-size: 15px;
+}
+
+.answer-box span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Update / Delete inside answers */
+.answer-box form input[type="submit"] {
+  margin-top: 8px;
+  background: #c0392b;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.answer-box form input[type="submit"]:hover {
+  background: #962d22;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 700px) {
+  .community-page {
+    padding: 20px;
+  }
+
+  .question-card h1 {
+    font-size: 18px;
+  }
+
+  .question-detail-box h1 {
+    font-size: 22px;
+  }
+}

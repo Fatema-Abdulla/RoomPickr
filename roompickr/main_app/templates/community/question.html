@@ -1,14 +1,17 @@
 {% extends 'base.html' %} {% block content %}
+
+<div class="community-page">
+
 <h1>Question List</h1>
-<div>
+<div class="community-form">
   <form action="{% url 'add_question' user.id %}" method="post">
-    <h3>Add a new Question</h3>
+    <h3>Add Your Question</h3>
     {% csrf_token %} {{ question_form.as_p }}
     <button type="submit">Add a Question</button>
   </form>
 </div>
 {% for question in questions %}
-<div>
+<div class="question-card">
   <a href="{% url 'question_detail' question.id %}">
     <div>
       <div>
@@ -18,4 +21,6 @@
     </div>
   </a>
 </div>
-{% endfor %} {% endblock %}
+{% endfor %}
+</div>
+{% endblock %}
