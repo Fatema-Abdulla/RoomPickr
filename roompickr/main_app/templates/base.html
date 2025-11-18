@@ -11,35 +11,45 @@
   </head>
   <body>
     <header>
-      <nav class="nav-bar">
-        <div class="nav-div">
+  <nav class="navbar">
+    <div class="navbar-container">
 
+      {% if user.is_authenticated %}
 
-           {% if user.is_authenticated %}
+      <!-- Logo -->
+      <a href="{% url 'home'%}" class="nav-logo">roompickr</a>
 
-            <a href="{% url 'home'%}" class="logo">&nbsp;&nbsp;roompickr</a>
+      <!-- Center menu -->
+      <div class="nav-links">
+        <a href="{% url 'home' %}" class="nav-item">Home</a>
+        <a href="{% url 'about' %}" class="nav-item">About</a>
+        <a href="{% url 'profile' %}" class="nav-item">Profile</a>
+        <a href="{% url 'space_all' %}" class="nav-item">All Spaces</a>
+        <a href="{% url 'questions' %}" class="nav-item">Community</a>
+        <a href="{% url 'contact_us' %}" class="nav-item">Contact</a>
+      </div>
 
-            <a href ="{%url 'about'%}" class="about-pg">About</a>
-            <a href="{%url 'profile'%}" class="profile-pg">Profile</a>
-            <a href="{% url 'space_all' %}" class="space-pg">All Spaces</a>
-            <a href="{% url 'questions' %}" class="community-pg">Community</a>
-            <a href="{% url 'contact_us' %}" class="contact-pg">Contact us</a>
+      <!-- Logout button -->
+      <form action="{% url 'logout' %}" method="post" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="btn-logout">Logout</button>
+      </form>
 
-              <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn-logout">Logout</button>
-              </form>
+      {% else %}
 
-          {% else %}
+      <a href="{% url 'home'%}" class="nav-logo">roompickr</a>
 
-            <a href="{% url 'login' %}" class="login-pg">Login</a>
-            <a href="{% url 'signup' %}" class="signup-pg">Signup</a>
+      <div class="nav-links">
+        <a href="{% url 'login' %}" class="nav-item">Login</a>
+        <a href="{% url 'signup' %}" class="nav-item">Signup</a>
+      </div>
 
-          {% endif %}
+      {% endif %}
 
-        </div>
-      </nav>
-    </header>
+    </div>
+  </nav>
+</header>
+
     <main>{%block content%} {%endblock%}</main>
 
     <footer >
@@ -49,3 +59,13 @@
     </footer>
   </body>
 </html>
+
+<script>
+  const navLinks = document.querySelectorAll('.nav-item');
+
+  navLinks.forEach(link => {
+    if(link.href === window.location.href){
+      link.classList.add('current');
+    }
+  });
+</script>
