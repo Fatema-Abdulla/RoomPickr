@@ -11,34 +11,32 @@
   </head>
   <body>
     <header>
-      <nav>
-        <div>
-          <ul>
+      <nav class="nav-bar">
+        <div class="nav-div">
+
 
            {% if user.is_authenticated %}
-            <li>
-              <a href="{% url 'home'%}">&nbsp;&nbsp;roompickr</a>
-            </li>
-            <li><a href="{%url 'about'%}">About</a></li>
-            <li><a href="{%url 'profile'%}">Profile</a></li>
-            <li><a href="{% url 'space_all' %}">All Spaces</a></li>
-            <li><a href="{% url 'questions' %}">Community</a></li>
-            <li><a href="{% url 'contact_us' %}">Contact us</a></li>
-            <li>
+
+            <a href="{% url 'home'%}" class="logo">&nbsp;&nbsp;roompickr</a>
+
+            <a href ="{%url 'about'%}" class="about-pg">About</a>
+            <a href="{%url 'profile'%}" class="profile-pg">Profile</a>
+            <a href="{% url 'space_all' %}" class="space-pg">All Spaces</a>
+            <a href="{% url 'questions' %}" class="community-pg">Community</a>
+            <a href="{% url 'contact_us' %}" class="contact-pg">Contact us</a>
+
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Logout</button>
+                <button type="submit" class="btn-logout">Logout</button>
               </form>
-            </li>
+
           {% else %}
-            <li>
-              <p>&nbsp;&nbsp;roompickr</p>
-            </li>
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'signup' %}">Signup</a></li>
+
+            <a href="{% url 'login' %}" class="login-pg">Login</a>
+            <a href="{% url 'signup' %}" class="signup-pg">Signup</a>
+
           {% endif %}
 
-          </ul>
         </div>
       </nav>
     </header>
