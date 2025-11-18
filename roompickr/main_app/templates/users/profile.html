@@ -2,6 +2,9 @@
 {% block content %}
 <div class="container">
   <h2>Profile for {{user.username}}</h2>
+  <a href="{% url 'booking_history' %}">Booking History</a><br/>
+  <a href="{% url 'change_password' %}">Change Password</a><br/>
+  <a href="{% url 'your_questions' %}">Your Questions</a><br/><br/>
 
   {% for profile in profiles %}
     {% if profile.avatar %}
