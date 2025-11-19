@@ -1,13 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <h2>Update Profile for {{user.username}}</h2>
+<div class="profile-update-wrapper">
+  <h1>Update Profile for {{ user.username }}</h1>
 
-  <form action="" method="POST" enctype="multipart/form-data">
+  <form action="" method="POST" enctype="multipart/form-data" class="login-form">
     {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <button type="submit" class="btn btn-success">Update</button>
+
+    <div class="form-group">
+      <label class="label-reg">Username</label>
+      <i class="fi fi-ss-user user-profile"></i>
+      {{ user_form.username }}
+      {% if user_form.username.help_text %}
+      <span class="help-text">{{ user_form.username.help_text }}</span>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label class="label-reg">Full Name</label>
+      <i class="fi fi-ss-user"></i>
+      {{ profile_form.full_name }}
+      {% if profile_form.full_name.help_text %}
+      <span class="help-text">{{ profile_form.full_name.help_text }}</span>
+      {% endif %}
+    </div>
+
+
+    <div class="form-group">
+      <label class="label-reg">Email</label>
+      <i class="fi fi-ss-envelope"></i>
+      {{ profile_form.email }}
+    </div>
+
+
+    <div class="form-group">
+      <label class="label-reg">Gender</label>
+      <i class="fi fi-ss-users"></i>
+      {{ profile_form.gender }}
+    </div>
+
+
+    <div class="form-group">
+      <i class="fi fi-ss-image"></i>
+      {{ profile_form.avatar }}
+    </div>
+
+    <input type="submit" value="Update" class="btn-login">
   </form>
 </div>
 {% endblock %}

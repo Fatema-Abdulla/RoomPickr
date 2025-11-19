@@ -1,16 +1,106 @@
+<style>
+  body.invoice-body {
+    font-family: 'DejaVu Sans', Arial, sans-serif;
+    color: #1c2433;
+    margin: 30px;
+  }
 
-<h1>Invoice</h1>
-<h3>Date: {% now "d-M-Y" %}</h3>
-<h3>Time: {% now "h:i:s" %}</h3>
-<hr />
-{% for book in booking %}
-<h1>Book NO: {{book.id}}</h1>
-<h2>booking details for {{book.space.name}}</h2>
-<p>Start At : {{book.start}}</p>
-<p>Ends At : {{book.end}}</p>
-<p>Total Price {{book.total_price}} BHD</p>
-{% endfor %}
-<h4>From:</h4>
-<p>roompickr@gmail.com</p>
-<p>+973-32653198</p>
+  h1.invoice-h1 {
+    font-size: 38px;
+    text-align: center;
+    color: #1a202c;
+    margin: 15px 0;
+  }
 
+  h2.invoice-h2 {
+    font-size: 20px;
+    margin-top: 35px;
+    color: #2563eb;
+  }
+
+.invoice-h3 {
+    font-size: 14px;
+    color: #4b5563;
+    margin: 10px 0;
+  }
+
+  h4.invoice-h4 {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #1a202c;
+  }
+
+  hr.invoice-hr {
+    border: 1px solid #d1d5db;
+    margin: 20px 0;
+  }
+
+  .invoice-section {
+    margin-top: 20px;
+  }
+
+  table.booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+
+  table.booking-table th,
+  table.booking-table td {
+    border: 1px solid #d1d5db;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  table.booking-table th {
+    background-color: #3b82f6;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  table.booking-table td {
+    color: #1c2433;
+  }
+
+  .invoice-footer {
+    margin-top: 40px;
+    font-size: 14px;
+  }
+
+  .invoice-footer p {
+    margin: 2px 0;
+  }
+</style>
+
+<body class="invoice-body">
+  <h1 class="invoice-h1">Invoice</h1>
+  <h3 class="invoice-h3">Date: {% now "d-M-Y" %}</h3>
+  <h3 class="invoice-h3">Time: {% now "h:i:s" %}</h3>
+  <hr class="invoice-hr"/>
+
+  {% for book in booking %}
+  <div class="invoice-section">
+    <h2 class="invoice-h2">Book NO: {{book.id}}</h2>
+    <h3 class="invoice-h3">Booking details for {{book.space.name}}</h3>
+
+    <table class="booking-table">
+      <tr>
+        <th>Start At</th>
+        <th>Ends At</th>
+        <th>Total Price (BHD)</th>
+      </tr>
+      <tr>
+        <td>{{book.start}}</td>
+        <td>{{book.end}}</td>
+        <td>{{book.total_price}}</td>
+      </tr>
+    </table>
+  </div>
+  {% endfor %}
+
+  <div class="invoice-footer">
+    <h4 class="invoice-h4">From:</h4>
+    <p>roompickr@gmail.com</p>
+    <p>+973-32653198</p>
+  </div>
+</body>
