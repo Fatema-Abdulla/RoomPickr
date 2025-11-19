@@ -9,6 +9,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
+# reference: https://www.kubeblogs.com/detect-time-zones-django-documentation/
+from django.utils import timezone
+
+
 from django_xhtml2pdf.utils import generate_pdf
 
 from django.core.mail import EmailMessage
@@ -340,7 +344,8 @@ class SearchResultsView(LoginRequiredMixin, ListView):
 @login_required
 def booking_history(request):
     booking = Booking.objects.filter(user=request.user)
-    return render(request, "spaces/your_booking.html", {"booking": booking})
+    current_time = timezone.now()
+    return render(request, "spaces/your_booking.html", {"booking": booking, 'current_time': current_time})
 
 class DeleteBooking(LoginRequiredMixin, DeleteView):
     model = Booking

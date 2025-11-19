@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Your Booking History</h1>
-{% for book in booking %}
-  <a href="{% url 'booking_detail' book.id %}">
-    <div>
-      <h3>{{ book }}</h3>
-    </div>
-  </a>
+<div class="booking-history-body">
+  <h1 class="booking-history-h1">Your Booking History</h1>
+  <div class="booking-history-list">
+    {% for book in booking %}
+    {% if book.end >= current_time %}
+      <a href="{% url 'booking_detail' book.id %}" class="booking-history-item">
+        <h3 class="booking-history-h3">Available | {{ book }}</h3>
+      </a>
+      {% else %}
+      <a href="#" class="booking-history-item booking-history-disabled">
+        <h3 class="booking-history-h3">Expire | {{ book }}</h3>
+      </a>
+    {% endif %}
 {% endfor %}
+
+  </div>
+</div>
 {% endblock %}
