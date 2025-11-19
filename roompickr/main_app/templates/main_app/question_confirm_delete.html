@@ -2,6 +2,12 @@
 {% block content %}
 
 <div class="community-page">
+<div class="delete-box">
+
+
+<div class="warning">
+  <strong>Warning:</strong> Deleting this question will also permanently remove all associated answer
+</div>
 
 
 
@@ -15,9 +21,11 @@
   <form action="" method="post">
     {% csrf_token %}
     <input type="submit" value="Yes - Delete!"/>
-    <a href="{% url 'question_detail' question.id %}">Cancel</a>
+    <a href="{% url 'question_detail' question.id %}"
+    class="btn delte-btn"
+    >Cancel</a>
   </form>
 </div>
-
+</div>
 </div>
 {% endblock %}

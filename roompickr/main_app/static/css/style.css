@@ -1523,6 +1523,7 @@ section {
 }
 
 /* Delete Button */
+.delete-btn
 .answer-box form input[type="submit"] {
   background: #e74c3c; /* red */
   color: white;
@@ -1535,10 +1536,23 @@ section {
   transition: all 0.2s ease;
 }
 
-.answer-box form input[type="submit"]:hover {
-  background: #c0392b;
+.update-btn {
+  background: #3498db; /* blue or any color you prefer */
+  color: white;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.update-btn:hover {
+  background: #2d9387;
   transform: translateY(-2px);
 }
+
 
 /* ============================================================
    RESPONSIVE
@@ -1711,4 +1725,102 @@ section {
   .contact-icons li {
     font-size: 16px;
   }
+}
+
+
+/* Page Container */
+.community-page {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: #fff;
+}
+
+/* Delete Box */
+.delete-box {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Title */
+.delete-box h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #c0392b;
+  margin-bottom: 16px;
+}
+
+/* Subtitle */
+.delete-box h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.delete-box h4 span {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Warning Box */
+.warning {
+  background-color: #fff5e5;
+  border-left: 4px solid #f39c12;
+  padding: 16px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  color: #d35400;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Form Buttons */
+.delete-box form {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Shared Button Style */
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Cancel Button */
+.cancel-btn {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #d0d7de;
+  transform: translateY(-2px);
 }
