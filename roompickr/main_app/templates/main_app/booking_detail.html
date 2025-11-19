@@ -2,29 +2,28 @@
 
 {% block content %}
 
-<h1 class="detail-booking-title">Booking Details for {{ booking.space.name }}</h1>
+<div class="detail-booking-card">
+  <h2>Booking Details for <span>{{ booking.space.name }}</span></h2>
 
-<table class="detail-booking-table">
-  <tr>
-    <th>Start At</th>
-    <td>{{ booking.start }}</td>
-  </tr>
-  <tr>
-    <th>Ends At</th>
-    <td>{{ booking.end }}</td>
-  </tr>
-  <tr>
-    <th>Total Price</th>
-    <td>{{ booking.total_price }} BHD</td>
-  </tr>
-  <tr>
-    <th>Invoice</th>
-    <td><a href="{% url 'invoice_booking' booking.id %}" class="detail-booking-invoice">Export Invoice</a></td>
-  </tr>
-  <tr>
-    <th>Delete</th>
-    <td><a href="{% url 'delete_booking' booking.id %}" class="detail-booking-delete">Delete Booking</a></td>
-  </tr>
-</table>
+  <div class="detail-row">
+    <span class="label">Start At:</span>
+    <span class="value">{{ booking.start }}</span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">Ends At:</span>
+    <span class="value">{{ booking.end }}</span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">Total Price:</span>
+    <span class="value">{{ booking.total_price }} BHD</span>
+  </div>
+
+  <div class="booking-actions">
+    <a href="{% url 'invoice_booking' booking.id %}" class="booking-btn export">Export Invoice</a>
+    <a href="{% url 'delete_booking' booking.id %}" class="booking-btn delete">Delete Booking</a>
+  </div>
+</div>
 
 {% endblock %}

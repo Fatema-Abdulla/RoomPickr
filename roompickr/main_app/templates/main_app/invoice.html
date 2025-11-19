@@ -1,106 +1,193 @@
 <style>
-  body.invoice-body {
-    font-family: 'DejaVu Sans', Arial, sans-serif;
-    color: #1c2433;
-    margin: 30px;
-  }
+  /* ===========================
+   Global Page Styling
+   =========================== */
+.invoice-body {
+    font-family: "Helvetica", sans-serif;
+    font-size: 13px;
+    color: #333;
+}
 
-  h1.invoice-h1 {
-    font-size: 38px;
+/* ===========================
+   Header
+   =========================== */
+.invoice-header {
     text-align: center;
-    color: #1a202c;
-    margin: 15px 0;
-  }
+}
 
-  h2.invoice-h2 {
-    font-size: 20px;
-    margin-top: 35px;
-    color: #2563eb;
-  }
+.invoice-logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
 
-.invoice-h3 {
-    font-size: 14px;
-    color: #4b5563;
-    margin: 10px 0;
-  }
+.invoice-title {
+    font-size: 26px;
+    font-weight: bold;
+}
 
-  h4.invoice-h4 {
-    font-size: 16px;
-    margin-top: 20px;
-    color: #1a202c;
-  }
+.invoice-divider {
+    border: 0;
+}
 
-  hr.invoice-hr {
-    border: 1px solid #d1d5db;
-    margin: 20px 0;
-  }
 
-  .invoice-section {
-    margin-top: 20px;
-  }
+/* ===========================
+   Booking Sections
+   =========================== */
+.booking-section {
+    padding: 18px 20px;
+}
 
-  table.booking-table {
+.booking-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.booking-subtitle {
+    font-size: 15px;
+    color: #555;
+    margin-top: -20px;
+}
+
+
+/* ===========================
+   Booking Table
+   =========================== */
+.booking-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
-  }
+    margin-top: 12px;
+}
 
-  table.booking-table th,
-  table.booking-table td {
-    border: 1px solid #d1d5db;
-    padding: 8px 12px;
-    text-align: left;
-  }
+.booking-table th {
+    background: #f2f2f2;
+    padding: 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+}
 
-  table.booking-table th {
-    background-color: #3b82f6;
-    color: #fff;
-    font-weight: 600;
-  }
+.booking-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
 
-  table.booking-table td {
-    color: #1c2433;
-  }
 
-  .invoice-footer {
-    margin-top: 40px;
+/* ===========================
+   No Booking Section
+   =========================== */
+.no-booking {
+    text-align: center;
     font-size: 14px;
-  }
+    padding: 20px;
+    border: 1px dashed #aaa;
+}
 
-  .invoice-footer p {
-    margin: 2px 0;
-  }
+
+/* ===========================
+   Terms & Conditions
+   =========================== */
+.invoice-terms {
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.invoice-terms h4 {
+    font-size: 16px;
+    padding-top: 25px;
+
+}
+
+.invoice-terms ul {
+    padding-left: 18px;
+}
+
+
+/* ===========================
+   Footer
+   =========================== */
+.invoice-footer {
+    text-align: left;
+}
+
+.invoice-footer h4 {
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.footer-note {
+    padding-top: 40px;
+    font-style: italic;
+    font-size: 12px;
+    color: #666;
+}
+
 </style>
 
+
 <body class="invoice-body">
-  <h1 class="invoice-h1">Invoice</h1>
-  <h3 class="invoice-h3">Date: {% now "d-M-Y" %}</h3>
-  <h3 class="invoice-h3">Time: {% now "h:i:s" %}</h3>
-  <hr class="invoice-hr"/>
-
-  {% for book in booking %}
-  <div class="invoice-section">
-    <h2 class="invoice-h2">Book NO: {{book.id}}</h2>
-    <h3 class="invoice-h3">Booking details for {{book.space.name}}</h3>
-
-    <table class="booking-table">
-      <tr>
-        <th>Start At</th>
-        <th>Ends At</th>
-        <th>Total Price (BHD)</th>
-      </tr>
-      <tr>
-        <td>{{book.start}}</td>
-        <td>{{book.end}}</td>
-        <td>{{book.total_price}}</td>
-      </tr>
-    </table>
+  <!-- Header with Logo -->
+  <div class="invoice-header">
+    <img src="https://img.sanishtech.com/u/7e837eb148f5c3ca3057c7410754a215.png" class="invoice-logo" alt="RoomPickr Logo"/>
+    <h1 class="invoice-title">Invoice</h1>
+    <div class="invoice-meta">
+      <p>Date: {% now "d-M-Y" %}</p>
+      <p>Time: {% now "h:i:s" %}</p>
+      <p>Payment Method: CASH</p>
+    </div>
+    <hr class="invoice-divider"/>
   </div>
-  {% endfor %}
 
+  <!-- Booking Details -->
+  {% if booking %}
+    <div class="invoice-content">
+      {% for book in booking %}
+      <div class="booking-section">
+        <h2 class="booking-title">Booking #{{ book.id }}</h2>
+        <h3 class="booking-subtitle">Space: {{ book.space.name }}</h3>
+
+        <table class="booking-table">
+          <thead>
+            <tr>
+              <th>Start At</th>
+              <th>Ends At</th>
+              <th>Total Price (BHD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ book.start }}</td>
+              <td>{{ book.end }}</td>
+              <td>{{ book.total_price }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="no-booking">
+      <p>No bookings found for this invoice.</p>
+    </div>
+  {% endif %}
+
+  <!-- Terms & Conditions -->
+  <div class="invoice-terms">
+  <h4>Terms & Conditions</h4>
+  <ul>
+    <li>Payment must be made in person at the time of arrival.</li>
+    <li>Guests must arrive no later than 15 minutes after the scheduled booking time. Late arrivals will result in automatic cancellation.</li>
+    <li>The email containing the QR code must not be deleted, as it is required for check-in verification.</li>
+  </ul>
+</div>
+
+
+  <!-- Footer -->
   <div class="invoice-footer">
-    <h4 class="invoice-h4">From:</h4>
-    <p>roompickr@gmail.com</p>
-    <p>+973-32653198</p>
+    <h4>From:</h4>
+    <p>RoomPickr</p>
+    <p>Email: roompickr@gmail.com</p>
+    <p>Phone: +973-32653198</p>
+    <p class="footer-note">Booking Spaces for Everyone</p>
   </div>
 </body>

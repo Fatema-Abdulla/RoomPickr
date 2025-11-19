@@ -124,12 +124,12 @@ class SpaceDelete(LoginRequiredMixin, DeleteView):
 
 
 @login_required
-def add_feedback(request, space_id, user_id):
+def add_feedback(request, space_id):
     form = FeedbackForm(request.POST)
     if form.is_valid():
         new_feedback = form.save(commit=False)
         new_feedback.space_id = space_id
-        new_feedback.user_id = user_id
+        new_feedback.user = request.user
         new_feedback.save()
     return redirect('detail', space_id)
 
@@ -271,11 +271,12 @@ class start_booking(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         booking = form.save(commit=False)
 
-        # This part form ai
+        # This part form AI
         validation_msg = booking.clean()
         if validation_msg:
             form.add_error(None, validation_msg)
             return self.form_invalid(form)
+        # End part AI
 
         booking.total_price_calculate()
         booking.save()
@@ -358,6 +359,6 @@ def invoice_booking(request, book_id):
     booking = Booking.objects.filter(id=book_id)
 
     resp = HttpResponse(content_type='application/pdf')
-    resp['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+    resp['Content-Disposition'] = 'attachment; filename="Booking Invoice.pdf"'
     result = generate_pdf('main_app/invoice.html', file_object=resp, context={'booking': booking})
     return result

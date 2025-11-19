@@ -2311,74 +2311,78 @@ section {
 }
 
 /* === Booking Deatils ==== */
-.detail-booking-wrapper {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 25px;
-  background-color: #f5f7fa;
-  border-radius: 15px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+.detail-booking-card{
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  padding: 24px;
+  max-width: 620px;
+  margin: 85px auto;
+  color: #1f2937;
 }
 
-.detail-booking-title {
-  text-align: center;
-  font-size: 28px;
-  color: #1c2433;
-  font-weight: 700;
-  margin-bottom: 55px;
-  margin-top: 40px;
+.detail-booking-card h2 {
+  font-size: 30px;
+  margin-bottom: 40px;
+  color: #4f46e5;
 }
 
-.detail-booking-table {
-  position: relative;
-  left: 30%;
-  width: 40%;
-  border-collapse: collapse;
-}
-
-.detail-booking-table th,
-.detail-booking-table td {
-  padding: 12px 15px;
-  text-align: center;
-  border-bottom: 1px solid #d1d5db;
-}
-
-.detail-booking-table th {
-  background-color: #1c2433;
-  color: #fff;
+.detail-booking-card h2 span {
+  color: #111827;
   font-weight: 600;
-  letter-spacing: 0.5px;
 }
 
-.detail-booking-table td {
-  color: #1c2433;
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-row .label {
   font-weight: 500;
+  color: #6b7280;
 }
 
-.detail-booking-link {
-  display: inline-block;
-  padding: 6px 12px;
-  background-color: #3b82f6;
-  color: #fff;
-  border-radius: 8px;
+.detail-row .value {
+  font-weight: 600;
+  color: #374151;
+}
+
+.booking-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.booking-btn {
   text-decoration: none;
-  transition: 0.2s;
+  padding: 10px 16px;
+  border-radius: 6px;
   font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
-.detail-booking-link:hover {
-  background-color: #2563eb;
-  transform: translateY(-2px);
+.export {
+  background-color: #4f46e5;
+  color: #fff;
 }
 
-@media (max-width: 600px) {
-  .detail-booking-table th,
-  .detail-booking-table td {
-    padding: 10px 8px;
-    font-size: 13px;
-  }
+.export:hover {
+  background-color: #4338ca;
 }
+
+.delete {
+  background-color: #fff;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+.delete:hover {
+  background-color: #fee2e2;
+}
+
 
 
 /* === Booking history ===== */
