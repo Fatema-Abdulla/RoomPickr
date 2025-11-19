@@ -55,7 +55,7 @@ main {
 }
 
 .nav-item:hover,
-.nav-item.current {
+.nav-item.current{
   background-color: #C4D7E0;
   color: black;
   font-weight: 600;
@@ -63,6 +63,61 @@ main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.nav-avatar-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-nav img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #fff;
+  transition: 0.3s;
+}
+
+.avatar-nav img:hover {
+  transform: scale(1.05);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background-color: #2F7693;
+  min-width: 150px;
+  border-radius: 8px;
+  z-index: 1000;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.dropdown-menu.show {
+  display: flex;
+}
+
+.dropdown-menu .dropdown-item {
+  color: #fff;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #C4D7E0;
+  color: black;
+}
+
+.nav-avatar-dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+/* LOGOUT */
 .logout-form { margin: 0; }
 
 .btn-logout {
@@ -81,7 +136,6 @@ main {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 
 /* FOOTER */
 footer {
@@ -1711,4 +1765,165 @@ section {
   .contact-icons li {
     font-size: 16px;
   }
+}
+
+
+/* =========== LOGIN =========== */
+.login-wrapper {
+  width: 400px;
+  margin: 100px auto;
+  padding: 50px 40px;
+  background: #2F7693;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  text-align: center;
+  color: #fff;
+}
+
+.login-wrapper h1 {
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.login-form .form-group {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-form .form-group i {
+  position: absolute;
+  top: 70%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 18px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="email"] {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus,
+.login-form input[type="email"]:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(90, 172, 204);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #1f4f5a;
+  transform: translateY(-2px);
+}
+
+.login-wrapper .form-error {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #e74c3c;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-wrapper .form-error .fi {
+  font-size: 24px;
+  color: #fff;
+}
+
+.login-wrapper .form-error li {
+  list-style: none;
+}
+
+.login-wrapper .form-error ul {
+  padding-left: 0;
+  margin-top: -8px;
+}
+
+.login-wrapper .help-text {
+  display: block;
+  margin-top: -14px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ========== Done Change Password ==========*/
+
+.password-success-container {
+    max-width: 530px;
+    margin: 90px auto;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    font-family: Arial, sans-serif;
+}
+
+.success-icon {
+  font-size: 65px;
+  color: #1f9c4c;
+  margin-bottom: 5px;
+}
+
+.password-success-container h2 {
+    color: #0b79d0;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.password-success-container p {
+    color: #333;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+.password-success-container p.note {
+    font-size: 0.95em;
+    color: #d9534f;
+    margin-bottom: 25px;
+}
+
+.password-success-container a.btn-home {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #0b79d0;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.password-success-container a.btn-home:hover {
+    background-color: #095a9d;
 }
