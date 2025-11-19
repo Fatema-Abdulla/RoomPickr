@@ -1,92 +1,169 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Space Details</h1>
-{% if user.is_superuser %}
-<div>
-  <form
-    action="{% url 'add_image' space.id %}"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %} {{ image_form.as_p }}
-    <input type="submit" value="Add a new image" class="btn" />
-  </form>
-</div>
-{% endif %}
-<div>
-  <br />
-  {% if space.image_set.count %} {% for image in space.image_set.all %}
-  {% load static %}
-  <img src={% static image.image_space|cut:'main_app/static/' %}
-  alt="this for {{space.name}}" width="150"/>
-  <h4>{{image.caption}}</h4>
-  {% if user.is_superuser %}
-    <form
-      action="{% url 'update_image' space.id image.id %}"
-      method="post"
-      enctype="multipart/form-data"
-    >
-      {% csrf_token %}
-      <input type="file" name="image_space" accept="image/*"/><br /><br/>
-      <textarea name="caption">{{ image.caption}}</textarea>
-      <input type="submit" value="Update" />
-    </form>
-  <form
-    action="{% url 'delete_image' space.id image.id %}"
-    method="post"
-  >
-    {% csrf_token %}
-    <input type="submit" value="Delete" />
-  </form>
-  {% endif %}
-  {% endfor %} {% endif %}
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<h1 class="uniq-space-title">Space Details</h1>
+
+<div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for image in space.image_set.all %}
+      {% load static %}
+      <div class="carousel-item">
+        <img src="{% static image.image_space|cut:'main_app/static/' %}" class="d-block w-100" alt="this for {{space.name}}">
+
+        <div class="carousel-caption d-none d-md-block">
+          <p>{{ image.caption }}</p>
+        </div>
+
+        {% if user.is_superuser %}
+          <button type="button" class="btn btn-light btn-sm edit-icon" data-bs-toggle="modal" data-bs-target="#editModal{{ image.id }}" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+            ✏️
+          </button>
+
+          <div class="modal fade" id="editModal{{ image.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ image.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel{{ image.id }}">Edit Image</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="{% url 'update_image' space.id image.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="image_space" accept="image/*" class="form-control mb-2"/>
+                    <textarea name="caption" class="form-control mb-2">{{ image.caption }}</textarea>
+                    <input type="submit" value="Update" class="btn btn-primary"/>
+                  </form>
+                  <hr>
+                  <form action="{% url 'delete_image' space.id image.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
 </div>
 
-<div>
-  <div>
-    <div>
-      <h4><span style="font-size: 28px">{{ space.name }}</span></h4>
-      <h4><strong>Address:</strong> {{ space.address }}</h4>
-      <h4><strong>Capacity:</strong> {{space.capacity}}</h4>
-      <h4><strong>Type:</strong> {{space.get_type_display}}</h4>
-      <h4><strong>Price Per Hour:</strong> {{space.price_per_hour}} BHD</h4>
-      {% if user.is_superuser %}
-      <div>
-        <a href="{% url 'spaces_update' space.id %}">Edit</a>
-        <a href="{% url 'spaces_delete' space.id %}">Delete</a>
-      </div>
-      {% endif %}
+<button id="openImagePopup" class="popup-btn uniq-add-image-btn">Add a new image</button>
+
+<div id="imagePopup" class="custom-popup">
+  <div class="popup-content">
+    <span class="close-btn" id="closeImagePopup">&times;</span>
+
+    {% if user.is_superuser %}
+      <form action="{% url 'add_image' space.id %}" method="post" enctype="multipart/form-data" class="custom-image-form uniq-image-form">
+        {% csrf_token %}
+        {{ image_form.as_p }}
+        <input type="submit" value="Add!" />
+      </form>
+    {% endif %}
+
+  </div>
+</div>
+
+
+<div class="space-details">
+  <h1 class="space-title">{{ space.name }}</h1>
+  <p class="space-description">{{ space.description }}</p>
+
+<div class="space-stats">
+  <div class="stat-grid">
+    <div class="stat-item-box full-width">
+      <i class="fi fi-ss-map-marker"></i>
+      <span>{{ space.address }}</span>
+    </div>
+    <div class="stat-item-box">
+      <i class="fi fi-ss-users"></i>
+      <span>Capacity: {{ space.capacity }}</span>
+    </div>
+    <div class="stat-item-box">
+      <i class="fi fi-ss-building"></i>
+      <span>Type: {{ space.get_type_display }}</span>
+    </div>
+    <div class="stat-item-box">
+      <i class="fi fi-ss-usd-circle"></i>
+      <span>Price/Hour: {{ space.price_per_hour }} BHD</span>
     </div>
   </div>
 </div>
-<div>
-  <form action="{% url 'add_feedback' space.id space.user_id %}" method="post">
-    {% csrf_token %} {{ feedback_form.as_p }}
-    <input type="submit" value="Add Feedback" class="btn" />
+
+
+  {% if user.is_superuser %}
+  <div class="space-actions">
+    <a href="{% url 'spaces_update' space.id %}" class="btn-edit">Edit</a>
+    <a href="{% url 'spaces_delete' space.id %}" class="btn-delete">Delete</a>
+  </div>
+  {% endif %}
+  <a href="{% url 'start_booking' space.id %}" class="uniq-start-booking-btn">Start Booking</a>
+</div>
+
+
+
+<div class="uniq-feedback-form">
+  <h2 class="feedback-title">Feedback </h2>
+  <form action="{% url 'add_feedback' space.id space.user_id %}" method="post" class="feedback-form">
+    {% csrf_token %}
+    <textarea name="comment" class="feedback-textarea" placeholder="Write your feedback..."></textarea>
+    <button type="submit" class="feedback-btn">Add Feedback</button>
   </form>
 </div>
 
-<div>
-  {% if space.feedback_set.count %} {% for feedback in space.feedback_set.all %}
-  <span>{{feedback.created_at}}</span>
-  <h4>{{feedback.comment}}</h4>
-  {% if feedback.user == request.user %}
-    <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post">
-      {% csrf_token %}
-      <textarea name="comment">{{feedback.comment}}</textarea>
-      <input type="submit" value="Edit" class="btn" />
-    </form>
-    <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post">
-            {% csrf_token %}
-            <input type="submit" value="Delete"/>
-          </form>
-          {% endif %}
+<div class="uniq-feedback-list">
+  {% for feedback in space.feedback_set.all %}
+    <div class="uniq-feedback-item">
+      <span class="feedback-username">{{ feedback.user.username }}</span>
+      <span class="feedback-date">{{ feedback.created_at }}</span>
+      <p class="feedback-comment">{{ feedback.comment }}</p>
+      {% if feedback.user == request.user %}
+      <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post" class="feedback-edit-form">
+        {% csrf_token %}
+        <textarea name="comment" class="feedback-textarea-edit">{{ feedback.comment }}</textarea>
+        <button type="submit" class="feedback-btn-edit">Edit</button>
+      </form>
+      <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post" class="feedback-delete-form">
+        {% csrf_token %}
+        <button type="submit" class="feedback-btn-delete">Delete</button>
+      </form>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  const openPopupBtn = document.querySelector("#openImagePopup");
+  const closePopupBtn = document.querySelector("#closeImagePopup");
+  const imagePopup = document.querySelector("#imagePopup");
+  const firstItem = document.querySelector('#imageCarousel .carousel-item');
+
+  openPopupBtn.addEventListener("click", () => {
+    imagePopup.style.display = "flex";
+  });
+
+  closePopupBtn.addEventListener("click", () => {
+    imagePopup.style.display = "none";
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  if(firstItem) {
+    firstItem.classList.add('active');
+  }
+});
 
 
-          {% endfor %} {% endif %}
-</div>
-<hr />
-</div>
-<button>
-  <a href="{% url 'start_booking' space.id  %}">start booking</a>
-</button>
+</script>
+
 {% endblock %}

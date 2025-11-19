@@ -16,7 +16,6 @@ urlpatterns = [
 
     path("search/", views.SearchResultsView.as_view(), name="search_results"),
 
-    path("spaces/your_spaces", views.your_spaces, name="your_spaces"),
     path("spaces/", views.space_all, name="space_all"),
     path("spaces/<int:space_id>/detail/", views.space_detail, name="detail"),
     path("spaces/create/", views.SpaceCreate.as_view(), name="spaces_create"),

@@ -83,11 +83,6 @@ def update_profile(request, profile_id):
 
 
 @login_required
-def your_spaces(request):
-    spaces = Space.objects.filter(user=request.user)
-    return render(request, "spaces/your_space.html", {"spaces": spaces})
-
-@login_required
 def space_all(request):
     spaces = Space.objects.all()
     return render(request, "spaces/all_space.html", {"spaces": spaces})
@@ -107,7 +102,7 @@ def space_detail(request, space_id):
 
 class SpaceCreate(LoginRequiredMixin, CreateView):
     model = Space
-    fields = ["name", "address", "capacity", "type", "price_per_hour"]
+    fields = ["name", "address", "capacity", "type", "price_per_hour", "description", "thumbnail"]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -116,12 +111,12 @@ class SpaceCreate(LoginRequiredMixin, CreateView):
 
 class SpaceUpdate(LoginRequiredMixin, UpdateView):
     model = Space
-    fields = ["name", "address", "capacity", "type", "price_per_hour"]
+    fields = ["name", "address", "capacity", "type", "price_per_hour", "description", "thumbnail"]
 
 
 class SpaceDelete(LoginRequiredMixin, DeleteView):
     model = Space
-    success_url = "/stores/"
+    success_url = "/spaces/"
 
 
 @login_required

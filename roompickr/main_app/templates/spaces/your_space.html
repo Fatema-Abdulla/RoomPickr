@@ -1,17 +1,84 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Your Space List</h1>
-{% for space in spaces %}
-  <a href="{% url 'detail' space.id %}">
-    <div>
-      <div>
-        <div>
-            <h1>{{ space.name }}</h1>
-            <h4>{{ space.capacity }}</h4>
-        </div>
-      </div>
+<h1 class="spaces-page-title">Space List</h1>
+<div class="top-controls">
+    <div class="filter-container">
+        <form action="{% url 'search_results' %}" method="get" class="filter-form">
+          <div class="filter-inline">
+            <div class="filter-dropdown">
+              <div class="filter-dropdown-toggle" id="dropdown-toggle">Office</div>
+              <ul class="filter-dropdown-menu" id="dropdown-menu">
+                <li data-value="O">Office</li>
+                <li data-value="H">Hall</li>
+                <li data-value="M">Meeting Room</li>
+              </ul>
+            </div>
 
+            <input type="hidden" name="type" id="selected-type" value="O" />
+            <button type="submit" class="filter-btn">Filter</button>
+          </div>
+        </form>
     </div>
-  </a>
+
+    {% if user.is_superuser %}
+    <div class="spaces-admin-links">
+      <a href="{% url 'spaces_create' %}">Add a Space</a>
+    </div>
+    {% endif %}
+</div>
+
+
+{% for space in spaces %}
+<div class="sapce-card">
+    <div class="sapce-card__image">
+    {% load static %}
+    <img src={% static space.thumbnail|cut:'main_app/static/' %}
+  alt="this for {{space.name}}"/>
+  </div>
+
+  <div class="sapce-card__content">
+  <div class="sapce-title-row">
+    <h1 class="sapce-title">{{ space.name }}</h1>
+    <span class="sapce-tag">{{ space.get_type_display }}</span>
+  </div>
+
+  <ul class="sapce-info">
+    <li><i class="fi fi-ss-person-simple space-icon"></i>{{ space.capacity }}</li>
+    <li><i class="fi fi-ss-marker space-icon"></i> {{ space.address }}</li>
+    <li><i class="fi fi-ss-usd-circle space-icon"></i> {{ space.price_per_hour }} BHD</li>
+  </ul>
+
+  <div class="sapce-actions">
+    <a class="sapce-btn" href="{% url 'detail' space.id %}">More Details</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+  const toggle = document.querySelector('#dropdown-toggle');
+  const menu = document.querySelector('#dropdown-menu');
+  const hiddenInput = document.querySelector('#selected-type');
+
+  toggle.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  });
+
+  menu.querySelectorAll('li').forEach(item => {
+    item.addEventListener('click', () => {
+      toggle.textContent = item.textContent;
+      hiddenInput.value = item.dataset.value;
+      menu.style.display = 'none';
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
+</script>
+
+
 {% endfor %}
 {% endblock %}

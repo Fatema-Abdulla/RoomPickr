@@ -1,18 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
+<div class="delete-page">
   <h1>Delete Space</h1>
-  <h4>
-    Are you sure you want to delete
-    <span>{{ space.name }}</span>?
-  </h4>
-
-  <form action="" method="post">
+  <h4>Are you sure you want to delete <span>{{ space.name }}</span>?</h4>
+  <form action="" method="post" class="delete-form">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!"/>
-    <a href="{% url 'spaces_detail' space.id %}">Cancel</a>
+    <input type="submit" value="Yes - Delete!" class="btn-yes"/>
+    <a href="{% url 'detail' space.id %}" class="btn-cancel">Cancel</a>
   </form>
 </div>
-
-
 {% endblock %}
