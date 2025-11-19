@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="login-wrapper">
+  <h1>Log In</h1>
+  <form action="{% url 'login' %}" method="post" class="login-form">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    <div class="form-error">
+      <i class="fi fi-ss-triangle-warning"></i>
+        <span class="msg-error">{{ form.non_field_errors }}</span>
+    </div>
+    {% endif %}
+    <div class="form-group">
+      <label class="label-reg">Username</label>
+      <i class="fi fi-ss-user"></i>
+      {{ form.username }}
+    </div>
 
-<h1>Log In </h1>
-<form action="{% url 'login' %}" method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" value="login" class="btn ">
-</form>
-{% endblock%}
+    <div class="form-group">
+      <label class="label-reg">Password</label>
+      <i class="fi fi-ss-lock"></i>
+      {{ form.password }}
+    </div>
+
+    <input type="submit" value="Login" class="btn-login">
+  </form>
+</div>
+{% endblock %}

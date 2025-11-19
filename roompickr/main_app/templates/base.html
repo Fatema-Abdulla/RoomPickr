@@ -21,17 +21,31 @@
 
     <div class="nav-links">
       <a href="{% url 'home' %}" class="nav-item">Home</a>
-      <a href="{% url 'about' %}" class="nav-item">About</a>
-      <a href="{% url 'profile' %}" class="nav-item">Profile</a>
       <a href="{% url 'space_all' %}" class="nav-item">All Spaces</a>
       <a href="{% url 'questions' %}" class="nav-item">Community</a>
+      <a href="{% url 'about' %}" class="nav-item">About</a>
       <a href="{% url 'contact_us' %}" class="nav-item">Contact</a>
+      {% if request.user.profile.avatar %}
+      <div class="nav-avatar-dropdown">
+        <a href="#" class="avatar-nav" id="avatarToggle">
+          <img src={% static request.user.profile.avatar|cut:'main_app/static/' %}
+              alt="Avatar for {{ request.user.profile.full_name }}" />
+        </a>
+        <div class="dropdown-menu" id="avatarMenu">
+          <a href="{% url 'profile' %}" class="dropdown-item">Profile</a>
+          <form action="{% url 'logout' %}" method="post" class="logout-form-nav">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout-nav dropdown-item">Log Out</button>
+          </form>
+        </div>
+      </div>
+
+        {% else %}
+      <a href="{% url 'profile' %}" class="nav-item">Profile</a>
+      {% endif %}
     </div>
 
-    <form action="{% url 'logout' %}" method="post" class="logout-form">
-      {% csrf_token %}
-      <button type="submit" class="btn-logout">Logout</button>
-    </form>
+
     {% else %}
     <a href="{% url 'home'%}"><img src="/static/images/logo.png" alt="website-logo" class="nav-logo"/></a>
     <div class="nav-links">
@@ -57,10 +71,22 @@
 
 <script>
   const navLinks = document.querySelectorAll('.nav-item');
+  const toggle = document.getElementById('avatarToggle');
+  const menu = document.getElementById('avatarMenu');
 
   navLinks.forEach(link => {
     if(link.href === window.location.href){
       link.classList.add('current');
+    }
+  });
+
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.remove('show');
     }
   });
 </script>
