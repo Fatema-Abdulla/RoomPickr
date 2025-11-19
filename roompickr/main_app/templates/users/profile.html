@@ -1,33 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <h2>Profile for {{user.username}}</h2>
-  <a href="{% url 'booking_history' %}">Booking History</a><br/>
-  <a href="{% url 'change_password' %}">Change Password</a><br/>
-  <a href="{% url 'your_questions' %}">Your Questions</a><br/><br/>
+    {% for profile in profiles %}
+    <div class="profile-wrapper">
 
-  {% for profile in profiles %}
-    {% if profile.avatar %}
-    {% load static %}
-      <img src={% static profile.avatar|cut:'main_app/static/' %}
-  alt="this for {{profile.full_name}}" width="150"/>
-  {% else %}
-  <p>Don't have avatar</p>
-  {% endif %}
-    {% if profile.full_name and profile.email %}
-      <p>Full Name: {{profile.full_name}}</p>
-      <p>Email: {{profile.email}}</p>
-    {% else %}
-      <p>Full Name: Empty </p>
-      <p>Email: Empty</p>
-    {% endif %}
-    <p>Gender: {{profile.get_gender_display}}</p>
+    <div class="profile-cover"></div>
 
-    <a href="{% url 'update_profile' profile.id %}">Update Your Profile</a>
-  {% endfor %}
+    <div class="profile-card">
+
+        {% if profile.avatar %}
+        <div class="profile-avatar">
+          {% load static %}
+          <img src={% static profile.avatar|cut:'main_app/static/' %} alt="this for {{profile.full_name}}" />
+        </div>
+        {% else %}
+          <p>Don't have avatar</p>
+        {% endif %}
+
+        {% if profile.full_name and profile.email %}
+          <h2 class="profile-name">{{profile.full_name}}</h2>
+          <p class="profile-location">{{profile.email}}</p>
+        {% else %}
+          <h2 class="profile-name">Empty Full Name</h2>
+          <p class="profile-location">Empty Email</p>
+        {% endif %}
+        <p class="profile-bio">{{profile.get_gender_display}}</p>
+
+        <a href="{% url 'update_profile' profile.id %}" class="btn-update-profile">Update Your Profile</a>
+
+        <div class="profile-actions-bottom">
+          <a href="{% url 'change_password' %}" class="btn password">Change Password</a>
+          <form action="{% url 'logout' %}" method="post" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Logout</button>
+          </form>
+        </div>
+
+        <div class="profile-actions">
+          <a href="{% url 'booking_history' %}" class="btn connect">Booking History</a>
+          <a href="{% url 'your_questions' %}" class="btn message">Your Questions</a>
+        </div>
+
+    </div>
+
 </div>
-<form action="{% url 'logout' %}" method="post" class="logout-form">
-      {% csrf_token %}
-      <button type="submit" class="btn-logout">Logout</button>
-    </form>
+{% endfor %}
 {% endblock %}

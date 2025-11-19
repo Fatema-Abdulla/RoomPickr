@@ -1,24 +1,42 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 
-<h1>book your space</h1>
+<h1 class="booking-title">Book Your Space</h1>
 
-<div>
-  <form action="" method="post">
-    {{ form.non_field_errors }} {% csrf_token %}
-    <input id="id_start" name="start" type="datetime-local" /> <br />
-    <input id="id_end" name="end" type="datetime-local" /> <br />
-    <p>Price per hour: <span id="price">{{price_per_hour}}</span> BHD</p>
-    <button class="time" type="button">Check Total price</button>
-    <p>Total Price: <span id="total_price">0</span> BHD</p>
-    <br />
-    <input type="submit" value="Book Your Space" class="btn" />
+<div class="booking-wrapper">
+  <form action="" method="post" class="booking-form">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="id_start" class="form-label">Start Time</label>
+      <input id="id_start" name="start" type="datetime-local" class="form-input datetime-input" />
+    </div>
+
+    <div class="form-group">
+      <label for="id_end" class="form-label">End Time</label>
+      <input id="id_end" name="end" type="datetime-local" class="form-input datetime-input" />
+    </div>
+
+    <p class="price-info">Price per hour: <span id="price" class="price-value">{{price_per_hour}}</span> BHD</p>
+
+    <button class="btn btn-check-time" type="button">Check Total Price</button>
+
+    <p class="total-price-info">Total Price: <span id="total_price" class="total-price-value">0</span> BHD</p>
+
+    <p class="booking-note">
+      You will receive an email with a QR code. Please show this code to the space owner to confirm your identity.
+    </p>
+
+
+    <input type="submit" value="Book Your Space" class="btn btn-submit" />
   </form>
 </div>
 
 <script>
   const pricePerHour = document.querySelector("#price")
   const totalPrice = document.querySelector("#total_price")
-  const timeBtn = document.querySelector(".time")
+  const timeBtn = document.querySelector(".btn-check-time")
   let today = new Date().toISOString().slice(0, 16)
   document.querySelector("#id_start").min = today
   document.querySelector("#id_end").min = today
@@ -29,17 +47,12 @@
     if (!startTime || !endTime) return
     let result = (new Date(endTime) - new Date(startTime)) / (1000 * 3600)
 
-    // convert price per hour to number
     let price = Number(pricePerHour.innerText)
-
-    // calculate total
     let total = result * price
-
-    // update total price field
     totalPrice.innerText = total.toFixed(2)
   }
 
   timeBtn.addEventListener("click", pricingCalculation)
 </script>
 
-{%endblock%}
+{% endblock %}
