@@ -2,16 +2,23 @@
 
 {% block content %}
 
+<div class="delete-box">
 <h1 class="delete-booking-title">Delete your Booking</h1>
+
+
+
+<div class="warning">
+  <strong>Warning:</strong> You will Delete your Booking permanently
+</div>
 
 <h4 class="delete-booking-subtitle">
   Are you sure you want to delete your {{ booking.space.name }} Booking?
 </h4>
 
-<form action="" method="post" class="delete-booking-form">
+<form action="" method="post">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="delete-booking-btn"/>
-    <a href="{% url 'booking_detail' booking.id %}" class="delete-booking-cancel">Cancel</a>
+    <input type="submit" value="Yes - Delete!" class="btn delete-btn"/>
+    <a href="{% url 'booking_detail' booking.id %}" class="btn cancel-btn">Cancel</a>
 </form>
-
+</div>
 {% endblock %}
