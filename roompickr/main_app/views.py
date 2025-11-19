@@ -116,7 +116,7 @@ class SpaceUpdate(LoginRequiredMixin, UpdateView):
 
 class SpaceDelete(LoginRequiredMixin, DeleteView):
     model = Space
-    success_url = "/stores/"
+    success_url = "/spaces/"
 
 
 @login_required
