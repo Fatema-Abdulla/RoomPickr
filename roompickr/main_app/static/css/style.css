@@ -15,7 +15,6 @@ body {
 
 main {
   flex: 1;
-  padding: 20px 30px;
   box-sizing: border-box;
 }
 
@@ -127,4 +126,575 @@ thead {
 section {
   padding: 2rem;
   background-color: #b97272;
+}
+
+/* slider */
+.slider{
+    width: 1513px;
+    max-width: 100vw;
+    height: 600px;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    z-index: 1;
+}
+.slider .list{
+    position: absolute;
+    width: max-content;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    transition: 1s;
+}
+.slider .list img{
+    width: 1560px;
+    max-width: 100vw;
+    height: 100%;
+    object-fit: cover;
+}
+.slider .buttons{
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.slider .buttons button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff5;
+    color: #fff;
+    border: none;
+    font-family: monospace;
+    font-weight: bold;
+}
+.slider .dots{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.slider .dots li{
+    list-style: none;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+.slider .dots li.active{
+    width: 30px;
+}
+@media screen and (max-width: 768px){
+    .slider{
+        height: 400px;
+    }
+}
+
+/* cards */
+
+.offer-wrapper {
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #FFFAF4;
+}
+
+.home-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.home-tagline {
+  text-align: center;
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 22px;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.offer-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.offer-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-4px);
+}
+
+.offer-item {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 12px;
+  list-style: none;
+}
+
+.offer-text {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.explore-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.explore-link::after {
+  content: ' →';
+  transition: margin-left 0.3s ease;
+  display: inline-block;
+}
+
+.explore-link:hover {
+  color: #1d4ed8; /* أزرق أغمق عند المرور */
+}
+
+.explore-link:hover::after {
+  margin-left: 6px; /* حركة السهم عند المرور */
+}
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 60px auto;
+  max-width: 1200px;
+}
+
+.info-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+}
+
+.info-card h3 {
+  font-size: 18px;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .offer-wrapper, .info-section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-title {
+    font-size: 24px;
+  }
+  .section-title {
+    font-size: 20px;
+  }
+  .offer-item {
+    font-size: 16px;
+  }
+  .offer-text, .info-card p {
+    font-size: 13px;
+  }
+}
+
+/* ========================= ABOUT PAGE ========================= */
+
+.about-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.8;
+  background-color: #FFFAF4; /* soft page background */
+}
+
+.about-page h1,
+.about-page h2,
+.about-page h3 {
+  color: #1e3a8a; /* professional dark blue */
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.about-page h1 {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.about-page hr {
+  border: none;
+  height: 2px;
+  background-color: #1e3a8a;
+  width: 80px;
+  margin: 0 auto 40px auto;
+  border-radius: 2px;
+}
+
+.about-page p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #4b5563;
+}
+
+.about-page span b {
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+/* ========================= FOUNDERS SECTION ========================= */
+
+.founders {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.about-founder {
+  background-color: #ffffff; /* subtle white card for founders */
+  padding: 20px 25px;
+  border-left: 5px solid #1e3a8a; /* blue line */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* subtle shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-founder:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.about-founder h3 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.about-founder p {
+  font-size: 15px;
+  color: #4b5563;
+  margin: 0;
+}
+
+/* ========================= SUPPORT TEAM ========================= */
+
+.about-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+  background-color: transparent;
+}
+
+.about-page table thead {
+  background-color: #1e3a8a;
+  color: #fff;
+}
+
+.about-page table th,
+.about-page table td {
+  padding: 12px 15px;
+  border: 1px solid #d1d5db;
+  text-align: left;
+}
+
+.about-page table tbody tr:nth-child(even) {
+  background-color: #f9fafb; /* subtle stripe */
+}
+
+.about-page table tbody tr:hover {
+  background-color: #e0e7ff; /* subtle hover */
+}
+
+/* ========================= RESPONSIVE ========================= */
+
+@media (max-width: 768px) {
+  .founders {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about-page h1 {
+    font-size: 32px;
+  }
+
+  .about-page h2 {
+    font-size: 26px;
+  }
+
+  .about-founder h3 {
+    font-size: 20px;
+  }
+
+  .about-page table th,
+  .about-page table td {
+    font-size: 14px;
+  }
+}
+
+/* ============================================================
+   COMMUNITY PAGE (Questions, Detail, User Questions)
+   Professional Clean UI
+   Matches your RoomPickr brand
+   ============================================================ */
+
+/* ------ Page Container ------ */
+.community-page {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #FFFAF4;
+  padding: 10px 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ------ Page Titles ------ */
+.community-page h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #2F7693;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* ============================================================
+   QUESTION LIST CARDS
+   ============================================================ */
+
+.question-card {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border-left: 5px solid #2F7693;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.question-card h1 {
+  font-size: 22px;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.question-card h4 {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Make the whole card clickable */
+.question-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================================
+   FORMS (Add Question, Add Answer)
+   ============================================================ */
+
+.community-form {
+  background: #ffffff;
+  padding: 25px;
+  margin-bottom: 35px;
+  border-radius: 10px;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.community-form h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2F7693;
+  margin-bottom: 15px;
+}
+
+/* Django form fields */
+.community-form input,
+.community-form textarea,
+.community-form select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #C7CED7;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+/* Submit buttons */
+.community-form button,
+.community-form input[type="submit"] {
+  background: #2F7693;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.community-form button:hover,
+.community-form input[type="submit"]:hover {
+  background: #245a74;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   QUESTION DETAIL PAGE
+   ============================================================ */
+
+.question-detail-box {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  border-left: 5px solid #2F7693;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.question-detail-box h1 {
+  font-size: 28px;
+  color: #111827;
+}
+
+.question-detail-box h4 {
+  color: #6b7280;
+  margin-bottom: 15px;
+}
+
+.question-detail-box p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+/* Update + Delete Buttons */
+.edit-links a {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2F7693;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.edit-links a:hover {
+  border-bottom: 1px solid #2F7693;
+}
+
+/* ============================================================
+   ANSWERS SECTION
+   ============================================================ */
+
+.answer-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #C4D7E0;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.answer-box h2 {
+  font-size: 18px;
+  margin: 4px 0;
+  color: #2F7693;
+}
+
+.answer-box h4 {
+  color: #444;
+  font-size: 15px;
+}
+
+.answer-box span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Update / Delete inside answers */
+.answer-box form input[type="submit"] {
+  margin-top: 8px;
+  background: #c0392b;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.answer-box form input[type="submit"]:hover {
+  background: #962d22;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 700px) {
+  .community-page {
+    padding: 20px;
+  }
+
+  .question-card h1 {
+    font-size: 18px;
+  }
+
+  .question-detail-box h1 {
+    font-size: 22px;
+  }
 }
