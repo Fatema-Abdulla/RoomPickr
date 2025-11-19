@@ -2,7 +2,8 @@
 {% block content %}
 <div class="community-page">
 <div class="edit-page-box">
-    <h1>Edit <span>{{question.title}}</span></h1>
+    <h1>Edit <br>
+      <span>{{question.title}}</span></h1>
   <form action="" method="post">
     {% csrf_token %}
     <table>
