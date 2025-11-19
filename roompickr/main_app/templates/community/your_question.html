@@ -1,7 +1,10 @@
 {% extends 'base.html' %} {% block content %}
+
+<div class="community-page">
+
 <h1>Your Question List</h1>
 {% for question in questions %}
-<div>
+<div class="question-card">
   <a href="{% url 'question_detail' question.id %}">
     <div>
       <div>
@@ -11,4 +14,7 @@
     </div>
   </a>
 </div>
-{% endfor %} {% endblock %}
+{% endfor %}
+</div>
+
+{% endblock %}

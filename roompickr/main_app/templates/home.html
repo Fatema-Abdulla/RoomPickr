@@ -1,27 +1,110 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<h1>Welcome To Room picker</h1>
-<h3>Find the perfect space for any purpose, Find your space feel At Home </h3>
+<div class="slider">
+    <div class="list">
+        <div class="item">
+            <img src="/static/images/slide 1.png" alt="">
+        </div>
+        <div class="item">
+            <img src="/static/images/slide 2.png" alt="">
+        </div>
+        <div class="item">
+            <img src="/static/images/slide 3.png" alt="">
+        </div>
+        <div class="item">
+            <img src="/static/images/slide 4.png" alt="">
+        </div>
 
- <h3>What We Offer</h3>
+    </div>
+    <div class="buttons">
+        <button id="prev"><</button>
+        <button id="next">></button>
+    </div>
+    <ul class="dots">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 
- <li>Book a Space</li>
- <p>Browse unique, flexible spaces that suit your needs — from creative studios to cozy meeting rooms</p>
- <li>Connect with users</li>
- <p>Message space owners directly to ask questions, confirm details, or make special requests.</p>
- <li>List Your Space</li>
- <p>Have a space to share? We make it easy to get started. Reach out and we'll help you list it.</p>
+<div class="offer-wrapper">
+<h1 class="home-title">Welcome To Room picker</h1>
+<h3 class="home-tagline">Find the perfect space for any purpose, Find your space feel At Home </h3>
 
+ <h3 class="section-title">What We Offer</h3>
 
+<div class="offer-card-grid">
+  <div class="offer-card">
+ <li class="offer-item">Book a Space</li>
+ <p class="offer-text">Browse unique, flexible spaces that suit your needs — from creative studios to cozy meeting rooms</p>
+</div>
+<div class="offer-card">
+ <li class="offer-item">Connect with users</li>
+ <p class="offer-text">Message space owners directly to ask questions, confirm details, or make special requests.</p>
+</div>
+<div class="offer-card">
+ <li class="offer-item">List Your Space</li>
+ <p class="offer-text">Have a space to share? We make it easy to get started. Reach out and we'll help you list it.</p>
+</div>
+</div>
+</div>
+
+<div class="info-section">
+  <div class="info-card">
  <h3>Why Room Picker?</h3>
-<p>We believe booking a space should be simple, welcoming, and tailored to you. Our platform is built to be inclusive, intuitive, and beautifully designed — so you can focus on what matters most.
+<p>We believe booking a space should be simple, welcoming, and tailored to you. Our platform is built to be inclusive, intuitive, and beautifully designed, so you can focus on what matters most.
 </p>
-
-<h3>Join the Movement</h3>
-<p>Whether you're looking for a space or offering one, Room Picker is here to make the connection simple and meaningful.<br>
-Ready to get started? <a href="{% url 'space_all' %}"> Explore All Spaces </a>
+</div>
+<div class="info-card">
+<h3 class="section-title">Join the Movement</h3>
+<p class="section-text">Whether you're looking for a space or offering one, Room Picker is here to make the connection simple and meaningful.<br>
+Ready to get started? <a href="{% url 'space_all' %}" class="explore-link"> Explore All Spaces </a>
 </p>
+</div>
+</div>
 
+<script>
+let slider = document.querySelector('.slider .list');
+let items = document.querySelectorAll('.slider .list .item');
+let next = document.getElementById('next');
+let prev = document.getElementById('prev');
+let dots = document.querySelectorAll('.slider .dots li');
+
+let lengthItems = items.length - 1;
+let active = 0;
+next.onclick = function(){
+    active = active + 1 <= lengthItems ? active + 1 : 0;
+    reloadSlider();
+}
+prev.onclick = function(){
+    active = active - 1 >= 0 ? active - 1 : lengthItems;
+    reloadSlider();
+}
+let refreshInterval = setInterval(()=> {next.click()}, 3000);
+function reloadSlider(){
+    slider.style.left = -items[active].offsetLeft + 'px';
+    //
+    let last_active_dot = document.querySelector('.slider .dots li.active');
+    last_active_dot.classList.remove('active');
+    dots[active].classList.add('active');
+
+    clearInterval(refreshInterval);
+    refreshInterval = setInterval(()=> {next.click()}, 3000);
+
+
+}
+
+dots.forEach((li, key) => {
+    li.addEventListener('click', ()=>{
+         active = key;
+         reloadSlider();
+    })
+})
+window.onresize = function(event) {
+    reloadSlider();
+};
+</script>
 {%endblock%}
 

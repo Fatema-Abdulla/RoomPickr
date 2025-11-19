@@ -15,7 +15,6 @@ body {
 
 main {
   flex: 1;
-  padding: 20px 30px;
   box-sizing: border-box;
 }
 
@@ -934,4 +933,782 @@ section {
 .delete-form a:hover {
   background-color: #1a202c;
   color: #C4D7E0;
+}
+
+/* slider */
+.slider{
+    width: 1513px;
+    max-width: 100vw;
+    height: 600px;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    z-index: 1;
+}
+.slider .list{
+    position: absolute;
+    width: max-content;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    transition: 1s;
+}
+.slider .list img{
+    width: 1560px;
+    max-width: 100vw;
+    height: 100%;
+    object-fit: cover;
+}
+.slider .buttons{
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.slider .buttons button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff5;
+    color: #fff;
+    border: none;
+    font-family: monospace;
+    font-weight: bold;
+}
+.slider .dots{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.slider .dots li{
+    list-style: none;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+.slider .dots li.active{
+    width: 30px;
+}
+@media screen and (max-width: 768px){
+    .slider{
+        height: 400px;
+    }
+}
+
+/* cards */
+
+.offer-wrapper {
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #FFFAF4;
+}
+
+.home-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.home-tagline {
+  text-align: center;
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 22px;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.offer-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.offer-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-4px);
+}
+
+.offer-item {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 12px;
+  list-style: none;
+}
+
+.offer-text {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.explore-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.explore-link::after {
+  content: ' →';
+  transition: margin-left 0.3s ease;
+  display: inline-block;
+}
+
+.explore-link:hover {
+  color: #1d4ed8; /* أزرق أغمق عند المرور */
+}
+
+.explore-link:hover::after {
+  margin-left: 6px; /* حركة السهم عند المرور */
+}
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 60px auto;
+  max-width: 1200px;
+}
+
+.info-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+}
+
+.info-card h3 {
+  font-size: 18px;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .offer-wrapper, .info-section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-title {
+    font-size: 24px;
+  }
+  .section-title {
+    font-size: 20px;
+  }
+  .offer-item {
+    font-size: 16px;
+  }
+  .offer-text, .info-card p {
+    font-size: 13px;
+  }
+}
+
+/* ========================= ABOUT PAGE ========================= */
+
+.about-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.8;
+  background-color: #FFFAF4; /* soft page background */
+}
+
+.about-page h1,
+.about-page h2,
+.about-page h3 {
+  color: #1e3a8a; /* professional dark blue */
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.about-page h1 {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.about-page hr {
+  border: none;
+  height: 2px;
+  background-color: #1e3a8a;
+  width: 80px;
+  margin: 0 auto 40px auto;
+  border-radius: 2px;
+}
+
+.about-page p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #4b5563;
+}
+
+.about-page span b {
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+/* ========================= FOUNDERS SECTION ========================= */
+
+.founders {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.about-founder {
+  background-color: #ffffff; /* subtle white card for founders */
+  padding: 20px 25px;
+  border-left: 5px solid #1e3a8a; /* blue line */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* subtle shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-founder:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.about-founder h3 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.about-founder p {
+  font-size: 15px;
+  color: #4b5563;
+  margin: 0;
+}
+
+/* ========================= SUPPORT TEAM ========================= */
+
+.about-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+  background-color: transparent;
+}
+
+.about-page table thead {
+  background-color: #1e3a8a;
+  color: #fff;
+}
+
+.about-page table th,
+.about-page table td {
+  padding: 12px 15px;
+  border: 1px solid #d1d5db;
+  text-align: left;
+}
+
+.about-page table tbody tr:nth-child(even) {
+  background-color: #f9fafb; /* subtle stripe */
+}
+
+.about-page table tbody tr:hover {
+  background-color: #e0e7ff; /* subtle hover */
+}
+
+/* ========================= RESPONSIVE ========================= */
+
+@media (max-width: 768px) {
+  .founders {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about-page h1 {
+    font-size: 32px;
+  }
+
+  .about-page h2 {
+    font-size: 26px;
+  }
+
+  .about-founder h3 {
+    font-size: 20px;
+  }
+
+  .about-page table th,
+  .about-page table td {
+    font-size: 14px;
+  }
+}
+/* ============================================================
+   COMMUNITY PAGE CONTAINER
+   ============================================================ */
+.community-page {
+  max-width: 950px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #f8f9fa; /* soft neutral background */
+  font-family: "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================================
+   PAGE TITLES
+   ============================================================ */
+.community-page h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1f3a5f; /* deep blue */
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.community-page h2 {
+  font-size: 26px;
+  color: #111827;
+  margin-bottom: 15px;
+}
+
+.community-page h4 {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.community-page p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+/* ============================================================
+   QUESTION CARDS
+   ============================================================ */
+.question-card {
+  background: #ffffff;
+  padding: 25px;
+  margin-bottom: 22px;
+  border-radius: 14px;
+  border-left: 6px solid #1f3a5f; /* accent color */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.question-card h1 {
+  font-size: 22px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.question-card h4 {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.question-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================================
+   FORMS (Add Question / Add Answer)
+   ============================================================ */
+.community-form {
+  background: #ffffff;
+  padding: 28px;
+  margin-bottom: 35px;
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.community-form h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f3a5f;
+  margin-bottom: 20px;
+}
+
+.community-form input,
+.community-form textarea,
+.community-form select {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #c7ced7;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.community-form input:focus,
+.community-form textarea:focus,
+.community-form select:focus {
+  border-color: #1f3a5f;
+  box-shadow: 0 0 5px rgba(31,58,95,0.25);
+  outline: none;
+}
+
+.community-form button,
+.community-form input[type="submit"] {
+  background: #1f3a5f; /* primary button */
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.community-form button:hover,
+.community-form input[type="submit"]:hover {
+  background: #16324b;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   QUESTION DETAIL BUTTONS (Edit / Update)
+   ============================================================ */
+.question-detail-box {
+  margin-bottom: 25px;
+}
+
+.question-detail-box a {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+/* Update/Edit Button */
+.question-detail-box a:first-child {
+  background: #1f3a5f; /* dark blue */
+  color: white;
+}
+
+.question-detail-box a:first-child:hover {
+  background: #16324b;
+  transform: translateY(-2px);
+}
+
+/* Delete Button */
+.question-detail-box a:last-child {
+  background: #e74c3c; /* red */
+  color: white;
+}
+
+.question-detail-box a:last-child:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   ANSWER BOX
+   ============================================================ */
+.answer-box {
+  background: #ffffff;
+  padding: 18px 22px;
+  border-radius: 12px;
+  border-left: 5px solid #a0c4ff; /* soft accent */
+  margin-bottom: 18px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  max-width: 650px;
+  transition: all 0.3s ease;
+}
+
+.answer-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.answer-box h2 {
+  font-size: 17px;
+  color: #1f3a5f;
+  margin: 2px 0 6px 0;
+}
+
+.answer-box h4 {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.answer-box span {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* ============================================================
+   ANSWER BOX BUTTONS
+   ============================================================ */
+/* Edit / Update Button */
+.answer-box .edit-btn {
+  background: #1f3a5f; /* dark blue */
+  color: white;
+  padding: 7px 14px;
+  margin-right: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.answer-box .edit-btn:hover {
+  background: #16324b;
+  transform: translateY(-2px);
+}
+
+/* Delete Button */
+.answer-box form input[type="submit"] {
+  background: #e74c3c; /* red */
+  color: white;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.answer-box form input[type="submit"]:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media screen and (max-width: 768px) {
+  .community-page { padding: 20px; }
+  .answer-box { max-width: 100%; }
+}
+
+@media screen and (max-width: 480px) {
+  .community-page h1 { font-size: 28px; }
+  .community-page h2 { font-size: 20px; }
+  .community-form input,
+  .community-form textarea,
+  .community-form select { font-size: 14px; }
+  .answer-box h2 { font-size: 15px; }
+  .answer-box h4 { font-size: 13px; }
+}
+/* ============================================================
+  EDIT QUESTION PAGE
+   ============================================================ */
+.edit-page-box {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+}
+
+.edit-page-box h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #2F7693;
+  margin-bottom: 25px;
+}
+
+.edit-page-box h1 span {
+  color: #111827;
+  font-weight: 600;
+}
+
+.edit-page-box form table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.edit-page-box input[type="text"],
+.edit-page-box textarea,
+.edit-page-box select {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #C7CED7;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.edit-page-box input[type="submit"] {
+  background: #1f3a5f; /* Update button color */
+  color: white;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.edit-page-box input[type="submit"]:hover {
+  background: #16324b;
+  transform: translateY(-2px);
+}
+
+/* ========================= CONTACT PAGE ========================= */
+
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFAF4;
+  padding: 60px 20px;
+  font-family: Arial, sans-serif;
+  color: #111827;
+}
+
+.contact-card {
+  max-width: 900px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 40px;
+  text-align: left;
+}
+
+.contact-card h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2F7693;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contact-card p {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.contact-card p strong {
+  color: #2F7693;
+  font-weight: 600;
+}
+
+.contact-icons ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-icons li {
+  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* Add emojis before each item */
+.contact-icons li:nth-child(1)::before {
+  content: "📞 ";
+  margin-right: 8px;
+}
+
+.contact-icons li:nth-child(2)::before {
+  content: "✉️ ";
+  margin-right: 8px;
+}
+
+.contact-icons li:nth-child(3)::before {
+  content: "📍 ";
+  margin-right: 8px;
+}
+
+.contact-icons li:nth-child(4)::before {
+  content: "⏰ ";
+  margin-right: 8px;
+}
+
+.contact-icons a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-icons a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-card {
+    padding: 24px;
+  }
+
+  .contact-card h1 {
+    font-size: 26px;
+  }
+
+  .contact-icons li {
+    font-size: 16px;
+  }
 }
