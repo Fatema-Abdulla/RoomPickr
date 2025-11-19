@@ -1824,3 +1824,19 @@ section {
   background-color: #d0d7de;
   transform: translateY(-2px);
 }
+.delete-btn {
+  background-color: #e74c3c; /* bold red */
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
