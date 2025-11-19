@@ -479,54 +479,72 @@ section {
     font-size: 14px;
   }
 }
-
 /* ============================================================
-   COMMUNITY PAGE (Questions, Detail, User Questions)
-   Professional Clean UI
-   Matches your RoomPickr brand
+   COMMUNITY PAGE CONTAINER
    ============================================================ */
-
-/* ------ Page Container ------ */
 .community-page {
-  max-width: 900px;
-  margin: 40px auto;
-  background: #FFFAF4;
-  padding: 10px 20px;
+  max-width: 950px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #f8f9fa; /* soft neutral background */
   font-family: "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* ------ Page Titles ------ */
+/* ============================================================
+   PAGE TITLES
+   ============================================================ */
 .community-page h1 {
   font-size: 36px;
   font-weight: 800;
-  color: #2F7693;
-  margin-bottom: 20px;
+  color: #1f3a5f; /* deep blue */
+  margin-bottom: 30px;
   text-align: left;
 }
 
-/* ============================================================
-   QUESTION LIST CARDS
-   ============================================================ */
+.community-page h2 {
+  font-size: 26px;
+  color: #111827;
+  margin-bottom: 15px;
+}
 
+.community-page h4 {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.community-page p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+/* ============================================================
+   QUESTION CARDS
+   ============================================================ */
 .question-card {
   background: #ffffff;
-  padding: 20px;
-  margin-bottom: 18px;
-  border-radius: 10px;
-  border-left: 5px solid #2F7693;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: 0.3s ease;
+  padding: 25px;
+  margin-bottom: 22px;
+  border-radius: 14px;
+  border-left: 6px solid #1f3a5f; /* accent color */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
 .question-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .question-card h1 {
   font-size: 22px;
   color: #111827;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .question-card h4 {
@@ -534,167 +552,356 @@ section {
   color: #6b7280;
 }
 
-/* Make the whole card clickable */
 .question-card a {
   text-decoration: none;
   color: inherit;
 }
 
 /* ============================================================
-   FORMS (Add Question, Add Answer)
+   FORMS (Add Question / Add Answer)
    ============================================================ */
-
 .community-form {
   background: #ffffff;
-  padding: 25px;
+  padding: 28px;
   margin-bottom: 35px;
-  border-radius: 10px;
-  border: 1px solid #E0E0E0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
 .community-form h3 {
   font-size: 22px;
   font-weight: 700;
-  color: #2F7693;
-  margin-bottom: 15px;
+  color: #1f3a5f;
+  margin-bottom: 20px;
 }
 
-/* Django form fields */
 .community-form input,
 .community-form textarea,
 .community-form select {
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
   border-radius: 8px;
-  border: 1px solid #C7CED7;
+  border: 1px solid #c7ced7;
   font-size: 15px;
-  margin-top: 5px;
-  margin-bottom: 15px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
-/* Submit buttons */
+.community-form input:focus,
+.community-form textarea:focus,
+.community-form select:focus {
+  border-color: #1f3a5f;
+  box-shadow: 0 0 5px rgba(31,58,95,0.25);
+  outline: none;
+}
+
 .community-form button,
 .community-form input[type="submit"] {
-  background: #2F7693;
+  background: #1f3a5f; /* primary button */
   color: white;
-  padding: 10px 16px;
-  border: none;
+  padding: 12px 18px;
   border-radius: 8px;
   font-size: 15px;
+  font-weight: 600;
+  border: none;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .community-form button:hover,
 .community-form input[type="submit"]:hover {
-  background: #245a74;
+  background: #16324b;
   transform: translateY(-2px);
 }
 
 /* ============================================================
-   QUESTION DETAIL PAGE
+   QUESTION DETAIL BUTTONS (Edit / Update)
    ============================================================ */
-
 .question-detail-box {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  border-left: 5px solid #2F7693;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  margin-bottom: 25px;
 }
 
-.question-detail-box h1 {
-  font-size: 28px;
-  color: #111827;
-}
-
-.question-detail-box h4 {
-  color: #6b7280;
-  margin-bottom: 15px;
-}
-
-.question-detail-box p {
-  font-size: 16px;
-  color: #444;
-  margin-bottom: 15px;
-}
-
-/* Update + Delete Buttons */
-.edit-links a {
-  display: inline-block;
-  margin-right: 12px;
+.question-detail-box a {
+  padding: 8px 16px;
+  border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
-  color: #2F7693;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: 0.3s;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
-.edit-links a:hover {
-  border-bottom: 1px solid #2F7693;
+/* Update/Edit Button */
+.question-detail-box a:first-child {
+  background: #1f3a5f; /* dark blue */
+  color: white;
+}
+
+.question-detail-box a:first-child:hover {
+  background: #16324b;
+  transform: translateY(-2px);
+}
+
+/* Delete Button */
+.question-detail-box a:last-child {
+  background: #e74c3c; /* red */
+  color: white;
+}
+
+.question-detail-box a:last-child:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
 }
 
 /* ============================================================
-   ANSWERS SECTION
+   ANSWER BOX
    ============================================================ */
-
 .answer-box {
   background: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  border-left: 4px solid #C4D7E0;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  padding: 18px 22px;
+  border-radius: 12px;
+  border-left: 5px solid #a0c4ff; /* soft accent */
+  margin-bottom: 18px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  max-width: 650px;
+  transition: all 0.3s ease;
+}
+
+.answer-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
 .answer-box h2 {
-  font-size: 18px;
-  margin: 4px 0;
-  color: #2F7693;
+  font-size: 17px;
+  color: #1f3a5f;
+  margin: 2px 0 6px 0;
 }
 
 .answer-box h4 {
+  font-size: 14px;
   color: #444;
-  font-size: 15px;
+  margin-bottom: 8px;
 }
 
 .answer-box span {
-  font-size: 12px;
+  font-size: 11px;
   color: #6b7280;
 }
 
-/* Update / Delete inside answers */
-.answer-box form input[type="submit"] {
-  margin-top: 8px;
-  background: #c0392b;
+/* ============================================================
+   ANSWER BOX BUTTONS
+   ============================================================ */
+/* Edit / Update Button */
+.answer-box .edit-btn {
+  background: #1f3a5f; /* dark blue */
   color: white;
+  padding: 7px 14px;
+  margin-right: 8px;
   border-radius: 6px;
-  padding: 6px 10px;
-  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
   border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.answer-box .edit-btn:hover {
+  background: #16324b;
+  transform: translateY(-2px);
+}
+
+/* Delete Button */
+.answer-box form input[type="submit"] {
+  background: #e74c3c; /* red */
+  color: white;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .answer-box form input[type="submit"]:hover {
-  background: #962d22;
+  background: #c0392b;
+  transform: translateY(-2px);
 }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media screen and (max-width: 768px) {
+  .community-page { padding: 20px; }
+  .answer-box { max-width: 100%; }
+}
 
-@media (max-width: 700px) {
-  .community-page {
-    padding: 20px;
+@media screen and (max-width: 480px) {
+  .community-page h1 { font-size: 28px; }
+  .community-page h2 { font-size: 20px; }
+  .community-form input,
+  .community-form textarea,
+  .community-form select { font-size: 14px; }
+  .answer-box h2 { font-size: 15px; }
+  .answer-box h4 { font-size: 13px; }
+}
+/* ============================================================
+   EDIT QUESTION PAGE
+   ============================================================ */
+.edit-page-box {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+}
+
+.edit-page-box h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #2F7693;
+  margin-bottom: 25px;
+}
+
+.edit-page-box h1 span {
+  color: #111827;
+  font-weight: 600;
+}
+
+.edit-page-box form table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.edit-page-box input[type="text"],
+.edit-page-box textarea,
+.edit-page-box select {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #C7CED7;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.edit-page-box input[type="submit"] {
+  background: #1f3a5f; /* Update button color */
+  color: white;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.edit-page-box input[type="submit"]:hover {
+  background: #16324b;
+  transform: translateY(-2px);
+}
+
+/* ========================= CONTACT PAGE ========================= */
+
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFAF4;
+  padding: 60px 20px;
+  font-family: Arial, sans-serif;
+  color: #111827;
+}
+
+.contact-card {
+  max-width: 900px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 40px;
+  text-align: left;
+}
+
+.contact-card h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2F7693;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contact-card p {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.contact-card p strong {
+  color: #2F7693;
+  font-weight: 600;
+}
+
+.contact-icons ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-icons li {
+  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* Add emojis before each item */
+.contact-icons li:nth-child(1)::before {
+  content: "📞 ";
+  margin-right: 8px;
+}
+
+.contact-icons li:nth-child(2)::before {
+  content: "✉️ ";
+  margin-right: 8px;
+}
+
+.contact-icons li:nth-child(3)::before {
+  content: "📍 ";
+  margin-right: 8px;
+}
+
+.contact-icons li:nth-child(4)::before {
+  content: "⏰ ";
+  margin-right: 8px;
+}
+
+.contact-icons a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-icons a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-card {
+    padding: 24px;
   }
 
-  .question-card h1 {
-    font-size: 18px;
+  .contact-card h1 {
+    font-size: 26px;
   }
 
-  .question-detail-box h1 {
-    font-size: 22px;
+  .contact-icons li {
+    font-size: 16px;
   }
 }
