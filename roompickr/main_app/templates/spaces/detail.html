@@ -112,7 +112,7 @@
 
 <div class="uniq-feedback-form">
   <h2 class="feedback-title">Feedback </h2>
-  <form action="{% url 'add_feedback' space.id space.user_id %}" method="post" class="feedback-form">
+  <form action="{% url 'add_feedback' space.id %}" method="post" class="feedback-form">
     {% csrf_token %}
     <textarea name="comment" class="feedback-textarea" placeholder="Write your feedback..."></textarea>
     <button type="submit" class="feedback-btn">Add Feedback</button>
