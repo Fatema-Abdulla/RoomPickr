@@ -6,8 +6,8 @@
   <div class="carousel-inner">
     {% for image in space.image_set.all %}
       {% load static %}
-      <div class="carousel-item">
-        <img src="{% static image.image_space|cut:'main_app/static/' %}" class="d-block w-100" alt="this for {{space.name}}">
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src={% static image.image_space|cut:'main_app/static/' %} class="d-block w-100" alt="this for {{space.name}}">
 
         <div class="carousel-caption d-none d-md-block">
           <p>{{ image.caption }}</p>
@@ -55,7 +55,11 @@
   </button>
 </div>
 
+{% if user.is_superuser %}
 <button id="openImagePopup" class="popup-btn uniq-add-image-btn">Add a new image</button>
+{% endif %}
+
+
 
 <div id="imagePopup" class="custom-popup">
   <div class="popup-content">

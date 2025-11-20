@@ -16,7 +16,6 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ["full_name", "email", "avatar", "gender"]
 
-    # reference: https://django-oscar.readthedocs.io/en/3.1/_modules/oscar/apps/customer/forms.html
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if Profile.objects.filter(email = email).exclude(id=self.instance.id).exists():

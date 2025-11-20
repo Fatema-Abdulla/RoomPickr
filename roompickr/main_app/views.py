@@ -9,7 +9,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Space, Image, Feedback, Booking, Question, Answer
 
-# reference: https://www.kubeblogs.com/detect-time-zones-django-documentation/
 from django.utils import timezone
 
 
@@ -64,7 +63,6 @@ def profile(request):
 
 
 @login_required
-# reference: https://pythonguides.com/create-a-user-profile-using-django/
 def update_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     if request.method == "POST":
@@ -259,7 +257,6 @@ class start_booking(LoginRequiredMixin, CreateView):
     model = Booking
     fields = ['start', 'end']
 
-    # reference: https://docs.djangoproject.com/en/5.2/topics/class-based-views/generic-display/
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         space = Space.objects.get(id=self.kwargs["pk"])
@@ -281,10 +278,7 @@ class start_booking(LoginRequiredMixin, CreateView):
         booking.total_price_calculate()
         booking.save()
 
-        # reference: https://sendlayer.com/blog/how-to-send-email-with-django/
         def send_welcome_email():
-            # reference: https://pypi.org/project/qrcode/
-            # reference: https://mahmudtopu3.medium.com/send-qr-code-in-email-django-6b1aa0fee351
             qr_data = (
                 f"Booking ID: {booking.id}\n"
                 f"User Name: {self.request.user.profile.full_name}\n"
@@ -334,7 +328,6 @@ class start_booking(LoginRequiredMixin, CreateView):
 class BookingDetail(LoginRequiredMixin, DetailView):
     model = Booking
 
-# reference: https://stackoverflow.com/questions/33726759/dropdown-select-option-to-filter-a-django-list
 class SearchResultsView(LoginRequiredMixin, ListView):
     model = Space
 
@@ -357,8 +350,7 @@ class DeleteBooking(LoginRequiredMixin, DeleteView):
     model = Booking
     success_url = "/spaces/"
 
-# reference: library: https://pypi.org/project/django-xhtml2pdf/
-# reference: https://spapas.github.io/2015/11/27/pdf-in-django/
+
 @login_required
 def invoice_booking(request, book_id):
     booking = Booking.objects.filter(id=book_id)

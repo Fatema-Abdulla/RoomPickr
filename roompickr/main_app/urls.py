@@ -10,7 +10,6 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/profile/', views.profile, name='profile'),
     path('accounts/profile/<int:profile_id>/update/', views.update_profile, name='update_profile'),
-    # reference: https://dev.to/davidomisakin/how-to-change-users-password-in-django-a-friendly-guide-556l
     path('change-password/', PasswordChangeView.as_view(), name='change_password'),
     path('change-password/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
 
