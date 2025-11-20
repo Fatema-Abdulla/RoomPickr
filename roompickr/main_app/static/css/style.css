@@ -16,6 +16,7 @@ body {
 main {
   flex: 1;
   box-sizing: border-box;
+  margin-bottom: 25px;
 }
 
 /* ========================= NAVBAR ========================= */
@@ -1467,6 +1468,10 @@ section {
   transform: translateY(-2px);
 }
 
+.answer-actions{
+  margin-bottom: 5px;
+}
+
 /* ============================================================
    QUESTION DETAIL BUTTONS (Edit / Update)
    ============================================================ */
@@ -2291,12 +2296,39 @@ section {
 
 .booking-note {
   font-size: 14px;
-  color: #fff;
-  background: rgba(240, 10, 10, 0.507);
+  color: #d35400;
+  background: #ffe8c2;
   padding: 10px 15px;
   border-radius: 8px;
   margin-top: 15px;
 }
+
+.booking-error {
+    background: #ffecec;
+    border: 1px solid #ff6b6b;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: #b30000;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.booking-error .error-symbol{
+  position: relative;
+  font-size: 12px;
+  left: 10px;
+  top: 10px;
+  font-weight: 700;
+}
+
+.booking-error ul {
+    margin: 0;
+    list-style: none;
+    padding-left: 30px;
+    position: relative;
+    bottom: 10px;
+}
+
 
 
 @media (max-width: 550px) {
@@ -2581,10 +2613,28 @@ section {
   width: 100%;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  top: 50px;
+  left: 180px;
 }
 
+.delete-box-space{
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  top: 120px;
+  left: 450px;
+}
+
+
 /* Title */
-.delete-box h1 {
+.delete-box h1, .delete-box-space h1 {
   font-size: 24px;
   font-weight: 700;
   color: #c0392b;
@@ -2592,32 +2642,33 @@ section {
 }
 
 /* Subtitle */
-.delete-box h4 {
+.delete-box h4, .delete-box-space h4 {
   font-size: 16px;
   color: #333;
   margin-bottom: 24px;
   line-height: 1.5;
 }
 
-.delete-box h4 span {
+.delete-box h4 span, .delete-box-space h4 span {
   font-weight: 600;
   color: #2c3e50;
 }
 
 /* Warning Box */
 .warning {
-  background-color: #fff5e5;
+  background-color: #ffe8c2;
   border-left: 4px solid #f39c12;
   padding: 16px;
   margin-bottom: 30px;
   border-radius: 8px;
   color: #d35400;
   font-size: 15px;
+  font-weight: 700;
   line-height: 1.4;
 }
 
 /* Form Buttons */
-.delete-box form {
+.delete-box form, .delete-box-space form {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
@@ -2644,6 +2695,7 @@ section {
 
 .delete-btn:hover {
   background-color: #c0392b;
+  color: white;
   transform: translateY(-2px);
 }
 

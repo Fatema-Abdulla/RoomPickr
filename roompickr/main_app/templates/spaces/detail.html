@@ -129,7 +129,7 @@
       <form action="{% url 'edit_feedback' space.id feedback.id %}" method="post" class="feedback-edit-form">
         {% csrf_token %}
         <textarea name="comment" class="feedback-textarea-edit">{{ feedback.comment }}</textarea>
-        <button type="submit" class="feedback-btn-edit">Edit</button>
+        <button type="submit" class="feedback-btn-edit">Update</button>
       </form>
       <form action="{% url 'delete_feedback' space.id feedback.id %}" method="post" class="feedback-delete-form">
         {% csrf_token %}
