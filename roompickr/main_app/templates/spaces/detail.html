@@ -122,7 +122,7 @@
 <div class="uniq-feedback-list">
   {% for feedback in space.feedback_set.all %}
     <div class="uniq-feedback-item">
-      <span class="feedback-username">{{ feedback.user.username }}</span>
+      <span class="feedback-username">{{ feedback.user.profile.full_name }}</span>
       <span class="feedback-date">{{ feedback.created_at }}</span>
       <p class="feedback-comment">{{ feedback.comment }}</p>
       {% if feedback.user == request.user %}
