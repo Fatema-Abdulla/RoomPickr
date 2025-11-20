@@ -305,13 +305,12 @@ class start_booking(LoginRequiredMixin, CreateView):
             img = qr.make_image(fill_color="black", back_color="white")
             buffered = BytesIO()
             img.save(buffered, format="PNG")
-            qr_image_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
 
             subject = 'Thank You for Your Booking'
             html_message = render_to_string('emails/booking_email.html', {
                 'booking': booking,
                 'user': self.request.user,
-                'qr_code_image': qr_image_base64,
+                'qr_code_image': 'cid:qr_code.png',
             })
 
             email = EmailMessage(
@@ -321,6 +320,12 @@ class start_booking(LoginRequiredMixin, CreateView):
             )
 
             email.content_subtype = 'html'
+            # part ai
+            email.attach('qr_code.png', buffered.getvalue(), 'image/png')
+            html_message = html_message.replace(
+                '{{ qr_code_image }}', 'cid:qr_code.png'
+            )
+            # end part ai
             email.send()
 
         send_welcome_email()

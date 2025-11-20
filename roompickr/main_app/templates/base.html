@@ -27,7 +27,7 @@
       <a href="{% url 'contact_us' %}" class="nav-item">Contact</a>
       {% if request.user.profile.avatar %}
       <div class="nav-avatar-dropdown">
-        <a href="#" class="avatar-nav" id="avatarToggle">
+        <a href="javascript:void(0)" class="avatar-nav" id="avatarToggle">
           <img src={% static request.user.profile.avatar|cut:'main_app/static/' %}
               alt="Avatar for {{ request.user.profile.full_name }}" />
         </a>

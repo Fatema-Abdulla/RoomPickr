@@ -288,7 +288,7 @@ section {
   display: flex;
   gap: 0;
   overflow: hidden;
-  margin-bottom: 15px;
+  margin-top: 35px;
 }
 
 .sapce-card__image {
@@ -2595,13 +2595,12 @@ section {
 }
 
 
-* Page Container */
-.community-page {
-  display: flex;
+/* Page Container */
+/* .community-page {
   justify-content: center;
   padding: 60px 20px;
   background-color: #fff;
-}
+} */
 
 /* Delete Box */
 .delete-box {
