@@ -35,8 +35,8 @@
           class="update-form"
         >
           {% csrf_token %}
-          <textarea name="answer" class="answer-edit">{{ question_answer.answer }}</textarea>
-          <input type="submit" value="Update"  class="update-btn"/>
+          <textarea name="answer" class="feedback-textarea-edit">{{ question_answer.answer }}</textarea>
+          <button type="submit" class="feedback-btn-edit">Update</button>
         </form>
       </div>
       <form
@@ -45,7 +45,7 @@
         class="delete-form"
       >
         {% csrf_token %}
-        <input type="submit" value="Delete" class="delete-btn"/>
+        <button type="submit" class="feedback-btn-delete">Delete</button>
       </form>
       {% endif %}
       </div>

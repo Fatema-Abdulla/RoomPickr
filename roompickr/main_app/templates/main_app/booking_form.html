@@ -5,7 +5,11 @@
 
 <div class="booking-wrapper">
   <form action="" method="post" class="booking-form">
-    {{ form.non_field_errors }}
+    {% if form.non_field_errors %}
+      <div class="booking-error">
+        <span class="error-symbol">&#x2716; </span> {{ form.non_field_errors }}
+      </div>
+    {% endif %}
     {% csrf_token %}
 
     <div class="form-group">
@@ -25,7 +29,7 @@
     <p class="total-price-info">Total Price: <span id="total_price" class="total-price-value">0</span> BHD</p>
 
     <p class="booking-note">
-      You will receive an email with a QR code. Please show this code to the space owner to confirm your identity.
+      <strong>&#9888; Warning!</strong> You will receive an email with a QR code. Please show this code to the space owner to confirm your identity.
     </p>
 
 
